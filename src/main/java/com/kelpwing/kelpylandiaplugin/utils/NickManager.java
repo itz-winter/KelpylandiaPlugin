@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Manages player nicknames — loading, saving, and applying display names.
@@ -72,10 +74,10 @@ public class NickManager {
      * Sets a nickname for a player and immediately applies it.
      *
      * @param player  the player
-     * @param rawNick the nickname with {@code &} color codes (untranslated)
+     * @param rawNick the nickname with {@code &} color codes and custom hex codes {@code &#33c70fS} (untranslated)
      */
     public void setNickname(Player player, String rawNick) {
-        String colored = ChatColor.translateAlternateColorCodes('&', rawNick);
+        String colored = translateColors(rawNick);
         nicknameCache.put(player.getUniqueId(), rawNick);
         nicknamesConfig.set(player.getUniqueId().toString(), rawNick);
         save();
@@ -100,9 +102,42 @@ public class NickManager {
     public void applyNickname(Player player) {
         String rawNick = nicknameCache.get(player.getUniqueId());
         if (rawNick != null) {
-            String colored = ChatColor.translateAlternateColorCodes('&', rawNick);
+            String colored = translateColors(rawNick);
             applyNickname(player, colored);
         }
+    }
+
+    /**
+     * Translates both standard {@code &} color codes and custom hex codes {@code &#33c70fS}.
+     * 
+     * @param input the string with color codes
+     * @return the translated string with Bukkit color codes
+     */
+    private String translateColors(String input) {
+        if (input == null) {
+            return "";
+        }
+        
+        // First translate standard & color codes
+        String translated = ChatColor.translateAlternateColorCodes('&', input);
+        
+        // Then translate custom hex codes &#33c70fS -> §x§3§3§c§7§0§f
+        Pattern hexPattern = Pattern.compile("&#([a-fA-F0-9]{6})([a-zA-Z])");
+        Matcher matcher = hexPattern.matcher(translated);
+        
+        StringBuffer result = new StringBuffer();
+        while (matcher.find()) {
+            String hex = matcher.group(1);
+            String character = matcher.group(2);
+            
+            // Convert &#RRGGBBC to §x§R§R§G§G§B§B§C
+            String replacement = "§x§" + hex.charAt(0) + "§" + hex.charAt(1) + "§" + hex.charAt(2) + 
+                               "§" + hex.charAt(3) + "§" + hex.charAt(4) + "§" + hex.charAt(5) + "§" + character;
+            matcher.appendReplacement(result, replacement);
+        }
+        matcher.appendTail(result);
+        
+        return result.toString();
     }
 
     private void applyNickname(Player player, String colored) {
