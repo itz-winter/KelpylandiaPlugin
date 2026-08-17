@@ -1,0 +1,157 @@
+# =================================================== #
+#                            Custom Commands & Aliases                                  #
+# =================================================== #
+# Define custom commands and aliases here. 
+
+# =================================== #
+#                               Aliases                                    #
+# =================================== #
+# Aliases are shortcuts for commands. 
+# For example, instead of typing "/channel global" you could create an alias "/g
+# Aliases can also have permissions, so you can restrict who can use them. 
+# If a player does not have permission to use an alias, they will see the "no-permission-message".
+# Supports PlaceholderAPI placeholders unless specified otherwise. (e.g. %player_name%, %player_health%, etc.)
+# Supports colour and formatting codes (e.g. &0-&9 &a-&f, &l, &o, &n, &m, &k, &r, &#000000, etc.) unless specified otherwise.
+# ====================================== #
+#                         Fields for Aliases                               #
+# ====================================== #
+# command: The command to execute when the alias is used. 
+#   - Do NOT include the leading slash ("/") in the command. This will result in the command requiring an extra slash to run (e.g. "//example" instead of "/example").
+#   - Blank command will result in the alias doing nothing when used.
+# chat-message: The message to send in chat channel the user is currently in as them when the alias is used.
+#   - Blank chat-message will result in no message being sent when the alias is used.
+# permission: The permission node required to use the alias. 
+#   - Leave blank for no permission required.
+# no-permission-message: The message to send to the user if they do not have permission to use the alias.
+#   - Blank no-permission-message will result in no message being sent when the alias is used.
+# description: A brief description of what the alias does.
+# ====================================== #
+#                  Example Alias Configuration                  #
+# ====================================== #
+# hello-world: # Name of alias. This is what the user will type to use the alias.
+#  chat-message: "Hello, world!"
+#  description: "Sends a hello world message in chat."
+# ====================================== #
+aliases: 
+
+
+# ===================================== #
+#                        Custom Commands                         #
+# ===================================== #
+# Custom commands are  completely new commands that you can define.
+# Instead of being a shortcut for an existing command, they are their own command that can be executed.
+# Custom commands have to be scripted in this file, and can be as simple or complex as you want them to be.
+# ===================================== #
+#               Fields for Custom Commands                #
+# ===================================== #
+# function: The script that will be executed when the custom command is run.
+#   - The script is written in a custom scripting language. 
+#   - Script documentation can be found at the bottom of this file.
+# permission: The permission node required to use the custom command.
+#  - Leave blank for no permission required.
+# no-permission-message: The message to send to the user if they do not have permission to use the custom command.
+#   - Blank no-permission-message will result in no message being sent when the custom command is used.
+# description: A brief description of what the custom command does.
+# usage: The usage of the custom command. This is what will be shown to the user if the custom command errors. It is recommended that you use try-catch blocks in your custom command to handle/avoid errors and provide a more user-friendly error message.
+# - Leave blank for no usage message. (NOT RECOMMENDED)
+# arguments: A list of arguments that the custom command takes.
+# - Each argument can have a description, which will be shown in help.
+# - Each command can have up to 8 arguments. Arguments are accessed in the script using the argument() function, e.g. argument(1) for the first argument, argument(2) for the second argument, etc.
+# ===================================== #
+#                Example Custom Command                  #
+# ===================================== #
+# pick-a-number: # Name of custom command. This is what the user will type to use the command.
+#   function: |
+#     number = random(1,10) # Picks a random number between 1 and 10 inclusive.
+#     return "You picked the number: " + number # Returns the message to the user.
+#   permission: ""
+#   no-permission-message: ""
+#   description: "Picks a random number between 1 and 10!"
+# ===================================== #
+#               Advanced Custom Command                 #
+# ===================================== #
+# pick-a-number-advanced: 
+#   function: |
+#     num1 = argument(1);
+#     num2 = argument(2);
+#     try {
+#         num1 = int(num1);
+#         num2 = int(num2);
+#     } catch {
+#         return ("&cInvalid arguments. Please provide two numbers.");
+#     };
+#     if num1 > num2 {
+#       return ("&cInvalid arguments. The first number must be less than or equal to the second number!");
+#     } elif num1 == num2 {
+#       return ("You picked the number: " + num1 + "! You didn't even give me a choice...");
+#     };
+#     return "You picked the number: " + random(num1,num2)
+#  permission: ""
+#  no-permission-message: ""
+#  description: "Picks a random number between two provided numbers!"
+#  usage: "/pick-a-number-advanced <num1> <num2>"
+#  arguments:
+#    num1:
+#      description: "The first number to pick from."
+#    num2:
+#      description: "The second number to pick from."
+# ===================================== #
+custom_commands:
+
+# =================================================== #
+#                          Scripting Language Documentation                          #
+# =================================================== #
+# The scripting language used in custom commands is a simple, interpreted language that allows you to create custom commands with logic, variables, and control flow. Below is a brief overview of the language features:
+## Variables:
+# - Variables are dynamically typed and can hold numbers, strings, or booleans.
+# - Variables are declared by simply assigning a value to a name, e.g. `x = 5`.
+# - Variable names are case-sensitive and can contain letters, numbers, and underscores, but must start with a letter or underscore.
+## Data Types
+# - Integer: Represented as whole numbers, e.g. `5`.
+# - Float: Represented as decimal numbers, e.g. `3.14`.
+# - String: Represented as text enclosed in double quotes, e.g. `"Hello"`
+# - Boolean: Represented as true or false, e.g. `true` or `false`.
+# - Lists: Represented as a collection of values enclosed in square brackets, e.g. `[1, 2, 3]`.
+# - Dictionaries: Represented as a collection of key-value pairs enclosed in curly braces, e.g. `{"key": "value"}`.
+## Operators:
+# - Arithmetic: `+`, `-`, `*`, `/`, `%`, `^`
+# - Comparison: `==`, `<`, `>`, `<=`, `>=`
+# - Logical: `and`, `or`, `not`, `nor`, `nand`, `xor`, `&&`, `||`, `!`
+# - Assignment: `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `^=`
+# - Other: `floor()`, `ceil()`, `round()`, `abs()`, `sqrt()`, `len()`, `contains()`, `substring()`, `replace()`, `split()`, `join()`, `lower()`, `upper()`, `trim()`, `startsWith()`, `endsWith()`, `indexOf()`, `lastIndexOf()`, `toString()`, `toInt()`, `toFloat()`, `toBool()`, `str()`, `int()`, `float()`, `bool()`
+## Control Flow:
+# - Conditional Statements: `if`, `elif`, `else`
+# - Loops: `for`, `while`, `break`, `continue`
+## Functions:
+# - Functions are defined using the `def` keyword, e.g. `def myFunction(arg1, arg2) { ... }`.
+# - Functions can return values using the `return` keyword.
+# - NOTE: If the `return` keyword is used outside of a function, it will return the value to the user as a message, and the command will stop executing.
+## Built-in Functions, Methods, and Objects:
+# - `run(command, sudo=false)`: Executes a minecraft command as the player, or as the console if sudo is true. Returns the output of the command as a string.
+# - `player()`: Returns the player object of the player executing the command.
+# - `player.username()`: Returns the username of the player executing the command as a string.
+# - `player.displayname()`: Returns the displayname of the player executing the command as a string.
+# - `player.uuid()`: Returns the UUID of the player executing the command as a string.
+# - `player.world()`: Returns the world object of the player executing the command.
+# - `player.location()`: Returns the location object of the player executing the command.
+# - `player.health()`: Returns the health of the player executing the command as a float.
+# - `player.maxhealth()`: Returns the max health of the player executing the command as a float.
+# - `player.hunger()`: Returns the hunger of the player executing the command as a float.
+# - `player.maxhunger()`: Returns the max hunger of the player executing the command as a float.
+# - `player.experience()`: Returns the experience points of the player executing the command as a float.
+# - `player.level()`: Returns the experience level of the player executing the command as an integer.
+# - `player.isop()`: Returns true if the player executing the command is an operator, false otherwise.
+# - `player.gamemode-name()`: Returns the gamemode of the player executing the command as a string.
+# - `player.gamemode()`: Returns the gamemode of the player executing the command as an integer (0=survival, 1=creative, 2=adventure, 3=spectator).
+# - `player.facing()`: Returns the facing object of the player executing the command.
+# - `location.x()`: Returns the x coordinate of the location object as a float.
+# - `location.y()`: Returns the y coordinate of the location object as a float.
+# - `location.z()`: Returns the z coordinate of the location object as a float.
+# - `location.world()`: Returns the world object of the location object.
+# - `facing.horizontal()`: Returns the horizontal facing direction of the facing object as a float.
+# - `facing.vertical()`: Returns the vertical facing direction of the facing object as a float.
+# - `argument(n)`: Returns the nth argument passed to the command as a string.
+# - `random(min, max)`: Returns a random integer between min and max (inclusive).
+# - `log(message, level="info")`: Logs a message to the server console with the specified log level (info, debug, warning, error, fatal).
+# - `permission(node)`: Returns true if the player has the specified permission, false otherwise.
+# - `permissions(player)`: Returns all the permissions of the player executing the command as a list of strings, unless specified otherwise
