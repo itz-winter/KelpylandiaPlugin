@@ -270,6 +270,9 @@ public class KelpylandiaPlugin extends JavaPlugin {
             getLogger().info("Enchantment override system enabled!");
         }
         
+        // Register silk-touch drop listener (spawners, budding amethyst, reinforced deepslate, suspicious blocks)
+        getServer().getPluginManager().registerEvents(new com.kelpwing.kelpylandiaplugin.listeners.SilkListener(this), this);
+        
         // Register invsee listener
         getServer().getPluginManager().registerEvents(new com.kelpwing.kelpylandiaplugin.listeners.InvseeListener(this, invseeCommand), this);
         

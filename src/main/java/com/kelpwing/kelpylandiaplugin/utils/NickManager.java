@@ -121,7 +121,7 @@ public class NickManager {
         // First translate standard & color codes
         String translated = ChatColor.translateAlternateColorCodes('&', input);
         
-        // Then translate custom hex codes &#33c70fS -> §x§3§3§c§7§0§f
+        // Then translate custom hex codes &#33c70fS -> §x§3§3§c§7§0§fS
         Pattern hexPattern = Pattern.compile("&#([a-fA-F0-9]{6})([a-zA-Z])");
         Matcher matcher = hexPattern.matcher(translated);
         
@@ -130,7 +130,7 @@ public class NickManager {
             String hex = matcher.group(1);
             String character = matcher.group(2);
             
-            // Convert &#RRGGBBC to §x§R§R§G§G§B§B§C
+            // Convert &#RRGGBBC to §x§R§R§G§G§B§B§C + the character
             String replacement = "§x§" + hex.charAt(0) + "§" + hex.charAt(1) + "§" + hex.charAt(2) + 
                                "§" + hex.charAt(3) + "§" + hex.charAt(4) + "§" + hex.charAt(5) + "§" + character;
             matcher.appendReplacement(result, replacement);

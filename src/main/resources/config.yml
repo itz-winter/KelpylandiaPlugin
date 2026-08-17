@@ -1,6 +1,6 @@
-# =============================
-# QoLPlugin Configuration File
-# =============================
+# =================================================== #
+#                            QoLPlugin Configuration File                                   #
+# =================================================== #
 
 # ===== UPDATE CHECKER =====
 update-checker:
@@ -139,6 +139,8 @@ discord:
       **Reason:** {reason}
       **Duration:** {duration}
       **Server:** {server_name}
+
+# ===== COMMANDS CONFIGURATION =====
 
 # /skull [username] - Get a player's head as an item
 skull:
@@ -474,12 +476,11 @@ auto-broadcasts:
 kits:
   enabled: true
 
-# ===== WARP SYSTEM =====
+# ===== TELEPORT SYSTEM =====
 # /warp, /warps, /setwarp, /delwarp - Server warp points
 warps:
   enabled: true
 
-# ===== RANDOM TELEPORT =====
 # /rtp - Teleport to a random location in the world
 rtp:
   enabled: true
@@ -568,6 +569,15 @@ rules:
     - "&8&m----------------------------------------"
     - "&7Breaking the rules may result in a punishment."
     - "&8&m----------------------------------------"
+
+# ===== MISCELLANEOUS FEATURES =====
+silk:
+  spawners: false
+  spawner-naming: "&7[&b{mob_name_all_caps}&7]&r Monster Spawners"
+  budding-amethryst: false
+  reinforced-deepslate: false
+  suspicious-sand: false
+  suspicious-gravel: false
 
 # ===== AVAILABLE PLACEHOLDERS =====
 # Chat placeholders:

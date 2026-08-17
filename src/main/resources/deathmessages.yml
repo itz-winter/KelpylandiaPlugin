@@ -1,7 +1,8 @@
-# ============== CUSTOM DEATH MESSAGES ==============
+# =================================================== #
+#                                   Custom Death Messages                                   #
+# =================================================== #
 # These messages are used when a player uses /suicide.
 # A random message is picked from this list each time.
-# ===================================================
 
 messages:
   - "{player_name} exploded"

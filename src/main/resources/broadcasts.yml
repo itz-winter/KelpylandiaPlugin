@@ -1,7 +1,7 @@
-# ===================================================
-# Auto-Broadcast Configuration
+# =================================================== #
+#                                 Broadcast Configuration                                      #
+# =================================================== #
 # Messages are broadcasted globally at random intervals.
-# ===================================================
 
 # Minimum interval between broadcasts (in seconds)
 min-interval: 60
