@@ -1,11 +1,11 @@
 # =================================================== #
-#                            Custom Commands & Aliases                                  #
+#              Custom Commands & Aliases              #
 # =================================================== #
 # Define custom commands and aliases here. 
 
-# =================================== #
-#                               Aliases                                    #
-# =================================== #
+# ====================================== #
+#                Aliases                 #
+# ====================================== #
 # Aliases are shortcuts for commands. 
 # For example, instead of typing "/channel global" you could create an alias "/g
 # Aliases can also have permissions, so you can restrict who can use them. 
@@ -13,7 +13,7 @@
 # Supports PlaceholderAPI placeholders unless specified otherwise. (e.g. %player_name%, %player_health%, etc.)
 # Supports colour and formatting codes (e.g. &0-&9 &a-&f, &l, &o, &n, &m, &k, &r, &#000000, etc.) unless specified otherwise.
 # ====================================== #
-#                         Fields for Aliases                               #
+#           Fields for Aliases           #
 # ====================================== #
 # command: The command to execute when the alias is used. 
 #   - Do NOT include the leading slash ("/") in the command. This will result in the command requiring an extra slash to run (e.g. "//example" instead of "/example").
@@ -26,23 +26,33 @@
 #   - Blank no-permission-message will result in no message being sent when the alias is used.
 # description: A brief description of what the alias does.
 # ====================================== #
-#                  Example Alias Configuration                  #
+#      Example Alias Configuration       #
 # ====================================== #
 # hello-world: # Name of alias. This is what the user will type to use the alias.
 #  chat-message: "Hello, world!"
 #  description: "Sends a hello world message in chat."
 # ====================================== #
-aliases: 
+aliases:
+  # Global chat shortcut (shows how to define a basic alias)
+  g:
+    command: "channel global"
+    permission: "qol.channel.global"
+    description: "Switch to the global chat channel"
 
+  # Quickspawn — local teleport to spawn (example with permission)
+  spawnwarp:
+    command: "spawn"
+    permission: "qol.spawn"
+    description: "Teleport to spawn (alias)"
 
 # ===================================== #
-#                        Custom Commands                         #
+#            Custom Commands            #
 # ===================================== #
 # Custom commands are  completely new commands that you can define.
 # Instead of being a shortcut for an existing command, they are their own command that can be executed.
 # Custom commands have to be scripted in this file, and can be as simple or complex as you want them to be.
 # ===================================== #
-#               Fields for Custom Commands                #
+#      Fields for Custom Commands       #
 # ===================================== #
 # function: The script that will be executed when the custom command is run.
 #   - The script is written in a custom scripting language. 
@@ -58,7 +68,7 @@ aliases:
 # - Each argument can have a description, which will be shown in help.
 # - Each command can have up to 8 arguments. Arguments are accessed in the script using the argument() function, e.g. argument(1) for the first argument, argument(2) for the second argument, etc.
 # ===================================== #
-#                Example Custom Command                  #
+#        Example Custom Command         #
 # ===================================== #
 # pick-a-number: # Name of custom command. This is what the user will type to use the command.
 #   function: |
@@ -68,7 +78,7 @@ aliases:
 #   no-permission-message: ""
 #   description: "Picks a random number between 1 and 10!"
 # ===================================== #
-#               Advanced Custom Command                 #
+#        Advanced Custom Command        #
 # ===================================== #
 # pick-a-number-advanced: 
 #   function: |
@@ -96,12 +106,84 @@ aliases:
 #    num2:
 #      description: "The second number to pick from."
 # ===================================== #
+
+
+
 custom_commands:
+  # Give a spawner item with a chosen mob type.
+  # Usage: /give-spawner <MOB_NAME>
+  give-spawner:
+    function: |
+      mob = argument(1)
+      if mob == "" {
+        return "&cUsage: /give-spawner <MOB_NAME>"
+      }
+      try {
+        success = give("SPAWNER", 1)
+        if success {
+          return "&aGave you a &bMONSTER_SPAWNER&a. Set its type with a spawn egg."
+        } else {
+          return "&cFailed to give spawner. Inventory full?"
+        }
+      } catch (err) {
+        return "&cError: {$err}"
+      }
+    permission: "qol.admin"
+    no-permission-message: "&cYou don't have permission to use this command."
+    description: "Gives the player a monster spawner."
+    usage: "/give-spawner"
+
+  # Small helper to format spawner names consistently with the config layout.
+  # Usage: /format-spawner-name <MOB_NAME>
+  format-spawner-name:
+    function: |
+      mob = argument(1)
+      if mob == "" {
+        return "&cUsage: /format-spawner-name <MOB_NAME>"
+      }
+      # Template mirrors the config key: &7[&b{mob_name_all_caps}&7]&r Monster Spawners
+      mobUc = mob.upper()
+      out = "&7[&b" + mobUc + "&7]&r Monster Spawners"
+      return colorize(out)
+    permission: ""
+    no-permission-message: ""
+    description: "Returns a colourized spawner display name for a mob (matches config style)."
+
+  # Advanced random picker with argument parsing and error handling.
+  pick-a-number-advanced:
+    function: |
+      num1 = argument(1)
+      num2 = argument(2)
+      try {
+        num1 = int(num1)
+        num2 = int(num2)
+      } catch (err) {
+        return "&cInvalid arguments. Please provide two numbers."
+      }
+      if num1 > num2 {
+        return "&cThe first number must be less than or equal to the second!"
+      } elif num1 == num2 {
+        return "You picked {$num1}! You didn't even give me a choice..."
+      }
+      result = random(num1, num2)
+      return "You picked the number: {$result}"
+    permission: ""
+    no-permission-message: ""
+    description: "Picks a random number between two provided numbers (inclusive)."
+    usage: "/pick-a-number-advanced <num1> <num2>"
+    arguments:
+      num1:
+        description: "The first number to pick from."
+      num2:
+        description: "The second number to pick from."
+
+# This documentation is not full. It may contain errors or be outdated.
+# Please refer to the KelpyShark documentation for more details: https://kelpyshark.kelpw.ing/
+# *This plugin does not 100% support KelpyShark, but a lite version of it. Some features may not be available.
 
 # =================================================== #
-#                          Scripting Language Documentation                          #
+#          Scripting Language Documentation           #
 # =================================================== #
-# The scripting language used in custom commands is a simple, interpreted language that allows you to create custom commands with logic, variables, and control flow. Below is a brief overview of the language features:
 ## Variables:
 # - Variables are dynamically typed and can hold numbers, strings, or booleans.
 # - Variables are declared by simply assigning a value to a name, e.g. `x = 5`.
@@ -123,35 +205,91 @@ custom_commands:
 # - Conditional Statements: `if`, `elif`, `else`
 # - Loops: `for`, `while`, `break`, `continue`
 ## Functions:
-# - Functions are defined using the `def` keyword, e.g. `def myFunction(arg1, arg2) { ... }`.
+# - Functions are defined using the `def` keyword, e.g. `def myFunction(arg1, arg2, ...) { ... }`.
 # - Functions can return values using the `return` keyword.
 # - NOTE: If the `return` keyword is used outside of a function, it will return the value to the user as a message, and the command will stop executing.
-## Built-in Functions, Methods, and Objects:
-# - `run(command, sudo=false)`: Executes a minecraft command as the player, or as the console if sudo is true. Returns the output of the command as a string.
-# - `player()`: Returns the player object of the player executing the command.
-# - `player.username()`: Returns the username of the player executing the command as a string.
-# - `player.displayname()`: Returns the displayname of the player executing the command as a string.
-# - `player.uuid()`: Returns the UUID of the player executing the command as a string.
-# - `player.world()`: Returns the world object of the player executing the command.
-# - `player.location()`: Returns the location object of the player executing the command.
-# - `player.health()`: Returns the health of the player executing the command as a float.
-# - `player.maxhealth()`: Returns the max health of the player executing the command as a float.
-# - `player.hunger()`: Returns the hunger of the player executing the command as a float.
-# - `player.maxhunger()`: Returns the max hunger of the player executing the command as a float.
-# - `player.experience()`: Returns the experience points of the player executing the command as a float.
-# - `player.level()`: Returns the experience level of the player executing the command as an integer.
-# - `player.isop()`: Returns true if the player executing the command is an operator, false otherwise.
-# - `player.gamemode-name()`: Returns the gamemode of the player executing the command as a string.
-# - `player.gamemode()`: Returns the gamemode of the player executing the command as an integer (0=survival, 1=creative, 2=adventure, 3=spectator).
-# - `player.facing()`: Returns the facing object of the player executing the command.
-# - `location.x()`: Returns the x coordinate of the location object as a float.
-# - `location.y()`: Returns the y coordinate of the location object as a float.
-# - `location.z()`: Returns the z coordinate of the location object as a float.
-# - `location.world()`: Returns the world object of the location object.
-# - `facing.horizontal()`: Returns the horizontal facing direction of the facing object as a float.
-# - `facing.vertical()`: Returns the vertical facing direction of the facing object as a float.
-# - `argument(n)`: Returns the nth argument passed to the command as a string.
-# - `random(min, max)`: Returns a random integer between min and max (inclusive).
-# - `log(message, level="info")`: Logs a message to the server console with the specified log level (info, debug, warning, error, fatal).
-# - `permission(node)`: Returns true if the player has the specified permission, false otherwise.
-# - `permissions(player)`: Returns all the permissions of the player executing the command as a list of strings, unless specified otherwise
+
+# ===================================== #
+#                Built-In               #
+# ===================================== #
+
+# `run(command, sudo=false)`: Executes a minecraft command as the player, or as the console if sudo is true. Returns the output of the command as a string.
+# `argument(n)`: Returns the nth argument passed to the command as a string.
+# `random(min, max)`: Returns a random integer between min and max (inclusive).
+# `log(message, level="info")`: Logs a message to the server console with the specified log level (info, debug, warning, error, fatal).
+# `gui(size, title, items, ...)`: Opens a GUI for the player with the specified size, title, and items. Returns the item(s) clicked by the player as a string. Limit: 1 at a time.
+# `guiEdit(...)`: Edits the existing GUI, if present . Returns the item(s) clicked by the player as a string.
+# `guiClose()`: Closes the GUI for the player.
+# `item(name, amount=1, data=0, nbt="{}")`: Creates an item object with the specified name, amount, data value, and NBT data. Returns the item object as a string. Can be used in GUI and other item functions.
+# `give(item)`: Gives the specified item to the player executing the command. Returns true if successful, false otherwise.
+# `take(item)`: Takes the specified item from the player executing the command. Returns true if successful, false otherwise.
+# `hasItem(item)`: Returns true if the player has the specified item, false otherwise.
+
+# `hasPermission(node)`: Returns true if the player has the specified permission, false otherwise.
+#   Ex: `if (player.hasPermission("qol.admin")){return("True");}else{return("False")};`
+# `permissions(player)`: Returns all the permissions of the player executing the command as a list of strings, unless specified otherwise
+#   Ex: `permissions(username)`, `permissions(uuid)`
+
+# `uuid(username)`: Returns UUID for specified username.
+# `username(uuid)`: Returns username for specified UUID
+# `displayname(username|uuid)`: Returns displayname for specified UUID/username
+
+# `player()`: Returns the player object of the player executing the command.
+#   `player.username()`: Returns the username of the player executing the command as a string.
+#   `player.displayname()`: Returns the displayname of the player executing the command as a string.
+#   `player.uuid()`: Returns the UUID of the player executing the command as a string.
+#   `player.world()`: Returns the world object of the player executing the command.
+#   `player.location()`: Returns the location object of the player executing the command.
+#   `player.health()`: Returns the health of the player executing the command as a float.
+#   `player.maxhealth()`: Returns the max health of the player executing the command as a float.
+#   `player.hunger()`: Returns the hunger of the player executing the command as a float.
+#   `player.maxhunger()`: Returns the max hunger of the player executing the command as a float.
+#   `player.experience()`: Returns the experience points of the player executing the command as a float.
+#   `player.level()`: Returns the experience level of the player executing the command as an integer.
+#   `player.isop()`: Returns true if the player executing the command is an operator, false otherwise.
+#   `player.gamemode-name()`: Returns the gamemode of the player executing the command as a string.
+#   `player.gamemode()`: Returns the gamemode of the player executing the command as an integer (0=survival, 1=creative, 2=adventure, 3=spectator).
+#   `player.facing()`: Returns the facing object of the player executing the command.
+#   `player.isflying()`: Returns true if the player executing the command is flying, false otherwise.
+#   `player.isinwater()`: Returns true if the player executing the command is in water, false otherwise.
+#   `player.isinsnow()`: Returns true if the player executing the command is in powdered snow, false otherwise.
+#   `player.invehicle()`: Returns true if the player executing the command is in a vehicle, false otherwise.
+#   `player.isinlava()`: Returns true if the player executing the command is in lava, false otherwise.
+#   `player.lightlevel()`: Returns the light level of the block the player executing the command is standing on as an integer (0-15).
+#   `player.inventory()`: Returns inventory object of the player executing the command. *inventory object must have a player object as a parent.
+#     `player.inventory.size()`: Returns the size of the inventory as an integer. *NOT item count, but the number of slots in the inventory that have items in them.
+#     `player.inventory.itemcount()`: Returns the total number of items in the inventory as an integer. *item count, not the number of slots in the inventory that have items in them.
+#     `player.inventory.hotbar()`: Returns the hotbar object of the player executing the command. *hotbar object must have a player object as a parent.
+#       `player.inventory.hotbar.size()`: Returns the size of the hotbar as an integer. *NOT item count, but the number of slots in the hotbar that have items in them.
+#       `player.inventory.hotbar.itemcount()`: Returns the total number of items in the hotbar as an integer. *item count, not the number of slots in the hotbar that have items in them.
+#       `player.inventory.hotbar.slot(n)`: Returns the item object in the specified hotbar slot (1-9) of the player executing the command. *item object must have a hotbar object as a parent.
+#       `player.inventory.hotbar.slot(n).name()`: Returns the name of the item in the specified hotbar slot (1-9) of the player executing the command as a string. *item object must have a hotbar object as a parent.
+#       `player.inventory.hotbar.slot(n).amount()`: Returns the amount of the item in the specified hotbar slot (1-9) of the player executing the command as an integer. *item object must have a hotbar object as a parent.
+#       `player.inventory.hotbar.slot(n).data()`: Returns the data value of the item in the specified hotbar slot (1-9) of the player executing the command as an integer. *item object must have a hotbar object as a parent.
+
+# `location()`: Returns the location object. *must have `player`, `entity`, or `block` parent object
+#   `location.x()`: Returns the x coordinate of the location object as a float.
+#   `location.y()`: Returns the y coordinate of the location object as a float.
+#   `location.z()`: Returns the z coordinate of the location object as a float.
+#   `location.world()`: Returns the world object of the location object.
+
+# `facing()`: Returns the facing object. *must have `player`, `entity`, or `block` parent object
+#  `facing.horizontal()`: Returns the horizontal facing direction of the facing object as a float.
+#   `facing.vertical()`: Returns the vertical facing direction of the facing object as a float.
+
+# `world()`: Returns the world object.
+#   `world.name()`: Returns name of the world
+#   `world.dimension()`: Returns the world's dimension as an integer. (0=normal/overworld, 1=nether, 2=the_end, 3=other/unknown)
+#   `world.dimension-name()`: Returns the world's dimension as a string.
+#   `world.seed()`: Returns the world seed.
+#   `world.worldborder()`: Returns the worldborder object for the world. *worldborder object must have a world object as a parent.
+#     `world.worldborder.span()`: Returns the span of the worldborder (end to end) as a float.
+#     `world.worldborder.area()`: Returns the area of the worldborder ((world.worldborder.span()/2)^2 for vanilla worldborders-square) as a float.
+#     `world.worldborder.centre()`: Returns the coordinate of the centre point of the worldborder as a list (`centre = [x,z]`).
+#       `world.worldborder.center()`: American English varient of the above.
+#   `world.worldborder.corners()`: Returns the coordinates of the corners of the worldborder as a nested list. (`corners = [[x,z], [x1,z1], [x2,z2], [x3,z3]]`) The coordinates are in the order of: Northeast (Quadrant 1), Northwest (Quadrant 2), Southwest (Quadrant 3), Southeast (Quadrant 4).
+#   `world.players()`: Returns list of players by username currently in the world.
+#   `world.players-uuid()`: Returns list of players by UUID currently in the world.
+#   `world.players-displayname()`: Returns list of players by displayname/nickname currently in the world.
+#   `world.difficulty()`: Returns difficulty the world is set at.
+#   `world.gamerule()`: Returns dictionary of the world gamerules and their values.

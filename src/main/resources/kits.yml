@@ -1,5 +1,5 @@
 # =================================================== #
-#                                         Kits Configuration                                         #
+#                 Kits Configuration                  #
 # =================================================== #
 # Each kit is defined under the "kits" section.
 #
@@ -14,14 +14,14 @@
 #                       when you /kit create or /kit edit in-game)
 #
 # Cooldown data is stored under "cooldowns" and managed automatically.
-# ===============================
+# =================================================== #
 
 kits:
   starter:
     cooldown: 0
     one-time: true
     give-on-first-join: true
-    permission: "kelpylandia.kit.starter"
+    permission: "qol.kit.starter"
     icon: "CHEST"
     description: "Basic starting gear"
     items:
@@ -37,7 +37,7 @@ kits:
       - ==: org.bukkit.inventory.ItemStack
         v: 2230
         type: BREAD
-        amount: 16
+        amount: 48
       - ==: org.bukkit.inventory.ItemStack
         v: 2230
         type: TORCH
@@ -50,7 +50,7 @@ kits:
     cooldown: 86400
     one-time: false
     give-on-first-join: false
-    permission: "kelpylandia.kit.tools"
+    permission: "qol.kit.tools"
     icon: "IRON_PICKAXE"
     description: "Iron tool set (24h cooldown)"
     items:
@@ -70,8 +70,15 @@ kits:
         v: 2230
         type: SHIELD
 
-# ===================================================================
-# Player cooldown data (managed automatically — do not edit manually)
+# =================================================== #
+#                  ⚠ DO NOT EDIT ⚠                   #
+# =================================================== #
+
+# =================================================== #
+# Player cooldown data (managed automatically)
 # cooldowns:
 #   <uuid>:
 #     <kitName>: <epoch-millis>
+# =================================================== #
+
+cooldowns:

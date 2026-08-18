@@ -62,9 +62,9 @@ public class SellGUI implements Listener {
         player.openInventory(gui);
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Sell GUI close → process items
-    // ════════════════════════════════════════════════════════════════
+    
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
@@ -173,9 +173,9 @@ public class SellGUI implements Listener {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Confirmation GUI for empty shulker boxes
-    // ════════════════════════════════════════════════════════════════
+    
 
     private void openConfirmGUI(Player player, EconomyManager eco, List<ItemStack> emptyShulkers) {
         Inventory confirm = Bukkit.createInventory(null, CONFIRM_SIZE, CONFIRM_TITLE);
@@ -263,9 +263,9 @@ public class SellGUI implements Listener {
         // Clicking elsewhere does nothing
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Finalise the sale — deposit money, return items, send messages
-    // ════════════════════════════════════════════════════════════════
+    
 
     private void finaliseSale(Player player, EconomyManager eco, PendingSale pending, boolean sellEmptyShulkers) {
         BigDecimal totalEarnings = pending.earnings;
@@ -361,9 +361,9 @@ public class SellGUI implements Listener {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Shulker box processing (non-empty boxes)
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * Process a non-empty shulker box: sell sellable contents, return box with unsellable contents.
@@ -436,9 +436,9 @@ public class SellGUI implements Listener {
         return plugin.getEconomyManager();
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Internal data classes
-    // ════════════════════════════════════════════════════════════════
+    
 
     private static class ShulkerResult {
         final BigDecimal earnings;

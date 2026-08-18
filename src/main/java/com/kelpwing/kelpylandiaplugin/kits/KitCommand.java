@@ -132,7 +132,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        sender.sendMessage(ChatColor.GOLD + "═══ Available Kits ═══");
+        sender.sendMessage(ChatColor.GOLD + " Available Kits ");
         for (Kit kit : available) {
             StringBuilder line = new StringBuilder();
             line.append(ChatColor.GREEN).append("• ").append(ChatColor.WHITE).append(kit.getName());
@@ -162,7 +162,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
 
             sender.sendMessage(line.toString());
         }
-        sender.sendMessage(ChatColor.GOLD + "═════════════════════");
+        sender.sendMessage(ChatColor.GOLD + "");
         return true;
     }
 
@@ -363,7 +363,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        sender.sendMessage(ChatColor.GOLD + "═══ Kit: " + kit.getName() + " ═══");
+        sender.sendMessage(ChatColor.GOLD + " Kit: " + kit.getName() + " ");
         sender.sendMessage(ChatColor.GRAY + "Description: " + ChatColor.WHITE + (kit.getDescription().isEmpty() ? "(none)" : kit.getDescription()));
         sender.sendMessage(ChatColor.GRAY + "Items: " + ChatColor.WHITE + kit.getItems().size());
         sender.sendMessage(ChatColor.GRAY + "Cooldown: " + ChatColor.WHITE + kit.getCooldownDisplay());
@@ -551,7 +551,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
     //  Usage 
 
     private void sendUsage(CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD + "═══ Kit Commands ═══");
+        sender.sendMessage(ChatColor.GOLD + " Kit Commands ");
         sender.sendMessage(ChatColor.YELLOW + "/kit <name>" + ChatColor.GRAY + " — Claim a kit");
         sender.sendMessage(ChatColor.YELLOW + "/kit list" + ChatColor.GRAY + " — List available kits");
         sender.sendMessage(ChatColor.YELLOW + "/kit preview <name>" + ChatColor.GRAY + " — Preview a kit");

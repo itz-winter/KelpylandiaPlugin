@@ -88,9 +88,9 @@ public class EconomyManager {
         dynamicPricing.loadConfig(economyConfig);
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Config loading
-    // ════════════════════════════════════════════════════════════════
+    
 
     public void loadConfig() {
         // Save default economy.yml if missing
@@ -297,9 +297,9 @@ public class EconomyManager {
                 + (buyingEnabled ? "" : " (buying DISABLED)"));
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Balance operations
-    // ════════════════════════════════════════════════════════════════
+    
 
     public BigDecimal getBalance(UUID uuid) {
         return balanceCache.computeIfAbsent(uuid, k -> startingBalance);
@@ -365,9 +365,9 @@ public class EconomyManager {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Baltop
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * Returns a sorted list of (UUID, balance) entries for baltop display.
@@ -430,9 +430,9 @@ public class EconomyManager {
         return false;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Price lookups
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * Result of a price lookup containing the price and optional category name.
@@ -507,9 +507,9 @@ public class EconomyManager {
         return new PriceResult(dynamic, base.categoryName, true);
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Buy price lookups
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * Result of a buy price lookup.
@@ -650,9 +650,9 @@ public class EconomyManager {
         return count;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Tax calculations
-    // ════════════════════════════════════════════════════════════════
+    
 
     public boolean isTaxEnabled() {
         return taxEnabled;
@@ -693,9 +693,9 @@ public class EconomyManager {
         return amount.subtract(calculateTax(amount));
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Price management (admin commands)
-    // ════════════════════════════════════════════════════════════════
+    
 
     public void setPrice(String key, double price) {
         economyConfig.set("sellable." + key, price);
@@ -777,9 +777,9 @@ public class EconomyManager {
         return prices;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Reload
-    // ════════════════════════════════════════════════════════════════
+    
 
     public void reload() {
         loadConfig();
@@ -822,9 +822,9 @@ public class EconomyManager {
         return dynamicPricing;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Utility
-    // ════════════════════════════════════════════════════════════════
+    
 
     private void saveEconomyConfig() {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {

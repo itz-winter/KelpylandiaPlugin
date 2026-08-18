@@ -308,9 +308,9 @@ public class ShopEditGUI implements Listener {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Helpers
-    // ════════════════════════════════════════════════════════════════
+    
 
     private List<Map.Entry<String, Double>> getFilteredPrices(Player player, EditMode mode) {
         EconomyManager eco = plugin.getEconomyManager();
@@ -387,9 +387,9 @@ public class ShopEditGUI implements Listener {
         return null;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Chat input state
-    // ════════════════════════════════════════════════════════════════
+    
 
     private enum ChatInputType {
         SEARCH, ADD_ITEM, EDIT_PRICE

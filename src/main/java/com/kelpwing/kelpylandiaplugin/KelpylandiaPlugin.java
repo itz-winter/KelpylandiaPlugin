@@ -730,6 +730,11 @@ public class KelpylandiaPlugin extends JavaPlugin {
             fileManager.cleanupExpiredWarnings();
         }, 20L * 60L * 60L, 20L * 60L * 60L);
         
+        // Custom commands & aliases from custom-commands.yml
+        if (getConfig().getBoolean("custom-commands.enabled", true)) {
+            new com.kelpwing.kelpylandiaplugin.commands.custom.CustomCommandsManager(this).loadAndRegister();
+        }
+
         getLogger().info("KelpylandiaPlugin v" + getDescription().getVersion() + " has been enabled!");
         getLogger().info("Chat and moderation systems are now active.");
         getLogger().info("Server: " + VersionHelper.getVersionSummary());
@@ -818,7 +823,7 @@ public class KelpylandiaPlugin extends JavaPlugin {
      * Used for optional features so commands are only registered when the feature is enabled,
      * avoiding conflicts with other plugins that provide the same commands.
      */
-    private void registerCommand(String name, CommandExecutor executor, String description, String usage, String permission, String... aliases) {
+    public void registerCommand(String name, CommandExecutor executor, String description, String usage, String permission, String... aliases) {
         try {
             Constructor<PluginCommand> constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
             constructor.setAccessible(true);

@@ -52,9 +52,9 @@ public class TooltipImageRenderer {
     private static final Font FONT_BOLD        = new Font(FONT_NAME, Font.BOLD,         FONT_SIZE);
     private static final Font FONT_BOLD_ITALIC = new Font(FONT_NAME, Font.BOLD | Font.ITALIC, FONT_SIZE);
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Inner classes
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * A single coloured run of text within a tooltip line.
@@ -98,9 +98,9 @@ public class TooltipImageRenderer {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Public API
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * Render a tooltip image for the given item data.
@@ -146,9 +146,9 @@ public class TooltipImageRenderer {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Line building
-    // ════════════════════════════════════════════════════════════════
+    
 
     private static List<TooltipLine> buildTooltipLines(ItemDisplayData data) {
         List<TooltipLine> lines = new ArrayList<>();
@@ -242,9 +242,9 @@ public class TooltipImageRenderer {
         return lines;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Legacy colour-code parser
-    // ════════════════════════════════════════════════════════════════
+    
 
     /**
      * Parses a string that may contain § colour/format codes into a {@link TooltipLine}
@@ -331,9 +331,9 @@ public class TooltipImageRenderer {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Image rendering
-    // ════════════════════════════════════════════════════════════════
+    
 
     private static BufferedImage renderLines(List<TooltipLine> lines) {
         //  First pass: measure maximum line width 
@@ -413,9 +413,9 @@ public class TooltipImageRenderer {
         return image;
     }
 
-    // ════════════════════════════════════════════════════════════════
+    
     //  Utility
-    // ════════════════════════════════════════════════════════════════
+    
 
     private static Font fontFor(ColorSegment seg) {
         if (seg.bold && seg.italic) return FONT_BOLD_ITALIC;

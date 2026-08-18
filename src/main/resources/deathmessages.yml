@@ -1,5 +1,5 @@
 # =================================================== #
-#                                   Custom Death Messages                                   #
+#                Custom Death Messages                #
 # =================================================== #
 # These messages are used when a player uses /suicide.
 # A random message is picked from this list each time.
@@ -20,8 +20,9 @@ messages:
   - "{player_name} thought fall damage was a myth"
   - "{player_name} uninstalled themselves"
 
-# ===================================================
-# Placeholders:
+# =================================================== #
+#                    Placeholders                     #
+# =================================================== #
 #   {player}       - The player's display name
 #   {player_name}  - The player's raw username
 #   {world}        - The world the player died in
