@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /skull [username] — Get a player head item.
+ * /skull [username] - Get a player head item.
  * No args = your own head.
  */
 public class SkullCommand implements CommandExecutor, TabCompleter {

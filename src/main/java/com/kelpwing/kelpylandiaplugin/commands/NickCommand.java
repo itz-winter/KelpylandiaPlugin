@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /nick [nickname]          — Set your nickname, or reset if no nickname given.
- * /nick <player> [nickname] — Set/reset another player's nickname (requires kelpylandia.nickname.others).
+ * /nick [nickname]          - Set your nickname, or reset if no nickname given.
+ * /nick <player> [nickname] - Set/reset another player's nickname (requires kelpylandia.nickname.others).
  *
  * Supports {@code &} color codes in nicknames.
  */

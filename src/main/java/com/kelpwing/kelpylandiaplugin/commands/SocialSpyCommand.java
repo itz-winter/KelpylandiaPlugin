@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * /ss or /socialspy — Toggle social spy (see all whispers and channel messages).
+ * /ss or /socialspy - Toggle social spy (see all whispers and channel messages).
  */
 public class SocialSpyCommand implements CommandExecutor {
 

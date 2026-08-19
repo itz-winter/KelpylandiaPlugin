@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * /wt <player> — Lock your whisper target so /w <msg> goes to them without specifying a name.
- * /wt          — Clear the whisper target.
+ * /wt <player> - Lock your whisper target so /w <msg> goes to them without specifying a name.
+ * /wt          - Clear the whisper target.
  * Console can also use /wt <player> or /wt to set/clear its whisper target.
  */
 public class WhisperToggleCommand implements CommandExecutor, TabCompleter {

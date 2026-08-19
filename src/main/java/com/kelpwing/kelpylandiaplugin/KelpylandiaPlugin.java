@@ -588,7 +588,7 @@ public class KelpylandiaPlugin extends JavaPlugin {
             getLogger().info("Kits system enabled! (" + kitManager.getAllKits().size() + " kit(s) loaded)");
         }
         
-        //  Economy system 
+        // Economy system 
         {
             // Always save default economy.yml so loadConfig() can read it
             File ecoFile = new File(getDataFolder(), "economy.yml");
@@ -805,7 +805,7 @@ public class KelpylandiaPlugin extends JavaPlugin {
             getLogger().info("PlaceholderAPI integration enabled!");
         }
         
-        // Item display system — replaces InteractiveChat dependency.
+        // Item display system - replaces InteractiveChat dependency.
         // Handles [item], [inv], [enderchest] keywords in chat with hover tooltips
         // and clickable inventory snapshots.
         if (getConfig().getBoolean("chat-items.enabled", true)) {
@@ -813,7 +813,7 @@ public class KelpylandiaPlugin extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new SnapshotListener(), this);
             registerCommand("qol:viewsnapshot", new ViewSnapshotCommand(this),
                     "View an item/inventory snapshot from chat", "/qol:viewsnapshot <id>",
-                    null); // no permission — anyone can click the chat component
+                    null); // no permission - anyone can click the chat component
             getLogger().info("Chat item display enabled ([item], [inv], [enderchest]).");
         }
     }
@@ -994,7 +994,7 @@ public class KelpylandiaPlugin extends JavaPlugin {
         return vaultEconomyProvider;
     }
 
-    //  Data folder migration 
+    // Data folder migration 
 
     /**
      * If the old "KelpylandiaPlugin" data folder exists and the new

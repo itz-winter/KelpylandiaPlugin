@@ -37,16 +37,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Replaces InteractiveChat — provides [item], [inv], and [enderchest] keywords
+ * Replaces InteractiveChat - provides [item], [inv], and [enderchest] keywords
  * in chat using Spigot's BungeeCord Chat Component API.
  * <p>
  * When a player types one of the keywords, this manager:
  * <ul>
- *   <li>[item]  — shows a hoverable item component (name, lore, enchants) and
+ *   <li>[item]  - shows a hoverable item component (name, lore, enchants) and
  *                 a clickable inventory viewer for that item</li>
- *   <li>[inv]   — shows a hoverable summary and opens a read-only snapshot of
+ *   <li>[inv]   - shows a hoverable summary and opens a read-only snapshot of
  *                 the player's inventory on click</li>
- *   <li>[enderchest] — same but for ender chest</li>
+ *   <li>[enderchest] - same but for ender chest</li>
  * </ul>
  * <p>
  * Snapshots are stored briefly so that clicking the component can open a
@@ -54,7 +54,7 @@ import java.util.regex.Pattern;
  */
 public class ItemDisplayManager {
 
-    //  Keyword patterns — loaded from config, matching IC's ItemDisplay.*.Keyword 
+    // Keyword patterns - loaded from config, matching IC's ItemDisplay.*.Keyword 
     // Defaults mirror IC's config.yml verbatim.
     private final Pattern itemPattern;
     private final Pattern invPattern;
@@ -73,7 +73,7 @@ public class ItemDisplayManager {
     public ItemDisplayManager(KelpylandiaPlugin plugin) {
         this.plugin = plugin;
 
-        // Load keyword patterns from config — key names match IC exactly
+        // Load keyword patterns from config - key names match IC exactly
         String itemKw  = plugin.getConfig().getString("ItemDisplay.Item.Keyword",      "(?i)\\[item\\]|\\[i\\]");
         String invKw   = plugin.getConfig().getString("ItemDisplay.Inventory.Keyword", "(?i)\\[inv\\]|\\[inventory\\]");
         String enderKw = plugin.getConfig().getString("ItemDisplay.EnderChest.Keyword","(?i)\\[ender\\]|\\[e\\]");
@@ -92,7 +92,7 @@ public class ItemDisplayManager {
         }, 20L * 60, 20L * 60);
     }
 
-    //  Public API 
+    // Public API 
 
     /**
      * Returns {@code true} when the given raw message contains at least one
@@ -109,7 +109,7 @@ public class ItemDisplayManager {
      * <p><b>Formatting fix:</b> We accept the <em>complete</em> already-formatted
      * line (prefix + separator + message body, colour codes already translated) and
      * parse it in one {@link TextComponent#fromLegacyText} call.  This preserves
-     * the colour inherited from the prefix across the entire message body — the same
+     * the colour inherited from the prefix across the entire message body - the same
      * approach IC uses via {@code ComponentReplacing.replace()} on the full component.
      *
      * <p>We then scan the <em>plain-text</em> representation of that line for
@@ -117,13 +117,13 @@ public class ItemDisplayManager {
      * plain-text spans.  Because all segments come from the same initial
      * {@code fromLegacyText} parse, colour inheritance is never broken.
      *
-     * @param player        sender — used to snapshot held item / inventory
+     * @param player        sender - used to snapshot held item / inventory
      * @param fullLine      the complete formatted chat line (prefix + message),
      *                      with {@code &} colour codes already translated to §
      * @return ready-to-send component array
      */
     public BaseComponent[] buildChatLine(Player player, String fullLine) {
-        // Parse the entire formatted line at once — colour codes stay intact.
+        // Parse the entire formatted line at once - colour codes stay intact.
         BaseComponent[] parsed = TextComponent.fromLegacyText(fullLine);
 
         // Build a plain-text version (no colour codes) to drive regex scanning.
@@ -146,7 +146,7 @@ public class ItemDisplayManager {
             boolean eFound = em.find();
 
             if (!iFound && !vFound && !eFound) {
-                // No more keywords — emit the remaining span (checking for command boxes)
+                // No more keywords - emit the remaining span (checking for command boxes)
                 appendParsedSpan(builder, parsed, plain, lastEnd, plain.length());
                 break;
             }
@@ -203,7 +203,7 @@ public class ItemDisplayManager {
         String spanLegacy = extractLegacySpan(parsed, plain, from, to);
 
         if (CommandsDisplay.containsCommand(plugin, spanLegacy)) {
-            // Let CommandsDisplay re-parse — it calls fromLegacyText internally, preserving colours.
+            // Let CommandsDisplay re-parse - it calls fromLegacyText internally, preserving colours.
             BaseComponent[] cmdComps = CommandsDisplay.process(plugin, spanLegacy);
             builder.append(cmdComps, ComponentBuilder.FormatRetention.NONE);
         } else {
@@ -274,7 +274,7 @@ public class ItemDisplayManager {
      * Returns a plain-text representation of the message for Discord relay.
      * Replaces item/inv/ender keywords using the IC config text templates
      * (ItemDisplay.Item.Text / SingularText, Inventory.Text, EnderChest.Text),
-     * then strips Minecraft colour codes — matching IC dsrv's approach.
+     * then strips Minecraft colour codes - matching IC dsrv's approach.
      */
     public String buildDiscordLine(Player player, String rawMessage) {
         // Process each keyword type sequentially (IC processes item → inv → ender in order)
@@ -327,22 +327,22 @@ public class ItemDisplayManager {
                     .build();
         }
 
-        // Keep § colour codes — TooltipImageRenderer.parseLegacyLine() uses them to render
+        // Keep § colour codes - TooltipImageRenderer.parseLegacyLine() uses them to render
         // the name with its actual formatting.  Discord embed uses stripSectionCodes() on use.
         String displayName = getItemDisplayName(item);
         ItemMeta meta = item.hasItemMeta() ? item.getItemMeta() : null;
         boolean hasMeta = meta != null;
 
-        //  ItemFlags 
+        // ItemFlags 
         boolean hideEnchants   = hasMeta && meta.hasItemFlag(ItemFlag.HIDE_ENCHANTS);
         boolean hideAttributes = hasMeta && meta.hasItemFlag(ItemFlag.HIDE_ATTRIBUTES);
         // HIDE_UNBREAKABLE covers the Unbreakable tag; we reuse the flag for the durability line too
         boolean hideDurability = hasMeta && meta.hasItemFlag(ItemFlag.HIDE_UNBREAKABLE);
 
-        //  Enchantments 
+        // Enchantments 
         Map<String, Integer> enchants = new java.util.LinkedHashMap<>();
         if (!hideEnchants) {
-            // EnchantmentStorageMeta for enchanted books — stored enchants, not applied
+            // EnchantmentStorageMeta for enchanted books - stored enchants, not applied
             Map<Enchantment, Integer> rawEnchants;
             if (hasMeta && meta instanceof EnchantmentStorageMeta) {
                 rawEnchants = ((EnchantmentStorageMeta) meta).getStoredEnchants();
@@ -357,15 +357,15 @@ public class ItemDisplayManager {
             }
         }
 
-        //  Lore (§ colour codes preserved for tooltip rendering) 
+        // Lore (§ colour codes preserved for tooltip rendering) 
         List<String> lore = new ArrayList<>();
         if (hasMeta && meta.hasLore()) {
             for (String line : meta.getLore()) {
-                lore.add(line); // keep § codes — TooltipImageRenderer parses them for colours
+                lore.add(line); // keep § codes - TooltipImageRenderer parses them for colours
             }
         }
 
-        //  Durability (cherry-picked from IC DiscordItemStackUtils) 
+        // Durability (cherry-picked from IC DiscordItemStackUtils) 
         int durability = 0;
         int maxDurability = 0;
         boolean unbreakable = hasMeta && meta.isUnbreakable();
@@ -378,7 +378,7 @@ public class ItemDisplayManager {
             }
         }
 
-        //  Potion effects (cherry-picked from IC DiscordItemStackUtils) 
+        // Potion effects (cherry-picked from IC DiscordItemStackUtils) 
         List<String> potionEffects = new ArrayList<>();
         if (hasMeta && meta instanceof PotionMeta) {
             PotionMeta potionMeta = (PotionMeta) meta;
@@ -402,13 +402,13 @@ public class ItemDisplayManager {
             }
         }
 
-        //  Attribute modifiers grouped by slot (cherry-picked from IC) 
+        // Attribute modifiers grouped by slot (cherry-picked from IC) 
         List<String> attributeLines = new ArrayList<>();
         if (!hideAttributes) {
             buildAttributeLines(item, meta, attributeLines);
         }
 
-        //  Rarity (cherry-picked from IC) 
+        // Rarity (cherry-picked from IC) 
         // In 1.16: COMMON = no enchant, UNCOMMON = enchanted book / golden items,
         // RARE = most enchanted tools/weapons, EPIC = enchanted netherite / rare items.
         // Simple heuristic matching IC's approach: check enchantment count and material.
@@ -436,7 +436,7 @@ public class ItemDisplayManager {
 
     /**
      * Formats a single potion effect line in the style IC uses:
-     * "Speed II (3:00)" — name, roman numeral amplifier (if > 0), duration.
+     * "Speed II (3:00)" - name, roman numeral amplifier (if > 0), duration.
      * Instant effects (health, damage) show no duration.
      */
     private static String formatPotionEffect(PotionEffectType type, int amplifier, int durationTicks) {
@@ -464,7 +464,7 @@ public class ItemDisplayManager {
      * e.g. INCREASE_DAMAGE → "Strength", SLOW → "Slowness"
      */
     private static String formatPotionEffectName(PotionEffectType type) {
-        // Some effects have unintuitive internal names — map the common ones
+        // Some effects have unintuitive internal names - map the common ones
         String raw = type.getName(); // e.g. "SPEED", "INCREASE_DAMAGE"
         switch (raw) {
             case "INCREASE_DAMAGE":        return "Strength";
@@ -552,7 +552,7 @@ public class ItemDisplayManager {
                             ? sign + (long) amount + " " + attrName
                             : sign + String.format("%.2f", amount) + " " + attrName;
                 } else {
-                    // Multiply operations — display as percentage
+                    // Multiply operations - display as percentage
                     formatted = sign + String.format("%.0f", amount * 100) + "% " + attrName;
                 }
                 String prefix = amount >= 0 ? " +" : " ";
@@ -569,11 +569,11 @@ public class ItemDisplayManager {
     /**
      * Determines item rarity using a simple heuristic that matches Minecraft 1.16 rarity:
      * <ul>
-     *   <li>EPIC — enchanted items whose base rarity is EPIC (ender dragon egg, elytra, etc.)
+     *   <li>EPIC - enchanted items whose base rarity is EPIC (ender dragon egg, elytra, etc.)
      *       or any item with 3+ enchantments</li>
-     *   <li>RARE — enchanted tools/weapons/armour, or items with base rarity of RARE</li>
-     *   <li>UNCOMMON — golden items, enchanted books, spawn eggs</li>
-     *   <li>COMMON — everything else</li>
+     *   <li>RARE - enchanted tools/weapons/armour, or items with base rarity of RARE</li>
+     *   <li>UNCOMMON - golden items, enchanted books, spawn eggs</li>
+     *   <li>COMMON - everything else</li>
      * </ul>
      */
     private static ItemDisplayData.Rarity determineRarity(ItemStack item, boolean hasEnchants) {
@@ -666,12 +666,12 @@ public class ItemDisplayManager {
         return entry != null ? entry.title : null;
     }
 
-    //  Item component 
+    // Item component 
 
     private BaseComponent[] buildItemComponent(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item == null || item.getType() == Material.AIR) {
-            // IC's itemAirAllow path — show using singular text with "Air"
+            // IC's itemAirAllow path - show using singular text with "Air"
             String singular = plugin.getConfig().getString(
                     "ItemDisplay.Item.SingularText", "&f[&f{Item}&f]");
             String raw = singular.replace("{Item}", "Air").replace("{Amount}", "0");
@@ -713,7 +713,7 @@ public class ItemDisplayManager {
         // serialiser (BungeeComponentSerializer).  We intentionally avoid the two-step
         // GsonComponentSerializer.serialize() + ComponentSerializer.parse() round-trip
         // because Adventure 4.14+ emits SHOW_ITEM hover events with a "contents" key
-        // while BungeeCord's parser only understands the older "value" key — meaning the
+        // while BungeeCord's parser only understands the older "value" key - meaning the
         // item hover (and therefore all enchants) would be silently dropped.
         UUID snapId = createItemSnapshot(player, item);
         net.kyori.adventure.text.event.HoverEvent<?> itemHover = buildNativeItemHover(item);
@@ -727,7 +727,7 @@ public class ItemDisplayManager {
     }
 
     /**
-     * Calls {@code ItemStack.asHoverEvent()} via reflection — a Paper-only API that
+     * Calls {@code ItemStack.asHoverEvent()} via reflection - a Paper-only API that
      * returns a fully-populated {@code SHOW_ITEM} hover event including all data
      * components (1.20.5+) or NBT tags (1.16–1.20.4), exactly matching vanilla.
      * Falls back to a minimal text hover when the method is unavailable.
@@ -738,7 +738,7 @@ public class ItemDisplayManager {
             java.lang.reflect.Method m = item.getClass().getMethod("asHoverEvent");
             return (net.kyori.adventure.text.event.HoverEvent<?>) m.invoke(item);
         } catch (Exception e) {
-            // Non-Paper server or old version — plain text fallback
+            // Non-Paper server or old version - plain text fallback
             return net.kyori.adventure.text.event.HoverEvent.showText(
                     net.kyori.adventure.text.Component.text(getItemDisplayName(item)));
         }
@@ -762,7 +762,7 @@ public class ItemDisplayManager {
     private net.kyori.adventure.text.Component getItemDisplayNameComponent(ItemStack item) {
         ItemMeta meta = item.hasItemMeta() ? item.getItemMeta() : null;
         if (meta != null && meta.hasDisplayName()) {
-            // Try Paper's ItemMeta.displayName() — returns the custom name component, no brackets
+            // Try Paper's ItemMeta.displayName() - returns the custom name component, no brackets
             try {
                 java.lang.reflect.Method m = meta.getClass().getMethod("displayName");
                 Object result = m.invoke(meta);
@@ -776,7 +776,7 @@ public class ItemDisplayManager {
                     .decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC,
                                 net.kyori.adventure.text.format.TextDecoration.State.TRUE);
         }
-        // No custom name — rarity-coloured plain text component
+        // No custom name - rarity-coloured plain text component
         ItemDisplayData.Rarity rarity = determineRarity(item, meta != null && meta.hasEnchants());
         net.kyori.adventure.text.format.TextColor color;
         switch (rarity) {
@@ -793,20 +793,20 @@ public class ItemDisplayManager {
      * tooltip (F3+H mode).  Still used by the Discord data builder and
      * inventory display path; kept as a text-only fallback.
      * <ol>
-     *   <li>Item name — white (normal) or italic aqua (custom renamed)</li>
-     *   <li>Enchantments — gray; curses in red</li>
-     *   <li>Lore — dark-purple italic</li>
+     *   <li>Item name - white (normal) or italic aqua (custom renamed)</li>
+     *   <li>Enchantments - gray; curses in red</li>
+     *   <li>Lore - dark-purple italic</li>
      *   <li>Attribute modifiers grouped by slot</li>
      *   <li>Unbreakable <em>or</em> Durability: current / max</li>
-     *   <li>{@code minecraft:material} — dark gray</li>
-     *   <li>Tag count estimate — dark gray</li>
+     *   <li>{@code minecraft:material} - dark gray</li>
+     *   <li>Tag count estimate - dark gray</li>
      * </ol>
      */
     private BaseComponent[] buildItemHoverTextFallback(ItemStack item) {
         ComponentBuilder hover = new ComponentBuilder();
         ItemMeta meta = item.hasItemMeta() ? item.getItemMeta() : null;
 
-        //  1. Item name 
+        // 1. Item name 
         boolean hasCustomName = meta != null && meta.hasDisplayName();
         if (hasCustomName) {
             // Custom names render italic aqua in vanilla
@@ -821,7 +821,7 @@ public class ItemDisplayManager {
                     ComponentBuilder.FormatRetention.NONE);
         }
 
-        //  2. Enchantments 
+        // 2. Enchantments 
         Map<Enchantment, Integer> enchants = new java.util.LinkedHashMap<>();
         if (meta != null && meta.hasEnchants()) {
             enchants.putAll(meta.getEnchants());
@@ -848,21 +848,21 @@ public class ItemDisplayManager {
                     ComponentBuilder.FormatRetention.NONE);
         }
 
-        //  3. Lore 
+        // 3. Lore 
         if (meta != null && meta.hasLore()) {
             for (String line : meta.getLore()) {
                 hover.append("\n", ComponentBuilder.FormatRetention.NONE);
-                // Lore lines already contain their colour codes — wrap in purple italic as fallback
+                // Lore lines already contain their colour codes - wrap in purple italic as fallback
                 hover.append(TextComponent.fromLegacyText(
                         org.bukkit.ChatColor.DARK_PURPLE + "" + org.bukkit.ChatColor.ITALIC + line),
                         ComponentBuilder.FormatRetention.NONE);
             }
         }
 
-        //  4. Attribute modifiers 
+        // 4. Attribute modifiers 
         appendAttributeModifiers(hover, item, meta);
 
-        //  5. Durability 
+        // 5. Durability 
         if (meta instanceof org.bukkit.inventory.meta.Damageable) {
             org.bukkit.inventory.meta.Damageable dmg = (org.bukkit.inventory.meta.Damageable) meta;
             if (meta.isUnbreakable()) {
@@ -882,14 +882,14 @@ public class ItemDisplayManager {
             }
         }
 
-        //  6. minecraft:id 
+        // 6. minecraft:id 
         hover.append("\n", ComponentBuilder.FormatRetention.NONE);
         String materialId = "minecraft:" + item.getType().getKey().getKey();
         hover.append(TextComponent.fromLegacyText(
                 org.bukkit.ChatColor.DARK_GRAY + materialId),
                 ComponentBuilder.FormatRetention.NONE);
 
-        //  7. NBT tag count (estimated) 
+        // 7. NBT tag count (estimated) 
         int tagCount = estimateNbtTagCount(item, meta, enchants);
         if (tagCount > 0) {
             hover.append("\n", ComponentBuilder.FormatRetention.NONE);
@@ -901,7 +901,7 @@ public class ItemDisplayManager {
         return hover.create();
     }
 
-    //  Attribute modifier rendering (vanilla style) 
+    // Attribute modifier rendering (vanilla style) 
 
     @SuppressWarnings("deprecation")
     private void appendAttributeModifiers(ComponentBuilder hover, ItemStack item, ItemMeta meta) {
@@ -1005,7 +1005,7 @@ public class ItemDisplayManager {
         com.google.common.collect.Multimap<org.bukkit.attribute.Attribute, org.bukkit.attribute.AttributeModifier> map =
                 com.google.common.collect.MultimapBuilder.hashKeys().arrayListValues().build();
 
-        // Attack damage & speed (weapons / tools) — values are the ADDED amount on top of base
+        // Attack damage & speed (weapons / tools) - values are the ADDED amount on top of base
         // Base attack damage = 1.0, base attack speed = 4.0
         double dmg = 0, spd = 0;
         org.bukkit.inventory.EquipmentSlot slot = org.bukkit.inventory.EquipmentSlot.HAND;
@@ -1063,7 +1063,7 @@ public class ItemDisplayManager {
                             org.bukkit.attribute.AttributeModifier.Operation.ADD_NUMBER, slot));
         }
 
-        // Armor — defense & toughness & knockback resistance
+        // Armor - defense & toughness & knockback resistance
         double armor = 0, toughness = 0, kbRes = 0;
         org.bukkit.inventory.EquipmentSlot armorSlot = null;
         boolean hasArmor = true;
@@ -1172,7 +1172,7 @@ public class ItemDisplayManager {
         return count;
     }
 
-    //  Inventory / Ender Chest component 
+    // Inventory / Ender Chest component 
 
     private BaseComponent[] buildInventoryComponent(Player player, boolean enderChest) {
         String rawLabel;
@@ -1274,7 +1274,7 @@ public class ItemDisplayManager {
         return hover.create();
     }
 
-    //  Snapshot management 
+    // Snapshot management 
 
     private UUID createItemSnapshot(Player player, ItemStack item) {
         UUID id = UUID.randomUUID();
@@ -1309,7 +1309,7 @@ public class ItemDisplayManager {
         return id;
     }
 
-    //  Utility 
+    // Utility 
 
     private String getItemDisplayName(ItemStack item) {
         if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
@@ -1334,7 +1334,7 @@ public class ItemDisplayManager {
     /**
      * Builds the Discord replacement text for the [item] keyword.
      * Uses ItemDisplay.Item.SingularText (amount=1) or ItemDisplay.Item.Text (amount>1),
-     * substitutes {Item} and {Amount}, then strips colour codes — matching IC dsrv.
+     * substitutes {Item} and {Amount}, then strips colour codes - matching IC dsrv.
      */
     private String getItemDiscordText(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
@@ -1411,7 +1411,7 @@ public class ItemDisplayManager {
         return numerals[value];
     }
 
-    //  Snapshot entry 
+    // Snapshot entry 
 
     private static class SnapshotEntry {
         final Inventory inventory;

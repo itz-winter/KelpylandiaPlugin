@@ -33,7 +33,7 @@ public class HistoryCommand implements CommandExecutor {
 
         String targetName = args[0];
         
-        // Get player history as Punishment objects directly — avoids lossy Map conversion
+        // Get player history as Punishment objects directly - avoids lossy Map conversion
         List<Punishment> history = plugin.getFileManager().getPlayerHistoryPunishments(targetName);
 
         sender.sendMessage(ChatColor.YELLOW + "========================");

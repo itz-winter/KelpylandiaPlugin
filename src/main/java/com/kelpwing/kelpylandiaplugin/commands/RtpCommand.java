@@ -20,8 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * /rtp — Randomly teleport within a configurable radius around spawn.
- * Checks for safe locations (not underground, not in water — both toggleable).
+ * /rtp - Randomly teleport within a configurable radius around spawn.
+ * Checks for safe locations (not underground, not in water - both toggleable).
  */
 public class RtpCommand implements CommandExecutor {
 
@@ -76,7 +76,7 @@ public class RtpCommand implements CommandExecutor {
                 final int fz = z;
                 final int attemptNum = attempt;
 
-                // We need the highest block — must be done sync. So queue a sync check.
+                // We need the highest block - must be done sync. So queue a sync check.
                 // For better UX, just do all attempts sync-scheduled.
             }
 

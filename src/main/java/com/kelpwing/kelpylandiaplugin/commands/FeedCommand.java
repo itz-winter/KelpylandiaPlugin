@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /feed [user] — Set a player's food level to 20 (full). Use * for all.
+ * /feed [user] - Set a player's food level to 20 (full). Use * for all.
  */
 public class FeedCommand implements CommandExecutor, TabCompleter {
 

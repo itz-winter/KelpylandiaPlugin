@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * /noclip [player] — Toggle noclip mode.
+ * /noclip [player] - Toggle noclip mode.
  * When noclip is enabled, double-shifting cycles the player's gamemode:
  *   current → SPECTATOR → current (same mechanic as the vanish double-shift).
  * This lets the player clip through blocks by switching to spectator mode,
@@ -106,7 +106,7 @@ public class NoclipCommand implements CommandExecutor, TabCompleter, Listener {
         return noclipEnabled.contains(uuid);
     }
 
-    //  Double-shift listener 
+    // Double-shift listener 
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
@@ -123,7 +123,7 @@ public class NoclipCommand implements CommandExecutor, TabCompleter, Listener {
         lastSneakTime.put(uuid, now);
 
         if (last != null && (now - last) <= DOUBLE_SHIFT_MS) {
-            // Double-shift detected — reset so triple-shift doesn't re-trigger
+            // Double-shift detected - reset so triple-shift doesn't re-trigger
             lastSneakTime.remove(uuid);
 
             if (player.getGameMode() == GameMode.SPECTATOR) {

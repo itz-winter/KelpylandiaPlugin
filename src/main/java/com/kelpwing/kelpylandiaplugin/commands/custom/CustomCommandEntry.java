@@ -5,7 +5,7 @@ package com.kelpwing.kelpylandiaplugin.commands.custom;
  * from {@code custom-commands.yml}.
  *
  * Either {@link #script} (inline) or {@link #file} (external .ks path)
- * will be non-null — never both.
+ * will be non-null - never both.
  */
 public final class CustomCommandEntry {
 

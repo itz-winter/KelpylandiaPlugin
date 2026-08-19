@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /seen <player> — Shows when a player was last online.
+ * /seen <player> - Shows when a player was last online.
  */
 public class SeenCommand implements CommandExecutor, TabCompleter {
 

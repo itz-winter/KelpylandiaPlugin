@@ -19,7 +19,7 @@ import org.bukkit.event.player.*;
 /**
  * Blocks all actions for frozen players.
  * Frozen players are immune to everything (damage cancelled).
- * Relog does NOT unfreeze them — checked via FreezeManager set.
+ * Relog does NOT unfreeze them - checked via FreezeManager set.
  */
 public class FreezeListener implements Listener {
 
@@ -46,7 +46,7 @@ public class FreezeListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        // Frozen players ARE allowed to speak in chat — do nothing
+        // Frozen players ARE allowed to speak in chat - do nothing
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

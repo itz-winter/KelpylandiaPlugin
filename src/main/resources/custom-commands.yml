@@ -39,7 +39,7 @@ aliases:
     permission: "qol.channel.global"
     description: "Switch to the global chat channel"
 
-  # Quickspawn — local teleport to spawn (example with permission)
+  # Quickspawn - local teleport to spawn (example with permission)
   spawnwarp:
     command: "spawn"
     permission: "qol.spawn"

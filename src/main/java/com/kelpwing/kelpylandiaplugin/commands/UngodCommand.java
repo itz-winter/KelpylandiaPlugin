@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /ungod [player] — Remove god mode (invincibility) from a player.
+ * /ungod [player] - Remove god mode (invincibility) from a player.
  * Without arguments, removes god mode from the sender.
  * Use * to target all online players.
  */

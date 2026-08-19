@@ -137,7 +137,7 @@ public class PriceHistoryCommand implements CommandExecutor, TabCompleter {
         }
 
         if (engine == null || !engine.isEnabled()) {
-            // Dynamic pricing disabled — show stable message
+            // Dynamic pricing disabled - show stable message
             sender.sendMessage(ChatColor.GREEN + "Status: " + ChatColor.YELLOW + "STABLE"
                     + ChatColor.WHITE + " (" + ChatColor.YELLOW + "0.00%" + ChatColor.WHITE + ")");
             sender.sendMessage(ChatColor.YELLOW + "[~] " + ChatColor.YELLOW + currentPriceStr + ChatColor.RESET + " (current)");
@@ -164,7 +164,7 @@ public class PriceHistoryCommand implements CommandExecutor, TabCompleter {
         // Price history entries
         List<DynamicPricingEngine.PriceSnapshot> history = engine.getHistory(material);
         if (history.isEmpty()) {
-            // No history yet — just show current
+            // No history yet - just show current
             sender.sendMessage(ChatColor.YELLOW + "[~] " + ChatColor.YELLOW + currentPriceStr
                     + ChatColor.RESET + " (current)");
         } else {

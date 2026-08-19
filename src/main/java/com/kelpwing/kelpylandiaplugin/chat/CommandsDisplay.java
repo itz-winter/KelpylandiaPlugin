@@ -38,7 +38,7 @@ public final class CommandsDisplay {
      *
      * <p>The conversion path is:
      * legacy string → Adventure Component → CommandsDisplay.process → Adventure JSON
-     * → BungeeCord ComponentSerializer.parse — which is lossless for click/hover events.
+     * → BungeeCord ComponentSerializer.parse - which is lossless for click/hover events.
      */
     public static BaseComponent[] process(KelpylandiaPlugin plugin, String legacy) {
         Component component = LegacyComponentSerializer.legacySection().deserialize(legacy);

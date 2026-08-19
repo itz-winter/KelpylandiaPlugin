@@ -60,7 +60,7 @@ public class DiscordIntegration extends ListenerAdapter {
     private String consoleChannelId;
     private final ConcurrentHashMap<String, String> webhookUrls = new ConcurrentHashMap<>();
 
-    //  Rolling console log (DiscordSRV-style queue + drain thread) 
+    // Rolling console log (DiscordSRV-style queue + drain thread) 
     /**
      * Non-blocking queue of formatted lines waiting to be flushed to Discord.
      * The log4j appender / JUL handler offer() lines here without ever blocking
@@ -77,10 +77,10 @@ public class DiscordIntegration extends ListenerAdapter {
     private int consoleBufferLen = 0;
     /** Max characters kept in the rolling message before starting a new one. */
     private static final int CONSOLE_MAX_CHARS = 1900;
-    /** Background drain thread — null when Discord is disabled. */
+    /** Background drain thread - null when Discord is disabled. */
     private volatile Thread consoleFlushThread = null;
 
-    //  Per-command output capture (for c! prefix replies) 
+    // Per-command output capture (for c! prefix replies) 
     /** Lines captured during the active command window, to be replied to the invoker. */
     private final java.util.concurrent.ConcurrentLinkedQueue<String> cmdCaptureLines
             = new java.util.concurrent.ConcurrentLinkedQueue<>();
@@ -171,7 +171,7 @@ public class DiscordIntegration extends ListenerAdapter {
                 .replace("{uuid}", uuidStr)
                 .replace("{player}", playerName);
 
-        // Use Bukkit's async scheduler — avoids ForkJoin pool deadlock with JDA's .complete()
+        // Use Bukkit's async scheduler - avoids ForkJoin pool deadlock with JDA's .complete()
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 String webhookUrl = getWebhookUrl(channelId);
@@ -236,7 +236,7 @@ public class DiscordIntegration extends ListenerAdapter {
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
-                //  Render tooltip images for each item 
+                // Render tooltip images for each item 
                 java.util.List<java.io.InputStream> tooltipImages = new java.util.ArrayList<>();
                 java.util.List<String> tooltipFilenames = new java.util.ArrayList<>();
                 int imgIdx = 0;
@@ -255,16 +255,16 @@ public class DiscordIntegration extends ListenerAdapter {
                     imgIdx++;
                 }
 
-                //  Try JDA-based send with tooltip image attachments 
+                // Try JDA-based send with tooltip image attachments 
                 if (!tooltipImages.isEmpty()) {
                     TextChannel ch = jda.getTextChannelById(channelId);
                     if (ch != null) {
                         // IC dsrv embed structure:
-                        //   author  = "PlayerName's Item" / "…'s Inventory" / "…'s Ender Chest"
-                        //   title   = item name / inventory label
-                        //   color   = rarity colour (ITEM) or fixed (INV/EC)
-                        //   thumbnail (small, top-right) = item icon URL  [ITEM only]
-                        //   image   (large, bottom)      = rendered tooltip PNG
+                        //  author  = "PlayerName's Item" / "…'s Inventory" / "…'s Ender Chest"
+                        //  title   = item name / inventory label
+                        //  color   = rarity colour (ITEM) or fixed (INV/EC)
+                        //  thumbnail (small, top-right) = item icon URL  [ITEM only]
+                        //  image   (large, bottom)      = rendered tooltip PNG
                         java.util.List<net.dv8tion.jda.api.entities.MessageEmbed> embeds = new java.util.ArrayList<>();
                         int embedIdx = 0;
                         for (com.kelpwing.kelpylandiaplugin.chat.ItemDisplayData data : safeItems) {
@@ -299,7 +299,7 @@ public class DiscordIntegration extends ListenerAdapter {
                             embedIdx++;
                         }
 
-                        // Send embeds + file attachments — no separate message content (IC sends embeds only)
+                        // Send embeds + file attachments - no separate message content (IC sends embeds only)
                         net.dv8tion.jda.api.requests.restaction.MessageCreateAction action =
                                 ch.sendMessageEmbeds(embeds);
                         for (int i = 0; i < tooltipImages.size(); i++) {
@@ -311,7 +311,7 @@ public class DiscordIntegration extends ListenerAdapter {
                     }
                 }
 
-                //  Fallback: webhook without tooltip images 
+                // Fallback: webhook without tooltip images 
                 String webhookUrl = getWebhookUrl(channelId);
                 if (webhookUrl == null) {
                     TextChannel ch = jda.getTextChannelById(channelId);
@@ -355,7 +355,7 @@ public class DiscordIntegration extends ListenerAdapter {
                 sb.append("\"title\":\"").append(escapeJson(data.getItemName())).append("\"");
                 sb.append(",\"color\":").append(data.hasCustomName() ? 16750848 : 5635925); // orange for custom, teal for normal
 
-                // Thumbnail — item icon from Minecraft Wiki
+                // Thumbnail - item icon from Minecraft Wiki
                 String iconUrl = data.getItemIconUrl();
                 if (iconUrl != null) {
                     sb.append(",\"thumbnail\":{\"url\":\"").append(escapeJson(iconUrl)).append("\"}");
@@ -427,7 +427,7 @@ public class DiscordIntegration extends ListenerAdapter {
 
                 sb.append("]");
 
-                // Thumbnail — chest icon
+                // Thumbnail - chest icon
                 if (isEC) {
                     sb.append(",\"thumbnail\":{\"url\":\"https://minecraft.wiki/images/Invicon_Ender_Chest.png\"}");
                 } else {
@@ -655,7 +655,7 @@ public class DiscordIntegration extends ListenerAdapter {
         String content = event.getMessage().getContentDisplay().trim();
         String username = event.getAuthor().getEffectiveName();
 
-        //  c! prefix command (any channel) 
+        // c! prefix command (any channel) 
         String cmdPrefix = plugin.getConfig().getString("discord.console.commands.prefix", "c!");
         boolean prefixEnabled = plugin.getConfig().getBoolean("discord.console.commands.prefix-command-enabled", true);
 
@@ -671,7 +671,7 @@ public class DiscordIntegration extends ListenerAdapter {
             return;
         }
 
-        //  Console channel: full message = command 
+        // Console channel: full message = command 
         if (channelId.equals(consoleChannelId)) {
             boolean consoleCommandsEnabled = plugin.getConfig().getBoolean("discord.console.commands.enabled", true);
             if (consoleCommandsEnabled) {
@@ -686,7 +686,7 @@ public class DiscordIntegration extends ListenerAdapter {
             return;
         }
 
-        //  Chat channel: relay to Minecraft 
+        // Chat channel: relay to Minecraft 
         if (channelId.equals(chatChannelId)) {
             if (debugRelay) {
                 plugin.getLogger().info("Relaying Discord message to Minecraft: " + username + ": " + content);
@@ -698,7 +698,7 @@ public class DiscordIntegration extends ListenerAdapter {
 
             String format = plugin.getConfig().getString("discord.formats.discord-to-minecraft",
                     "&9[Discord] &r{user}&r: {message}");
-            // For pure-attachment messages (no text), use a blank {message} placeholder —
+            // For pure-attachment messages (no text), use a blank {message} placeholder -
             // the attachment components are appended separately below.
             String effectiveContent = content.isEmpty() && !attachments.isEmpty() ? "" : content;
             String minecraftMessage = format
@@ -763,7 +763,7 @@ public class DiscordIntegration extends ListenerAdapter {
                         }
 
                         if (attachmentComponents.isEmpty()) {
-                            // No attachments — plain text send (original behaviour)
+                            // No attachments - plain text send (original behaviour)
                             player.sendMessage(coloredMessage);
                         } else {
                             // Build a single BaseComponent array: text prefix + attachment links
@@ -787,7 +787,7 @@ public class DiscordIntegration extends ListenerAdapter {
                                     + (finalAttachments.isEmpty() ? "" : " [+" + finalAttachments.size() + " attachment(s)]"));
                         }
                     } else {
-                        // No channel found — broadcast to everyone
+                        // No channel found - broadcast to everyone
                         if (attachmentComponents.isEmpty()) {
                             Bukkit.broadcastMessage(coloredMessage);
                         } else {
@@ -889,7 +889,7 @@ public class DiscordIntegration extends ListenerAdapter {
                     dispatchServerMethod.invoke(craftServer, Bukkit.getConsoleSender(), command);
                     dispatched = true;
                 } catch (NoSuchMethodException ignored) {
-                    // Older/non-CraftBukkit build — fall through
+                    // Older/non-CraftBukkit build - fall through
                 }
                 if (!dispatched) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
@@ -901,7 +901,7 @@ public class DiscordIntegration extends ListenerAdapter {
 
             // Schedule capture flush 10 seconds after the command was dispatched.
             // Some commands (e.g. lp editor) generate output asynchronously and may
-            // take several seconds to print their result — 3 s was too short.
+            // take several seconds to print their result - 3 s was too short.
             Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, this::flushCmdCapture, 200L);
         });
     }
@@ -1130,7 +1130,7 @@ public class DiscordIntegration extends ListenerAdapter {
      * Starts the single background thread that drains {@link #pendingConsoleLines}
      * and batches them into Discord edits/sends at most once per second.
      * This is DiscordSRV's approach: never block the logging thread, never spawn
-     * a new task per line — one steady thread does all the REST work.
+     * a new task per line - one steady thread does all the REST work.
      */
     private void startConsoleFlushThread() {
         if (consoleChannelId == null || consoleChannelId.isEmpty()
@@ -1141,7 +1141,7 @@ public class DiscordIntegration extends ListenerAdapter {
                 try {
                     // Block until at least one line is available (avoids spin-waiting)
                     String first = pendingConsoleLines.poll(2, java.util.concurrent.TimeUnit.SECONDS);
-                    if (first == null) continue; // timeout — nothing to flush
+                    if (first == null) continue; // timeout - nothing to flush
 
                     // Drain ALL currently queued lines so we batch as many as possible
                     java.util.List<String> batch = new java.util.ArrayList<>();
@@ -1404,12 +1404,12 @@ public class DiscordIntegration extends ListenerAdapter {
      * Matches the Minecraft tooltip name colours used by IC-dsrv.
      */
     private static java.awt.Color rarityEmbedColor(com.kelpwing.kelpylandiaplugin.chat.ItemDisplayData data) {
-        if (data.hasCustomName()) return new java.awt.Color(0xFFAA00); // gold — custom name
+        if (data.hasCustomName()) return new java.awt.Color(0xFFAA00); // gold - custom name
         switch (data.getRarity()) {
             case UNCOMMON: return new java.awt.Color(0xFFFF55); // yellow
             case RARE:     return new java.awt.Color(0x55FFFF); // aqua
             case EPIC:     return new java.awt.Color(0xFF55FF); // light purple
-            default:       return new java.awt.Color(0xAAAAAA); // gray — common
+            default:       return new java.awt.Color(0xAAAAAA); // gray - common
         }
     }
 
@@ -2210,7 +2210,7 @@ public class DiscordIntegration extends ListenerAdapter {
         event.reply("✅ Test unmute message sent!").setEphemeral(true).queue();
     }
     
-    //  Economy: /price command 
+    // Economy: /price command 
     
     private void handlePriceCommand(SlashCommandInteractionEvent event) {
         EconomyManager eco = plugin.getEconomyManager();
@@ -2247,7 +2247,7 @@ public class DiscordIntegration extends ListenerAdapter {
                 }
                 
                 EmbedBuilder embed = new EmbedBuilder();
-                embed.setTitle("💰 " + itemName + " — Price Info");
+                embed.setTitle("💰 " + itemName + " - Price Info");
                 embed.setColor(new Color(0x2ECC71));
                 
                 // Sell price field
@@ -2644,7 +2644,7 @@ public class DiscordIntegration extends ListenerAdapter {
         List<String> blockedLevels = plugin.getConfig().getStringList("discord.console-logging.blocked-levels");
         if (blockedLevels.contains(level.toUpperCase())) return;
 
-        // Format the line — no blocking I/O here.  The logging thread must never block.
+        // Format the line - no blocking I/O here.  The logging thread must never block.
         String timestamp = DateTimeFormatter.ofPattern("HH:mm:ss").format(LocalTime.now());
         String normalizedLevel = level.toUpperCase();
         if (normalizedLevel.equals("SEVERE")) normalizedLevel = "ERROR";
@@ -2660,7 +2660,7 @@ public class DiscordIntegration extends ListenerAdapter {
             cmdCaptureLines.add(newLine);
         }
 
-        // Enqueue for the background flush thread — offer() never blocks the caller.
+        // Enqueue for the background flush thread - offer() never blocks the caller.
         pendingConsoleLines.offer(newLine);
     }
 }

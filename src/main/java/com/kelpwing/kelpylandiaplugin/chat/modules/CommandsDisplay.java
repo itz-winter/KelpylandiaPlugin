@@ -45,7 +45,7 @@ public class CommandsDisplay {
 
     private static final String JOINT_PATTERN = "(%c)|(%e)";
 
-    //  Helpers to read our config (same key names as IC) 
+    // Helpers to read our config (same key names as IC) 
 
     private static String getFormat() {
         JavaPlugin plugin = KelpylandiaPlugin.getInstance();
@@ -75,13 +75,13 @@ public class CommandsDisplay {
         return LegacyComponentSerializer.legacyAmpersand().deserialize(joined);
     }
 
-    //  Enabled check 
+    // Enabled check 
 
     public static boolean isEnabled() {
         return KelpylandiaPlugin.getInstance().getConfig().getBoolean("Commands.Enabled", true);
     }
 
-    //  Core process method (logic identical to IC) 
+    // Core process method (logic identical to IC) 
 
     public static Component process(Component component) {
         String format = getFormat();

@@ -14,15 +14,15 @@ import java.util.function.Function;
  * user-defined function ({@link KsFn}), and native (Java) function ({@link KsNative}).
  *
  * All instances are immutable except {@link #asList()} and {@link #asDict()} which
- * return the backing mutable collections — callers must not mutate them externally.
+ * return the backing mutable collections - callers must not mutate them externally.
  */
 public final class KsValue {
 
-        //  Type enum
+        // Type enum
     
     public enum Type { NUMBER, STRING, BOOLEAN, NULL, LIST, DICT, FUNCTION, NATIVE }
 
-        //  Fields
+        // Fields
     
     public final Type   type;
     private final Object raw;
@@ -32,13 +32,13 @@ public final class KsValue {
         this.raw  = raw;
     }
 
-        //  Well-known singletons
+        // Well-known singletons
     
     public static final KsValue NULL  = new KsValue(Type.NULL,    null);
     public static final KsValue TRUE  = new KsValue(Type.BOOLEAN, Boolean.TRUE);
     public static final KsValue FALSE = new KsValue(Type.BOOLEAN, Boolean.FALSE);
 
-        //  Factory methods
+        // Factory methods
     
     public static KsValue ofNum(double n)  { return new KsValue(Type.NUMBER,  n); }
     public static KsValue ofStr(String s)  { return new KsValue(Type.STRING,  s); }
@@ -60,7 +60,7 @@ public final class KsValue {
         return new KsValue(Type.NATIVE, new KsNative(name, fn));
     }
 
-        //  Typed accessors (unchecked — call after checking type)
+        // Typed accessors (unchecked - call after checking type)
     
     public double               asNum()    { return (Double)  raw; }
     public String               asStr()    { return (String)  raw; }
@@ -72,7 +72,7 @@ public final class KsValue {
     public KsFn                 asFn()     { return (KsFn)     raw; }
     public KsNative             asNative() { return (KsNative) raw; }
 
-        //  Truthiness (falsy: null, false, 0, "", [], {})
+        // Truthiness (falsy: null, false, 0, "", [], {})
     
     public boolean isTruthy() {
         switch (type) {
@@ -86,7 +86,7 @@ public final class KsValue {
         }
     }
 
-        //  Display
+        // Display
     
     @Override
     public String toString() {
@@ -129,7 +129,7 @@ public final class KsValue {
         }
     }
 
-        //  Equality
+        // Equality
     
     @Override
     public boolean equals(Object o) {
@@ -142,7 +142,7 @@ public final class KsValue {
     @Override
     public int hashCode() { return raw == null ? 0 : raw.hashCode(); }
 
-        //  Inner helper types
+        // Inner helper types
     
     /** A user-defined function value (name + param list + AST body). */
     public static final class KsFn {

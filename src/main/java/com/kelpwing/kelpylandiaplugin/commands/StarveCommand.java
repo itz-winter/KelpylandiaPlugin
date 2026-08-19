@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /starve [user] — Set a player's food level to 0 (starvation). Use * for all.
+ * /starve [user] - Set a player's food level to 0 (starvation). Use * for all.
  */
 public class StarveCommand implements CommandExecutor, TabCompleter {
 

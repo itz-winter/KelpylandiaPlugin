@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Manages player nicknames — loading, saving, and applying display names.
+ * Manages player nicknames - loading, saving, and applying display names.
  * Nicknames are stored in nicknames.yml keyed by player UUID.
  */
 public class NickManager {

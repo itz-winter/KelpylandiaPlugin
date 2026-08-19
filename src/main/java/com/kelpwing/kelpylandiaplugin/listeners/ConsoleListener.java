@@ -55,7 +55,7 @@ public class ConsoleListener extends Handler implements Listener {
         }
     }
 
-    //  log4j2 appender 
+    // log4j2 appender 
 
     private class Log4jAppender extends AbstractAppender {
         Log4jAppender() {
@@ -76,18 +76,18 @@ public class ConsoleListener extends Handler implements Listener {
             //
             // In Spigot/Paper, the JUL LogManager is bridged to log4j2, so JUL messages show up
             // in log4j2 too.  Bukkit plugin JUL loggers use simple names without dots (e.g.
-            // "LuckPerms", "EssentialsX") — our JUL Handler already captures those, so skip them
+            // "LuckPerms", "EssentialsX") - our JUL Handler already captures those, so skip them
             // here to avoid double-posting.
             //
             // Loggers with dotted names (e.g. "me.lucko.luckperms.*", "net.minecraft.*") come
-            // from SLF4J→log4j2 or NMS and are NOT captured by the JUL handler — relay those.
+            // from SLF4J→log4j2 or NMS and are NOT captured by the JUL handler - relay those.
             //
             // Explicitly excluded (handled by JUL or feedback-loop risk):
-            //   ""               — root logger (JUL bridge)
-            //   no dots in name  — Bukkit plugin JUL logger (simple plugin name)
-            //   com.kelpwing.*   — our own plugin (prevents Discord feedback loops)
-            //   org.bukkit.*     — Bukkit internals (JUL)
-            //   java.* / sun.* / javax.* / jdk.*  — JDK internals
+            //  ""               - root logger (JUL bridge)
+            //  no dots in name  - Bukkit plugin JUL logger (simple plugin name)
+            //  com.kelpwing.*   - our own plugin (prevents Discord feedback loops)
+            //  org.bukkit.*     - Bukkit internals (JUL)
+            //  java.* / sun.* / javax.* / jdk.*  - JDK internals
             boolean isJulHandled = loggerName.isEmpty()
                     || !loggerName.contains(".")          // simple name = Bukkit JUL plugin logger
                     || loggerName.startsWith("com.kelpwing")
@@ -114,7 +114,7 @@ public class ConsoleListener extends Handler implements Listener {
         }
     }
 
-    //  JUL handler 
+    // JUL handler 
 
     @Override
     public void publish(LogRecord record) {
@@ -122,7 +122,7 @@ public class ConsoleListener extends Handler implements Listener {
 
         synchronized (pendingRecords) {
             if (!discordReady) {
-                // Discord not up yet — check if it is now
+                // Discord not up yet - check if it is now
                 DiscordIntegration discord = plugin.getDiscordIntegration();
                 if (discord == null || !discord.isEnabled()) {
                     // Still not ready; buffer this record (cap at 500 to avoid unbounded growth)
@@ -132,7 +132,7 @@ public class ConsoleListener extends Handler implements Listener {
                     return;
                 }
 
-                // Discord just became ready — flush buffered records first
+                // Discord just became ready - flush buffered records first
                 discordReady = true;
                 for (LogRecord pending : pendingRecords) {
                     relay(discord, pending.getMessage(), pending.getLevel().getName());

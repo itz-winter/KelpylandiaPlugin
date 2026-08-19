@@ -322,7 +322,7 @@ permissions:
     default: true
 
   qol.homes.max.*:
-    description: Wildcard — grants all qol.homes.max.<n> nodes (do not assign directly)
+    description: Wildcard - grants all qol.homes.max.<n> nodes (do not assign directly)
     default: false
 
   qol.homes.max.1:
@@ -810,7 +810,7 @@ permissions:
     description: Allows viewing item price history
     default: true
 
-  # Legacy permission aliases — backward-compat for servers that
+  # Legacy permission aliases - backward-compat for servers that
   # already granted the old "kelpylandia.*" nodes.
   # Granting any of these automatically nhjmugrants the matching qol.*
   # node via Bukkit's children mechanism, so no reconfiguration

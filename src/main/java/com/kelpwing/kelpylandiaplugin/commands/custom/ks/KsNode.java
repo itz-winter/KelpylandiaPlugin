@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class KsNode {
 
     
-    //  Statement nodes
+    // Statement nodes
     
 
     /** Base class for all statement nodes. */
@@ -69,7 +69,7 @@ public abstract class KsNode {
         }
     }
 
-    /** {@code return [expr]} — value is null if bare return */
+    /** {@code return [expr]} - value is null if bare return */
     public static final class Return extends Stmt {
         public final Expr value;  // may be null
         public Return(Expr value) { this.value = value; }
@@ -81,7 +81,7 @@ public abstract class KsNode {
     /** {@code continue} */
     public static final class Continue extends Stmt {}
 
-    /** {@code print expr} — sends a message to the player */
+    /** {@code print expr} - sends a message to the player */
     public static final class Print extends Stmt {
         public final Expr value;
         public Print(Expr value) { this.value = value; }
@@ -120,7 +120,7 @@ public abstract class KsNode {
     }
 
     
-    //  Expression nodes
+    // Expression nodes
     
 
     /** Base class for all expression nodes. */
@@ -134,7 +134,7 @@ public abstract class KsNode {
 
     /**
      * A string literal: {@code "hello"} or {@code 'world'}.
-     * May contain {@code {$var}} interpolation placeholders — resolved at eval time.
+     * May contain {@code {$var}} interpolation placeholders - resolved at eval time.
      */
     public static final class StrLit extends Expr {
         public final String value;

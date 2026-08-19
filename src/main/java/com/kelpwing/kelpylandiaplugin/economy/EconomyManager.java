@@ -34,19 +34,19 @@ public class EconomyManager {
 
     private final KelpylandiaPlugin plugin;
 
-    //  Dynamic pricing engine 
+    // Dynamic pricing engine 
     private DynamicPricingEngine dynamicPricing;
 
-    //  Config (loaded from economy.yml) 
+    // Config (loaded from economy.yml) 
     private File economyFile;
     private FileConfiguration economyConfig;
 
-    //  Balance storage (YAML backend) 
+    // Balance storage (YAML backend) 
     private File balancesFile;
     private FileConfiguration balancesConfig;
     private final Map<UUID, BigDecimal> balanceCache = new ConcurrentHashMap<>();
 
-    //  Price caches (built from economy.yml on load) 
+    // Price caches (built from economy.yml on load) 
     /** Exact material -> price */
     private final Map<Material, BigDecimal> itemPrices = new LinkedHashMap<>();
     /** Tag-based category -> price (lower priority than item prices) */
@@ -60,7 +60,7 @@ public class EconomyManager {
     /** Explicit unsellable items with reason suffixes */
     private final Map<Material, String> unsellableItems = new LinkedHashMap<>();
 
-    //  Buy price caches 
+    // Buy price caches 
     /** Exact material -> buy price */
     private final Map<Material, BigDecimal> buyItemPrices = new LinkedHashMap<>();
     /** Tag-based category -> buy price */
@@ -68,7 +68,7 @@ public class EconomyManager {
     /** Custom category buy prices */
     private final Map<String, BigDecimal> buyCustomCategoryPrices = new LinkedHashMap<>();
 
-    //  Derived settings 
+    // Derived settings 
     private boolean enabled;
     private boolean useVault;
     private String unit;
@@ -89,7 +89,7 @@ public class EconomyManager {
     }
 
     
-    //  Config loading
+    // Config loading
     
 
     public void loadConfig() {
@@ -173,11 +173,11 @@ public class EconomyManager {
         buyCategoryPrices.clear();
         buyCustomCategoryPrices.clear();
 
-        //  Custom categories section 
+        // Custom categories section 
         // Defines groups of materials under arbitrary names.
         // Format:  categories:
-        //            minecraft_spawners:
-        //              items: [ZOMBIE_SPAWNER, SKELETON_SPAWNER, ...]
+        //           minecraft_spawners:
+        //             items: [ZOMBIE_SPAWNER, SKELETON_SPAWNER, ...]
         ConfigurationSection catSection = economyConfig.getConfigurationSection("categories");
         if (catSection != null) {
             for (String catName : catSection.getKeys(false)) {
@@ -198,7 +198,7 @@ public class EconomyManager {
             plugin.getLogger().info("[Economy] Loaded " + customCategories.size() + " custom category/ies.");
         }
 
-        //  Sellable section 
+        // Sellable section 
         ConfigurationSection sellable = economyConfig.getConfigurationSection("sellable");
         if (sellable != null) {
             for (String key : sellable.getKeys(false)) {
@@ -238,7 +238,7 @@ public class EconomyManager {
             }
         }
 
-        //  Unsellable section 
+        // Unsellable section 
         ConfigurationSection unsellableSection = economyConfig.getConfigurationSection("unsellable");
         if (unsellableSection != null) {
             for (String key : unsellableSection.getKeys(false)) {
@@ -254,7 +254,7 @@ public class EconomyManager {
         plugin.getLogger().info("[Economy] Loaded " + itemPrices.size() + " item price(s) and "
                 + totalCats + " category price(s).");
 
-        //  Buyable section 
+        // Buyable section 
         ConfigurationSection buyable = economyConfig.getConfigurationSection("buying.items");
         if (buyable != null) {
             for (String key : buyable.getKeys(false)) {
@@ -298,7 +298,7 @@ public class EconomyManager {
     }
 
     
-    //  Balance operations
+    // Balance operations
     
 
     public BigDecimal getBalance(UUID uuid) {
@@ -366,7 +366,7 @@ public class EconomyManager {
     }
 
     
-    //  Baltop
+    // Baltop
     
 
     /**
@@ -419,7 +419,7 @@ public class EconomyManager {
         Set<String> excludedPlayers = new HashSet<>(economyConfig.getStringList("baltop.exclude-players"));
         if (player.getName() != null && excludedPlayers.contains(player.getName())) return true;
 
-        // Permission-based exclusion — overrides config
+        // Permission-based exclusion - overrides config
         if (player.hasPermission("qol.economy.baltop.exclude")) return true;
 
         Set<String> excludedGroups = new HashSet<>(economyConfig.getStringList("baltop.exclude-groups"));
@@ -431,7 +431,7 @@ public class EconomyManager {
     }
 
     
-    //  Price lookups
+    // Price lookups
     
 
     /**
@@ -508,7 +508,7 @@ public class EconomyManager {
     }
 
     
-    //  Buy price lookups
+    // Buy price lookups
     
 
     /**
@@ -651,7 +651,7 @@ public class EconomyManager {
     }
 
     
-    //  Tax calculations
+    // Tax calculations
     
 
     public boolean isTaxEnabled() {
@@ -694,7 +694,7 @@ public class EconomyManager {
     }
 
     
-    //  Price management (admin commands)
+    // Price management (admin commands)
     
 
     public void setPrice(String key, double price) {
@@ -737,7 +737,7 @@ public class EconomyManager {
         return false;
     }
 
-    //  Buy price management 
+    // Buy price management 
 
     public void setBuyPrice(String key, double price) {
         economyConfig.set("buying.items." + key, price);
@@ -778,7 +778,7 @@ public class EconomyManager {
     }
 
     
-    //  Reload
+    // Reload
     
 
     public void reload() {
@@ -823,7 +823,7 @@ public class EconomyManager {
     }
 
     
-    //  Utility
+    // Utility
     
 
     private void saveEconomyConfig() {
@@ -906,7 +906,7 @@ public class EconomyManager {
                 economyConfig.getString("messages." + key, "&cMissing message: " + key));
     }
 
-    //  Getters 
+    // Getters 
 
     public boolean isEnabled() { return enabled; }
     public boolean isUseVault() { return useVault; }

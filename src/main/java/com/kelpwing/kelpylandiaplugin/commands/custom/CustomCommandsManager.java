@@ -54,7 +54,7 @@ public final class CustomCommandsManager {
         this.log    = plugin.getLogger();
     }
 
-    //  Public API
+    // Public API
 
     /**
      * Copies the default {@code custom-commands.yml} to the data folder (if absent),
@@ -73,7 +73,7 @@ public final class CustomCommandsManager {
                 + customCount + " custom command(s).");
     }
 
-        //  Aliases
+        // Aliases
     
     private int registerAliases(YamlConfiguration cfg) {
         ConfigurationSection aliases = cfg.getConfigurationSection("aliases");
@@ -121,7 +121,7 @@ public final class CustomCommandsManager {
         return count;
     }
 
-        //  Custom commands
+        // Custom commands
     
     private int registerCustomCommands(YamlConfiguration cfg) {
         ConfigurationSection commands = cfg.getConfigurationSection("custom_commands");
@@ -142,7 +142,7 @@ public final class CustomCommandsManager {
 
             if (inlineScript == null && file == null) {
                 log.warning("[CustomCommands] Command '" + cmdName
-                        + "' has no 'function' or 'file' — skipping.");
+                        + "' has no 'function' or 'file' - skipping.");
                 continue;
             }
 
@@ -171,7 +171,7 @@ public final class CustomCommandsManager {
         return count;
     }
 
-        //  Helpers
+        // Helpers
     
     /**
      * Copies the bundled resource to the plugin data folder if it does not

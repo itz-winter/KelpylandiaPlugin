@@ -10,17 +10,17 @@ import java.util.Map;
  *
  * <h3>Key behaviours</h3>
  * <ul>
- *   <li>Newlines are treated as whitespace and silently skipped — blocks are
+ *   <li>Newlines are treated as whitespace and silently skipped - blocks are
  *       delimited by {@code {}} rather than indentation.</li>
  *   <li>Line numbers are tracked for error messages.</li>
  *   <li>Comments: {@code #…} single-line; {@code ###…###} multi-line block.</li>
  *   <li>Strings: both double-quote and single-quote, with {@code \n \t \" \' \\} escapes.</li>
- *   <li>Numbers: integer and decimal (no sign — unary minus is an operator).</li>
+ *   <li>Numbers: integer and decimal (no sign - unary minus is an operator).</li>
  * </ul>
  */
 public final class KsLexer {
 
-        //  Keyword table
+        // Keyword table
     
     private static final Map<String, KsToken.Type> KEYWORDS = new HashMap<>();
 
@@ -47,7 +47,7 @@ public final class KsLexer {
         KEYWORDS.put("null",     KsToken.Type.NULL_LIT);
     }
 
-        //  State
+        // State
     
     private final char[] src;
     private int pos  = 0;
@@ -57,7 +57,7 @@ public final class KsLexer {
         this.src = source.toCharArray();
     }
 
-        //  Public API
+        // Public API
     
     /**
      * Tokenize the entire source and return the token list
@@ -73,7 +73,7 @@ public final class KsLexer {
         return tokens;
     }
 
-        //  Internal
+        // Internal
     
     /** Produce the next token, skipping all whitespace and comments first. */
     private KsToken next() {
@@ -88,7 +88,7 @@ public final class KsLexer {
         if (Character.isDigit(c))  return lexNumber(startLine);
         if (c == '_' || Character.isLetter(c)) return lexIdent(startLine);
 
-        //  Operators and punctuation 
+        // Operators and punctuation 
         pos++;
         switch (c) {
             case '+':
@@ -126,7 +126,7 @@ public final class KsLexer {
             case ':': return new KsToken(KsToken.Type.COLON,    ":",  startLine);
             case '.': return new KsToken(KsToken.Type.DOT,      ".",  startLine);
             default:
-                // Unknown character — skip and try again (graceful degradation)
+                // Unknown character - skip and try again (graceful degradation)
                 return next();
         }
     }

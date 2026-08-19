@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /fly [user] — Toggle flight mode. Use * to target all online players.
+ * /fly [user] - Toggle flight mode. Use * to target all online players.
  */
 public class FlyCommand implements CommandExecutor, TabCompleter {
 

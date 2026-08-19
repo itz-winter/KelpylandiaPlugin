@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /rules — Display the server rules to a player.
+ * /rules - Display the server rules to a player.
  * Rules are configured in config.yml under rules.lines.
  */
 public class RulesCommand implements CommandExecutor, TabCompleter {

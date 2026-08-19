@@ -25,20 +25,20 @@ import java.util.regex.Pattern;
  * <h3>Built-in functions registered in the constructor</h3>
  * <ul>
  *   <li>{@code str(v)}, {@code num(v)}, {@code int(v)}, {@code bool(v)}, {@code type(v)}</li>
- *   <li>{@code len(v)} — string / list / dict</li>
+ *   <li>{@code len(v)} - string / list / dict</li>
  *   <li>{@code upper(s)}, {@code lower(s)}, {@code trim(s)}</li>
  *   <li>{@code contains(collection, item)}</li>
  *   <li>{@code range(stop)}, {@code range(start, stop)}, {@code range(start, stop, step)}</li>
- *   <li>{@code random(min, max)} — inclusive random integer</li>
+ *   <li>{@code random(min, max)} - inclusive random integer</li>
  *   <li>{@code abs(n)}, {@code floor(n)}, {@code ceil(n)}, {@code round(n)}</li>
  *   <li>{@code min(a, b)}, {@code max(a, b)}, {@code pow(base, exp)}, {@code sqrt(n)}</li>
- *   <li>{@code colorize(s)} — translates {@code &} colour codes to §</li>
- *   <li>{@code strip_colors(s)} — removes § colour sequences from a string</li>
+ *   <li>{@code colorize(s)} - translates {@code &} colour codes to §</li>
+ *   <li>{@code strip_colors(s)} - removes § colour sequences from a string</li>
  * </ul>
  *
  * <h3>String interpolation</h3>
  * String literals containing {@code {$varName}} are resolved against the current
- * environment at evaluation time — no special AST node needed.
+ * environment at evaluation time - no special AST node needed.
  *
  * <h3>Method calls</h3>
  * String, list, and dict values support dot-method syntax matching the KelpyShark
@@ -46,10 +46,10 @@ import java.util.regex.Pattern;
  */
 public final class KsInterpreter {
 
-        //  Regex for string interpolation: {$varName}
+        // Regex for string interpolation: {$varName}
         private static final Pattern INTERP = Pattern.compile("\\{\\$([A-Za-z_][A-Za-z0-9_]*)\\}");
 
-        //  State
+        // State
         private final KsEnvironment env     = new KsEnvironment();
     private final Consumer<String> print;   // where `print` statements send output
     private final Random rng             = new Random();
@@ -65,7 +65,7 @@ public final class KsInterpreter {
         registerStdlib();
     }
 
-        //  Public API
+        // Public API
     
     /**
      * Register (or overwrite) a native built-in function by name.
@@ -100,7 +100,7 @@ public final class KsInterpreter {
         execBlock(program);
     }
 
-        //  Statement execution
+        // Statement execution
     
     /** Execute a list of statements in the current scope. */
     private void execBlock(List<KsNode.Stmt> stmts) {
@@ -227,7 +227,7 @@ public final class KsInterpreter {
         }
     }
 
-        //  Expression evaluation
+        // Expression evaluation
     
     public KsValue evalExpr(KsNode.Expr expr) {
         if (expr instanceof KsNode.NumLit) {
@@ -316,7 +316,7 @@ public final class KsInterpreter {
         }
     }
 
-        //  Binary operators
+        // Binary operators
     
     private KsValue evalBinOp(String op, KsValue l, KsValue r) {
         switch (op) {
@@ -366,7 +366,7 @@ public final class KsInterpreter {
         throw new KsException.Runtime("Cannot compare " + l.type + " and " + r.type);
     }
 
-        //  Function / method dispatch
+        // Function / method dispatch
     
     private KsValue callValue(KsValue callee, List<KsValue> args) {
         if (callee.type == KsValue.Type.NATIVE) {
@@ -403,7 +403,7 @@ public final class KsInterpreter {
         }
     }
 
-    //  String methods 
+    // String methods 
 
     private KsValue callStringMethod(String s, String method, List<KsValue> args) {
         switch (method) {
@@ -449,7 +449,7 @@ public final class KsInterpreter {
         }
     }
 
-    //  List methods 
+    // List methods 
 
     private KsValue callListMethod(List<KsValue> list, String method, List<KsValue> args) {
         switch (method) {
@@ -497,7 +497,7 @@ public final class KsInterpreter {
         }
     }
 
-    //  Dict methods 
+    // Dict methods 
 
     private KsValue callDictMethod(Map<String, KsValue> dict, String method, List<KsValue> args) {
         switch (method) {
@@ -533,7 +533,7 @@ public final class KsInterpreter {
         }
     }
 
-    //  Index / member access 
+    // Index / member access 
 
     private KsValue evalIndex(KsValue obj, KsValue idx) {
         if (obj.type == KsValue.Type.LIST) {
@@ -570,7 +570,7 @@ public final class KsInterpreter {
         throw new KsException.Runtime(obj.type + " does not support member access (use method call with parentheses)");
     }
 
-        //  String interpolation  "{$varName}"
+        // String interpolation  "{$varName}"
     
     private String interpolate(String s) {
         if (!s.contains("{$")) return s;
@@ -586,7 +586,7 @@ public final class KsInterpreter {
         return sb.toString();
     }
 
-        //  Argument helpers
+        // Argument helpers
     
     private List<KsValue> evalArgs(List<KsNode.Expr> exprs) {
         List<KsValue> vals = new ArrayList<>(exprs.size());
@@ -617,11 +617,11 @@ public final class KsInterpreter {
         return v;
     }
 
-        //  Standard library built-ins
+        // Standard library built-ins
     
     private void registerStdlib() {
 
-        //  Type conversion 
+        // Type conversion 
         registerNative("str", args -> KsValue.ofStr(reqArg(args, 0, "str").toString()));
 
         registerNative("num", args -> {
@@ -663,7 +663,7 @@ public final class KsInterpreter {
 
         registerNative("type", args -> KsValue.ofStr(reqArg(args, 0, "type").type.name().toLowerCase()));
 
-        //  Collections 
+        // Collections 
         registerNative("len", args -> {
             KsValue v = reqArg(args, 0, "len");
             switch (v.type) {
@@ -683,12 +683,12 @@ public final class KsInterpreter {
             throw new KsException.Runtime("contains(): unsupported type " + col.type);
         });
 
-        //  String helpers 
+        // String helpers 
         registerNative("upper", args -> KsValue.ofStr(str(args, 0, "upper").toUpperCase()));
         registerNative("lower", args -> KsValue.ofStr(str(args, 0, "lower").toLowerCase()));
         registerNative("trim",  args -> KsValue.ofStr(str(args, 0, "trim").trim()));
 
-        //  Range 
+        // Range 
         registerNative("range", args -> {
             double start, stop, step;
             if (args.size() == 1) {
@@ -707,7 +707,7 @@ public final class KsInterpreter {
             return KsValue.ofList(list);
         });
 
-        //  Math 
+        // Math 
         registerNative("random", args -> {
             int min = (int) num(args, 0, "random");
             int max = (int) num(args, 1, "random");
@@ -728,7 +728,7 @@ public final class KsInterpreter {
         registerNative("min",   args -> KsValue.ofNum(Math.min(num(args, 0, "min"),  num(args, 1, "min"))));
         registerNative("max",   args -> KsValue.ofNum(Math.max(num(args, 0, "max"),  num(args, 1, "max"))));
 
-        //  Colour helpers 
+        // Colour helpers 
         registerNative("colorize", args -> {
             String s = str(args, 0, "colorize");
             return KsValue.ofStr(org.bukkit.ChatColor.translateAlternateColorCodes('&', s));

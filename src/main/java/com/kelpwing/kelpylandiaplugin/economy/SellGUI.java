@@ -63,7 +63,7 @@ public class SellGUI implements Listener {
     }
 
     
-    //  Sell GUI close → process items
+    // Sell GUI close → process items
     
 
     @EventHandler
@@ -72,7 +72,7 @@ public class SellGUI implements Listener {
         Player player = (Player) event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        //  Sell GUI closed 
+        // Sell GUI closed 
         if (openGUIs.remove(uuid)) {
             if (!event.getView().getTitle().equals(GUI_TITLE)) return;
 
@@ -83,9 +83,9 @@ public class SellGUI implements Listener {
             return;
         }
 
-        //  Confirmation GUI closed (without clicking a button) 
+        // Confirmation GUI closed (without clicking a button) 
         if (pendingConfirmations.containsKey(uuid) && !transitioning.contains(uuid)) {
-            // Player closed the confirm GUI without clicking — treat as cancel
+            // Player closed the confirm GUI without clicking - treat as cancel
             PendingSale pending = pendingConfirmations.remove(uuid);
             if (pending != null) {
                 finaliseSale(player, eco(), pending, false);
@@ -109,7 +109,7 @@ public class SellGUI implements Listener {
             ItemStack item = gui.getItem(slot);
             if (item == null || item.getType() == Material.AIR) continue;
 
-            //  Shulker box handling 
+            // Shulker box handling 
             if (EconomyManager.isShulkerBox(item.getType()) && item.hasItemMeta()
                     && item.getItemMeta() instanceof BlockStateMeta) {
 
@@ -118,7 +118,7 @@ public class SellGUI implements Listener {
                 boolean isEmpty = isShulkerEmpty(shulker);
 
                 if (isEmpty) {
-                    // Empty shulker box — check if it's sellable
+                    // Empty shulker box - check if it's sellable
                     EconomyManager.PriceResult boxResult = eco.getPrice(item.getType());
                     if (boxResult.sellable) {
                         // Defer to confirmation
@@ -139,7 +139,7 @@ public class SellGUI implements Listener {
                 continue;
             }
 
-            //  Normal item 
+            // Normal item 
             EconomyManager.PriceResult priceResult = eco.getPrice(item.getType());
             if (priceResult.sellable) {
                 BigDecimal value = priceResult.price.multiply(BigDecimal.valueOf(item.getAmount()));
@@ -163,18 +163,18 @@ public class SellGUI implements Listener {
                 if (player.isOnline()) {
                     openConfirmGUI(player, eco, emptyShulkers);
                 } else {
-                    // Player left — cancel, return everything
+                    // Player left - cancel, return everything
                     pendingConfirmations.remove(player.getUniqueId());
                 }
             }, 1L);
         } else {
-            // No empty shulkers — finalise immediately
+            // No empty shulkers - finalise immediately
             finaliseSale(player, eco, pending, false);
         }
     }
 
     
-    //  Confirmation GUI for empty shulker boxes
+    // Confirmation GUI for empty shulker boxes
     
 
     private void openConfirmGUI(Player player, EconomyManager eco, List<ItemStack> emptyShulkers) {
@@ -248,13 +248,13 @@ public class SellGUI implements Listener {
         if (eco == null) return;
 
         if (slot == 2) {
-            //  Confirm: sell the empty shulkers 
+            // Confirm: sell the empty shulkers 
             transitioning.add(uuid);
             player.closeInventory();
             Bukkit.getScheduler().runTaskLater(plugin, () -> transitioning.remove(uuid), 2L);
             finaliseSale(player, eco, pending, true);
         } else if (slot == 6) {
-            //  Cancel: return the empty shulkers 
+            // Cancel: return the empty shulkers 
             transitioning.add(uuid);
             player.closeInventory();
             Bukkit.getScheduler().runTaskLater(plugin, () -> transitioning.remove(uuid), 2L);
@@ -264,7 +264,7 @@ public class SellGUI implements Listener {
     }
 
     
-    //  Finalise the sale — deposit money, return items, send messages
+    // Finalise the sale - deposit money, return items, send messages
     
 
     private void finaliseSale(Player player, EconomyManager eco, PendingSale pending, boolean sellEmptyShulkers) {
@@ -362,7 +362,7 @@ public class SellGUI implements Listener {
     }
 
     
-    //  Shulker box processing (non-empty boxes)
+    // Shulker box processing (non-empty boxes)
     
 
     /**
@@ -391,7 +391,7 @@ public class SellGUI implements Listener {
             }
         }
 
-        // All contents sold — the box is now empty after processing
+        // All contents sold - the box is now empty after processing
         if (!hasUnsellable && itemsSold > 0) {
             EconomyManager.PriceResult boxResult = eco.getPrice(shulkerItem.getType());
             if (boxResult.sellable) {
@@ -400,7 +400,7 @@ public class SellGUI implements Listener {
                 itemsSold++;
                 return new ShulkerResult(earnings, itemsSold, null);
             }
-            // Box not sellable — return it empty
+            // Box not sellable - return it empty
             shulker.getInventory().clear();
             meta.setBlockState(shulker);
             shulkerItem.setItemMeta(meta);
@@ -437,7 +437,7 @@ public class SellGUI implements Listener {
     }
 
     
-    //  Internal data classes
+    // Internal data classes
     
 
     private static class ShulkerResult {

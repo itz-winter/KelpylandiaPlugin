@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /warp <name> — Teleport to a server warp.
+ * /warp <name> - Teleport to a server warp.
  */
 public class WarpCommand implements CommandExecutor, TabCompleter {
 

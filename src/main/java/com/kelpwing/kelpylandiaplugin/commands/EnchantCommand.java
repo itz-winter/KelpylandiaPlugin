@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 /**
- * /enchant <enchantment> [level] [player] — Apply an enchantment to the item in hand.
+ * /enchant <enchantment> [level] [player] - Apply an enchantment to the item in hand.
  * Console may specify a player: /enchant <enchantment> [level] <player>
  * Supports unsafe enchantments (any level, any item) with the admin permission.
  */
@@ -136,7 +136,7 @@ public class EnchantCommand implements CommandExecutor, TabCompleter {
             }
             // Check for conflicts with enchantments already on the item.
             // Bukkit's addEnchantment() calls addUnsafeEnchantment() internally, which can
-            // silently replace/drop a conflicting enchantment — we catch it here first.
+            // silently replace/drop a conflicting enchantment - we catch it here first.
             for (Map.Entry<Enchantment, Integer> existing : item.getEnchantments().entrySet()) {
                 if (enchantment.conflictsWith(existing.getKey())) {
                     sender.sendMessage(ChatColor.RED + formatName(enchantment)

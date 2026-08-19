@@ -93,7 +93,7 @@ public class ShopEditGUI implements Listener {
             gui.setItem(slot, createPriceItem(eco, entry.getKey(), entry.getValue(), mode));
         }
 
-        //  Navigation row 
+        // Navigation row 
         // Previous page
         if (page > 0) {
             gui.setItem(SLOT_PREV, createNavItem(Material.ARROW, ChatColor.YELLOW + "← Previous Page"));
@@ -149,7 +149,7 @@ public class ShopEditGUI implements Listener {
         int slot = event.getRawSlot();
         if (slot < 0 || slot >= GUI_SIZE) return;
 
-        //  Navigation clicks 
+        // Navigation clicks 
         if (slot == SLOT_PREV) {
             int page = playerPages.getOrDefault(player.getUniqueId(), 0);
             if (page > 0) openGUI(player, page - 1);
@@ -188,7 +188,7 @@ public class ShopEditGUI implements Listener {
             return;
         }
 
-        //  Price item clicks 
+        // Price item clicks 
         if (slot < ITEMS_PER_PAGE) {
             ItemStack clicked = event.getCurrentItem();
             if (clicked == null || clicked.getType() == Material.AIR) return;
@@ -256,7 +256,7 @@ public class ShopEditGUI implements Listener {
                 break;
 
             case ADD_ITEM:
-                // They typed an item/category name — now ask for price
+                // They typed an item/category name - now ask for price
                 String configKey;
                 if (input.startsWith("#")) {
                     String tagName = input.substring(1);
@@ -309,7 +309,7 @@ public class ShopEditGUI implements Listener {
     }
 
     
-    //  Helpers
+    // Helpers
     
 
     private List<Map.Entry<String, Double>> getFilteredPrices(Player player, EditMode mode) {
@@ -333,7 +333,7 @@ public class ShopEditGUI implements Listener {
         String displayName;
 
         if (configKey.startsWith("#")) {
-            // Category — show a representative icon
+            // Category - show a representative icon
             displayMat = Material.NAME_TAG;
             displayName = ChatColor.LIGHT_PURPLE + configKey;
         } else {
@@ -388,7 +388,7 @@ public class ShopEditGUI implements Listener {
     }
 
     
-    //  Chat input state
+    // Chat input state
     
 
     private enum ChatInputType {

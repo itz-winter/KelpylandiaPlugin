@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * /sudo <user> <command|message> — Force a player to run a command or send a chat message.
+ * /sudo <user> <command|message> - Force a player to run a command or send a chat message.
  * If the text starts with "/" it is treated as a command, otherwise as a chat message.
  */
 public class SudoCommand implements CommandExecutor, TabCompleter {

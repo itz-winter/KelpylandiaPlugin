@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * /god [user] — Toggle god mode (invincibility). Use * to target all online players.
+ * /god [user] - Toggle god mode (invincibility). Use * to target all online players.
  * The set of god-mode players is exposed so GodListener can check it.
  */
 public class GodCommand implements CommandExecutor, TabCompleter {

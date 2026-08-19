@@ -21,7 +21,7 @@ public final class KsEnvironment {
         scopes.push(new HashMap<>());   // global scope
     }
 
-        //  Scope management
+        // Scope management
     
     /** Push a new (inner) scope. */
     public void push() {
@@ -33,7 +33,7 @@ public final class KsEnvironment {
         if (scopes.size() > 1) scopes.pop();
     }
 
-        //  Variable operations
+        // Variable operations
     
     /**
      * Declare or overwrite a variable in the <em>current</em> (innermost) scope.

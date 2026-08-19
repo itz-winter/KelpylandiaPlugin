@@ -118,7 +118,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- log4j2 — provided by Spigot/Paper server at runtime; needed to hook NMS console output -->
+        <!-- log4j2 - provided by Spigot/Paper server at runtime; needed to hook NMS console output -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -126,7 +126,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Adventure API — text components, serializers (legacy §, legacy &, plain text) -->
+        <!-- Adventure API - text components, serializers (legacy §, legacy &, plain text) -->
         <!-- Marked 'provided': Paper bundles a newer Adventure at runtime (4.17+, with           -->
         <!-- DataComponentValue support). Using provided ensures the server's copy is used        -->
         <!-- so that GsonComponentSerializer correctly serialises 1.20.5+ SHOW_ITEM components.   -->
@@ -155,7 +155,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Apache Commons Text — UnicodeUnescaper used by CustomStringUtils -->
+        <!-- Apache Commons Text - UnicodeUnescaper used by CustomStringUtils -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
@@ -177,7 +177,7 @@
                     <excludes>
                         <!-- Excluded: ChatUtils is superseded by ChatListener/ChatFormatUtils -->
                         <exclude>com/kelpwing/kelpylandiaplugin/chat/ChatUtils.java</exclude>
-                        <!-- Excluded: heavy IC-NMS files — not yet adapted, kept for reference -->
+                        <!-- Excluded: heavy IC-NMS files - not yet adapted, kept for reference -->
                         <exclude>com/kelpwing/kelpylandiaplugin/chat/modules/ItemDisplay.java</exclude>
                         <exclude>com/kelpwing/kelpylandiaplugin/chat/modules/InventoryDisplay.java</exclude>
                         <exclude>com/kelpwing/kelpylandiaplugin/chat/modules/EnderchestDisplay.java</exclude>

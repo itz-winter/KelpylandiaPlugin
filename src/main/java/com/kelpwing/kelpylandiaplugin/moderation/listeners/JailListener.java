@@ -34,7 +34,7 @@ public class JailListener implements Listener {
         return jm != null && jm.isJailed(player.getUniqueId());
     }
 
-    //  Movement 
+    // Movement 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerMove(PlayerMoveEvent event) {
@@ -47,7 +47,7 @@ public class JailListener implements Listener {
         }
     }
 
-    //  Chat 
+    // Chat 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
@@ -56,7 +56,7 @@ public class JailListener implements Listener {
         event.getPlayer().sendMessage(ChatColor.RED + "You cannot chat while jailed.");
     }
 
-    //  Commands (block all except release-related) 
+    // Commands (block all except release-related) 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
@@ -66,7 +66,7 @@ public class JailListener implements Listener {
         event.getPlayer().sendMessage(ChatColor.RED + "You cannot use commands while jailed.");
     }
 
-    //  Damage (make invulnerable so they can't die) 
+    // Damage (make invulnerable so they can't die) 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamage(EntityDamageEvent event) {
@@ -75,7 +75,7 @@ public class JailListener implements Listener {
         event.setCancelled(true);
     }
 
-    //  Hunger 
+    // Hunger 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onFoodChange(FoodLevelChangeEvent event) {
@@ -84,7 +84,7 @@ public class JailListener implements Listener {
         event.setCancelled(true);
     }
 
-    //  Inventory 
+    // Inventory 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onInventoryClick(InventoryClickEvent event) {
@@ -100,7 +100,7 @@ public class JailListener implements Listener {
         event.setCancelled(true);
     }
 
-    //  Item Drops & Pickups 
+    // Item Drops & Pickups 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerDropItem(PlayerDropItemEvent event) {
@@ -115,7 +115,7 @@ public class JailListener implements Listener {
         event.setCancelled(true);
     }
 
-    //  Block Interaction 
+    // Block Interaction 
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockBreakEvent event) {

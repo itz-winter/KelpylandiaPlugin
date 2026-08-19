@@ -9,16 +9,16 @@ package com.kelpwing.kelpylandiaplugin.commands.custom.ks;
 public final class KsToken {
 
     public enum Type {
-        //  Literals 
+        // Literals 
         NUMBER,     // 42  3.14
         STRING,     // "hello"  'world'
         BOOL_LIT,   // true  false
         NULL_LIT,   // null
 
-        //  Identifiers 
+        // Identifiers 
         IDENT,
 
-        //  Keywords 
+        // Keywords 
         DEF, IF, ELIF, ELSE,
         WHILE, FOR, IN,
         RETURN, BREAK, CONTINUE,
@@ -26,7 +26,7 @@ public final class KsToken {
         TRY, CATCH, THROW,
         AND, OR, NOT,
 
-        //  Operators 
+        // Operators 
         PLUS,       // +
         MINUS,      // -
         STAR,       // *
@@ -44,7 +44,7 @@ public final class KsToken {
         STAR_EQ,    // *=
         SLASH_EQ,   // /=
 
-        //  Punctuation 
+        // Punctuation 
         LPAREN,     // (
         RPAREN,     // )
         LBRACE,     // {
@@ -55,7 +55,7 @@ public final class KsToken {
         COLON,      // :
         DOT,        // .
 
-        //  Special 
+        // Special 
         EOF
     }
 

@@ -66,7 +66,7 @@ public final class CustomCommandExecutor implements CommandExecutor, TabComplete
         this.entry  = entry;
     }
 
-    //  CommandExecutor
+    // CommandExecutor
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -121,14 +121,14 @@ public final class CustomCommandExecutor implements CommandExecutor, TabComplete
         return true;
     }
 
-        //  TabCompleter (returns empty list by default)
+        // TabCompleter (returns empty list by default)
     
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         return new ArrayList<>();
     }
 
-        //  Script source resolution
+        // Script source resolution
     
     private String resolveSource() throws IOException {
         if (entry.script != null) return entry.script;
@@ -137,7 +137,7 @@ public final class CustomCommandExecutor implements CommandExecutor, TabComplete
         return new String(Files.readAllBytes(f.toPath()), java.nio.charset.StandardCharsets.UTF_8);
     }
 
-        //  Minecraft built-in injection
+        // Minecraft built-in injection
     
     @SuppressWarnings("deprecation")
     private void injectMinecraftBuiltins(KsInterpreter ks, Player player, String[] args) {
@@ -186,7 +186,7 @@ public final class CustomCommandExecutor implements CommandExecutor, TabComplete
             return KsValue.ofBool(player.hasPermission(a.get(0).toString()));
         });
 
-        //  Player info 
+        // Player info 
         ks.registerNative("player_name",       a -> KsValue.ofStr(player.getName()));
         ks.registerNative("player_display",    a -> KsValue.ofStr(player.getDisplayName()));
         ks.registerNative("player_world",      a -> KsValue.ofStr(player.getWorld().getName()));
@@ -199,7 +199,7 @@ public final class CustomCommandExecutor implements CommandExecutor, TabComplete
         ks.registerNative("player_y",          a -> KsValue.ofNum(player.getLocation().getY()));
         ks.registerNative("player_z",          a -> KsValue.ofNum(player.getLocation().getZ()));
 
-        //  Item giving 
+        // Item giving 
         // give(material_name, amount [, nbt_json])
         ks.registerNative("give", a -> {
             if (a.size() < 2) throw new KsException.Runtime("give() requires at least 2 arguments: give(material, amount)");

@@ -36,7 +36,7 @@ public class KitGUI implements Listener {
         this.plugin = plugin;
     }
 
-    //  Open preview 
+    // Open preview 
 
     public void openPreview(Player player, Kit kit) {
         int size = roundUpRows(kit.getItems().size());
@@ -51,10 +51,10 @@ public class KitGUI implements Listener {
         player.openInventory(gui);
     }
 
-    //  Open editor 
+    // Open editor 
 
     public void openEditor(Player player, Kit kit) {
-        // Editor is always 54 slots (6 rows) — the last row has a save indicator
+        // Editor is always 54 slots (6 rows) - the last row has a save indicator
         Inventory gui = Bukkit.createInventory(null, 54, EDITOR_PREFIX + ChatColor.WHITE + kit.getName());
 
         for (int i = 0; i < kit.getItems().size() && i < 45; i++) {
@@ -86,7 +86,7 @@ public class KitGUI implements Listener {
         player.openInventory(gui);
     }
 
-    //  Events 
+    // Events 
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
@@ -94,7 +94,7 @@ public class KitGUI implements Listener {
         Player player = (Player) event.getWhoClicked();
         UUID uuid = player.getUniqueId();
 
-        // Preview mode — cancel all clicks
+        // Preview mode - cancel all clicks
         if (previewSessions.containsKey(uuid)) {
             String title = event.getView().getTitle();
             if (title.startsWith(PREVIEW_PREFIX)) {
@@ -103,7 +103,7 @@ public class KitGUI implements Listener {
             return;
         }
 
-        // Editor mode — only block bottom row clicks
+        // Editor mode - only block bottom row clicks
         if (editorSessions.containsKey(uuid)) {
             String title = event.getView().getTitle();
             if (title.startsWith(EDITOR_PREFIX)) {
@@ -147,7 +147,7 @@ public class KitGUI implements Listener {
         }
     }
 
-    //  Helpers 
+    // Helpers 
 
     /**
      * Round item count up to the next multiple of 9 (inventory row size),

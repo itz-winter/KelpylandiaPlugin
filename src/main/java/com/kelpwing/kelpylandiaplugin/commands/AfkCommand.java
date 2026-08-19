@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * /afk — Toggle your AFK status.
+ * /afk - Toggle your AFK status.
  */
 public class AfkCommand implements CommandExecutor {
 

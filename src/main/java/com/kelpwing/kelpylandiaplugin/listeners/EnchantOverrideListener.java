@@ -20,7 +20,7 @@ import java.util.*;
  * <ul>
  *   <li>Infinity + Mending on bows and crossbows</li>
  *   <li>Multishot + Piercing on crossbows</li>
- *   <li>Sharpness + Smite (+ Bane of Arthropods) on swords and axes — any combo</li>
+ *   <li>Sharpness + Smite (+ Bane of Arthropods) on swords and axes - any combo</li>
  *   <li>Sword enchantments (Sharpness, Smite, Bane, Looting, Fire Aspect, Sweeping Edge, Knockback) on tridents</li>
  *   <li>Fortune + Silk Touch remains BLOCKED</li>
  * </ul>
@@ -52,7 +52,7 @@ public class EnchantOverrideListener implements Listener {
             Enchantment sweep = Enchantment.SWEEPING_EDGE;
             if (sweep != null) SWORD_ENCHANTS.add(sweep);
         } catch (NoSuchFieldError ignored) {
-            // Pre-1.11.1 — no sweeping edge
+            // Pre-1.11.1 - no sweeping edge
         }
     }
 
@@ -75,7 +75,7 @@ public class EnchantOverrideListener implements Listener {
         if (result != null) {
             event.setResult(result);
 
-            // Calculate and set the XP cost — without this the client won't let
+            // Calculate and set the XP cost - without this the client won't let
             // the player take the item out of the anvil.
             int cost = calculateCost(left, right, result);
             inv.setRepairCost(cost);
@@ -85,7 +85,7 @@ public class EnchantOverrideListener implements Listener {
             try {
                 inv.getClass().getMethod("setMaximumRepairCost", int.class).invoke(inv, Integer.MAX_VALUE);
             } catch (Exception ignored) {
-                // Spigot — no max-cost API; the default vanilla cap (40) still applies
+                // Spigot - no max-cost API; the default vanilla cap (40) still applies
             }
         }
     }
@@ -106,10 +106,10 @@ public class EnchantOverrideListener implements Listener {
             int resultLevel = entry.getValue();
 
             if (!leftEnchants.containsKey(ench)) {
-                // New enchantment added — cost scales with rarity
+                // New enchantment added - cost scales with rarity
                 cost += getEnchantWeight(ench) * resultLevel;
             } else if (leftEnchants.get(ench) < resultLevel) {
-                // Enchantment upgraded — cheaper
+                // Enchantment upgraded - cheaper
                 cost += getEnchantWeight(ench);
             }
         }
@@ -300,7 +300,7 @@ public class EnchantOverrideListener implements Listener {
         return item.getEnchantments();
     }
 
-    //  Material helpers 
+    // Material helpers 
 
     private boolean isBow(Material m) {
         return m == Material.BOW;

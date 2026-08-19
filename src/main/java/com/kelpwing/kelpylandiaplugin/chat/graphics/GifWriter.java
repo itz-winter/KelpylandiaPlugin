@@ -19,9 +19,9 @@
  */
 
 //
-//  GifSequenceWriter.java
+// GifSequenceWriter.java
 //
-//  Created by Elliot Kroo on 2009-04-25.
+// Created by Elliot Kroo on 2009-04-25.
 //
 // This work is licensed under the Creative Commons Attribution 3.0 Unported
 // License. To view a copy of this license, visit

@@ -28,12 +28,12 @@ public class PlayerEventListener implements Listener {
         this.channelManager = plugin.getChannelManager();
     }
 
-    /** Fetch lazily — DiscordIntegration is initialized after listeners are registered. */
+    /** Fetch lazily - DiscordIntegration is initialized after listeners are registered. */
     private DiscordIntegration getDiscord() {
         return plugin.getDiscordIntegration();
     }
 
-    //  DiscordSRV silent-event metadata 
+    // DiscordSRV silent-event metadata 
     // DiscordSRV checks for player metadata "DiscordSRV:silentjoin" and
     // "DiscordSRV:silentquit" to decide whether to skip its own join/leave
     // messages.  We tag vanished players before DiscordSRV's MONITOR listener
@@ -64,7 +64,7 @@ public class PlayerEventListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         
-        // Skip vanished players — VanishCommand fires fake join events for DiscordSRV;
+        // Skip vanished players - VanishCommand fires fake join events for DiscordSRV;
         // VanishCommand handles the in-game broadcast itself, so we must not duplicate it.
         VanishCommand vc = plugin.getVanishCommand();
         if (vc != null && vc.isVanished(player)) {
@@ -138,7 +138,7 @@ public class PlayerEventListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         
-        // Skip vanished players — VanishCommand fires fake quit events for DiscordSRV,
+        // Skip vanished players - VanishCommand fires fake quit events for DiscordSRV,
         // and VanishListener handles suppressing the real quit when a vanished player logs out.
         VanishCommand vc = plugin.getVanishCommand();
         if (vc != null && vc.isVanished(player)) {

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * /shop — Opens the server shop GUI for buying items.
+ * /shop - Opens the server shop GUI for buying items.
  */
 public class ShopCommand implements CommandExecutor, TabCompleter {
 

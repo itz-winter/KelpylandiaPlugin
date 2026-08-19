@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /flyspeed <speed> [player] — Set fly speed (0-10, default 1).
- * /walkspeed <speed> [player] — Set walk speed (0-10, default 1).
+ * /flyspeed <speed> [player] - Set fly speed (0-10, default 1).
+ * /walkspeed <speed> [player] - Set walk speed (0-10, default 1).
  *
  * Internally Bukkit uses -1.0 to 1.0 but we expose a 0-10 scale like EssentialsX.
  * Default fly speed = 1 (0.1 internal), default walk speed = 2 (0.2 internal).

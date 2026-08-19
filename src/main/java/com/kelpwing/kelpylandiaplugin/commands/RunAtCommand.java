@@ -21,7 +21,7 @@ import java.util.UUID;
  * /runat &lt;player|Console&gt; &lt;command...&gt;
  * <p>
  * Forces a command to be executed as the target player with a one-time
- * permission bypass — the target temporarily receives {@code *} so the
+ * permission bypass - the target temporarily receives {@code *} so the
  * command succeeds regardless of their actual permissions.
  * <p>
  * The special target name {@code Console} dispatches the command from the
@@ -65,7 +65,7 @@ public class RunAtCommand implements CommandExecutor, TabCompleter {
             commandStr = commandStr.substring(1);
         }
 
-        // --- Special target: "Console" — dispatch as the server console ---
+        // --- Special target: "Console" - dispatch as the server console ---
         if (targetName.equalsIgnoreCase("console")) {
             try {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandStr);
@@ -139,7 +139,7 @@ public class RunAtCommand implements CommandExecutor, TabCompleter {
             Collections.sort(names);
             return names;
         }
-        // No further tab completion — the command itself can be anything
+        // No further tab completion - the command itself can be anything
         return Collections.emptyList();
     }
 }

@@ -49,7 +49,7 @@ public final class KsParser {
         this.tokens = tokens;
     }
 
-        //  Public API
+        // Public API
     
     /** Parse the token list into a program (list of statements). */
     public List<KsNode.Stmt> parse() {
@@ -60,7 +60,7 @@ public final class KsParser {
         return stmts;
     }
 
-        //  Token helpers
+        // Token helpers
     
     private KsToken peek()           { return tokens.get(pos); }
     private KsToken peekAt(int off)  {
@@ -79,7 +79,7 @@ public final class KsParser {
         return consume();
     }
 
-        //  Statement parsers
+        // Statement parsers
     
     private KsNode.Stmt parseStmt() {
         KsToken t = peek();
@@ -182,7 +182,7 @@ public final class KsParser {
 
     /**
      * {@code return [expr]}
-     * The expression is optional — if the very next token cannot start an
+     * The expression is optional - if the very next token cannot start an
      * expression, a bare {@code return} (returns null) is parsed.
      */
     private KsNode.Stmt parseReturn() {
@@ -215,7 +215,7 @@ public final class KsParser {
         }
     }
 
-        //  Expression parsers (precedence, low → high)
+        // Expression parsers (precedence, low → high)
     
     private KsNode.Expr parseExpr()       { return parseOr(); }
 

@@ -71,7 +71,7 @@ public class HomeCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            // Multiple homes, no default — open GUI
+            // Multiple homes, no default - open GUI
             plugin.getHomeGUI().openGUI(player);
             return true;
         }

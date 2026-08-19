@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import java.util.Set;
 
 /**
- * /warps — List all available server warps.
+ * /warps - List all available server warps.
  */
 public class WarpsCommand implements CommandExecutor {
 

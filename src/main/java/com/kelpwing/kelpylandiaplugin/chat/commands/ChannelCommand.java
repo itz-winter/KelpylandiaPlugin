@@ -120,7 +120,8 @@ public class ChannelCommand implements CommandExecutor, TabCompleter {
         for (Channel channel : channels) {
             String defaultMarker = channel.isDefaultChannel() ? ChatColor.YELLOW + " (default)" : "";
             String globalMarker = channel.isGlobal() ? "" : ChatColor.GRAY + " (local)";
-            sender.sendMessage(ChatColor.WHITE + "- " + channel.getFormattedDisplayName() + defaultMarker + globalMarker);
+            sender.sendMessage(
+                    ChatColor.WHITE + "- " + channel.getFormattedDisplayName() + defaultMarker + globalMarker);
         }
         return true;
     }
@@ -143,8 +144,10 @@ public class ChannelCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(ChatColor.WHITE + "Name: " + channel.getName());
         sender.sendMessage(ChatColor.WHITE + "Display Name: " + channel.getDisplayName());
         sender.sendMessage(ChatColor.WHITE + "Permission: " + channel.getPermission());
-        sender.sendMessage(ChatColor.WHITE + "Prefix: " + ChatColor.translateAlternateColorCodes('&', channel.getPrefix()));
-        sender.sendMessage(ChatColor.WHITE + "Suffix: " + ChatColor.translateAlternateColorCodes('&', channel.getSuffix()));
+        sender.sendMessage(
+                ChatColor.WHITE + "Prefix: " + ChatColor.translateAlternateColorCodes('&', channel.getPrefix()));
+        sender.sendMessage(
+                ChatColor.WHITE + "Suffix: " + ChatColor.translateAlternateColorCodes('&', channel.getSuffix()));
         sender.sendMessage(ChatColor.WHITE + "Color: " + channel.getColor());
         sender.sendMessage(ChatColor.WHITE + "Format: " + channel.getFormat());
         sender.sendMessage(ChatColor.WHITE + "Global: " + (channel.isGlobal() ? "Yes" : "No"));
@@ -162,7 +165,8 @@ public class ChannelCommand implements CommandExecutor, TabCompleter {
     private boolean handleSetCommand(CommandSender sender, String[] args) {
         if (args.length < 4) {
             sender.sendMessage(ChatColor.RED + "Usage: /channel set <name> <property> <value>");
-            sender.sendMessage(ChatColor.WHITE + "Properties: displayname, prefix, suffix, color, permission, format, global, default, discord, range");
+            sender.sendMessage(ChatColor.WHITE
+                    + "Properties: displayname, prefix, suffix, color, permission, format, global, default, discord, range");
             return true;
         }
 
@@ -184,11 +188,13 @@ public class ChannelCommand implements CommandExecutor, TabCompleter {
                 break;
             case "prefix":
                 channel.setPrefix(value);
-                sender.sendMessage(ChatColor.GREEN + "Set prefix to: " + ChatColor.translateAlternateColorCodes('&', value));
+                sender.sendMessage(
+                        ChatColor.GREEN + "Set prefix to: " + ChatColor.translateAlternateColorCodes('&', value));
                 break;
             case "suffix":
                 channel.setSuffix(value);
-                sender.sendMessage(ChatColor.GREEN + "Set suffix to: " + ChatColor.translateAlternateColorCodes('&', value));
+                sender.sendMessage(
+                        ChatColor.GREEN + "Set suffix to: " + ChatColor.translateAlternateColorCodes('&', value));
                 break;
             case "color":
                 try {
@@ -258,14 +264,14 @@ public class ChannelCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 1) {
             completions.addAll(Arrays.asList("create", "delete", "list", "info", "set", "reload"));
-        } else if (args.length == 2 && (args[0].equalsIgnoreCase("delete") || 
-                   args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("set"))) {
+        } else if (args.length == 2 && (args[0].equalsIgnoreCase("delete") ||
+                args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("set"))) {
             for (Channel channel : plugin.getChannelManager().getAllChannels()) {
                 completions.add(channel.getName());
             }
         } else if (args.length == 3 && args[0].equalsIgnoreCase("set")) {
-            completions.addAll(Arrays.asList("displayname", "prefix", "suffix", "color", "permission", 
-                "format", "global", "default", "discord", "range"));
+            completions.addAll(Arrays.asList("displayname", "prefix", "suffix", "color", "permission",
+                    "format", "global", "default", "discord", "range"));
         } else if (args.length == 4 && args[0].equalsIgnoreCase("set")) {
             String property = args[2].toLowerCase();
             if (property.equals("color")) {

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * /unfreeze <player> — Unfreeze a frozen player.
+ * /unfreeze <player> - Unfreeze a frozen player.
  */
 public class UnfreezeCommand implements CommandExecutor, TabCompleter {
 

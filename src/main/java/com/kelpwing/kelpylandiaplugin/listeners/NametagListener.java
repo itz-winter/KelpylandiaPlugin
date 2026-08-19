@@ -20,8 +20,8 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * <p>Controlled by {@code nametag.add-owner-prefix} in config.yml:
  * <ul>
- *   <li>{@code false} (default / null) — vanilla behaviour; no prefix added.</li>
- *   <li>{@code true}  — the player's LuckPerms prefix is prepended to the name.</li>
+ *   <li>{@code false} (default / null) - vanilla behaviour; no prefix added.</li>
+ *   <li>{@code true}  - the player's LuckPerms prefix is prepended to the name.</li>
  * </ul>
  */
 public class NametagListener implements Listener {
@@ -34,7 +34,7 @@ public class NametagListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onNametagUse(PlayerInteractEntityEvent event) {
-        // Config gate — null/missing key also treated as false
+        // Config gate - null/missing key also treated as false
         if (!plugin.getConfig().getBoolean("nametag.add-owner-prefix", false)) return;
 
         Player player = event.getPlayer();
@@ -74,7 +74,7 @@ public class NametagListener implements Listener {
                     : player.getInventory().getItemInOffHand();
 
             // If the nametag is still there with the modified name, restore it
-            // (means vanilla didn't consume it — entity couldn't be named, etc.)
+            // (means vanilla didn't consume it - entity couldn't be named, etc.)
             if (current != null
                     && current.getType() == Material.NAME_TAG
                     && current.hasItemMeta()
@@ -87,7 +87,7 @@ public class NametagListener implements Listener {
         });
     }
 
-    //  Prefix helper (mirrors ChatFormatUtils.getPlayerPrefix) 
+    // Prefix helper (mirrors ChatFormatUtils.getPlayerPrefix) 
 
     private static String getPlayerPrefix(Player player) {
         try {

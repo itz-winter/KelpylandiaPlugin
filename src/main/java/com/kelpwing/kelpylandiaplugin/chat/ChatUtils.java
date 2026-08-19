@@ -1,6 +1,6 @@
 ﻿package com.kelpwing.kelpylandiaplugin.chat;
 
-// Formatting helpers only — IC command-box logic is in CommandsDisplay.java.
+// Formatting helpers only - IC command-box logic is in CommandsDisplay.java.
 
 import com.kelpwing.kelpylandiaplugin.KelpylandiaPlugin;
 import org.bukkit.entity.Player;

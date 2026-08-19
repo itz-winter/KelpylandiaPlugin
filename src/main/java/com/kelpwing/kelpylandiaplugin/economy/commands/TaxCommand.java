@@ -34,7 +34,7 @@ public class TaxCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // /tax set <rate> — admin
+        // /tax set <rate> - admin
         if (args.length >= 2 && args[0].equalsIgnoreCase("set")) {
             if (!sender.hasPermission("qol.economy.tax.edit")) {
                 sender.sendMessage(eco.getMessage("no-permission"));
@@ -54,7 +54,7 @@ public class TaxCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // /tax [amount] — view tax info, optionally calculate tax on an amount
+        // /tax [amount] - view tax info, optionally calculate tax on an amount
         if (!eco.isTaxEnabled()) {
             sender.sendMessage(ChatColor.YELLOW + "Tax is currently " + ChatColor.RED + "disabled" + ChatColor.YELLOW + ".");
             return true;

@@ -160,7 +160,7 @@ public class VanishCommand implements CommandExecutor {
             } catch (Exception e) {
                 plugin.getLogger().warning("Failed to forward fake leave to DiscordSRV: " + e.getMessage());
             }
-            return; // DiscordSRV handles it — don't double-send through our own integration
+            return; // DiscordSRV handles it - don't double-send through our own integration
         }
         
         // Fallback: send through our own Discord integration
@@ -200,7 +200,7 @@ public class VanishCommand implements CommandExecutor {
             } catch (Exception e) {
                 plugin.getLogger().warning("Failed to forward fake join to DiscordSRV: " + e.getMessage());
             }
-            return; // DiscordSRV handles it — don't double-send through our own integration
+            return; // DiscordSRV handles it - don't double-send through our own integration
         }
         
         // Fallback: send through our own Discord integration

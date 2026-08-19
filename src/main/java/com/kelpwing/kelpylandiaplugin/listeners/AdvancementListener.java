@@ -37,13 +37,13 @@ public class AdvancementListener implements Listener {
         if (vc != null && vc.isVanished(player)) {
             // Try Paper API to suppress the chat message directly
             try {
-                // Paper has event.message(Component) — call via reflection
+                // Paper has event.message(Component) - call via reflection
                 // Passing null suppresses the advancement chat broadcast
                 java.lang.reflect.Method msgMethod = event.getClass().getMethod("message",
                         Class.forName("net.kyori.adventure.text.Component"));
                 msgMethod.invoke(event, (Object) null);
             } catch (Exception ignored) {
-                // Not on Paper or method unavailable — fall through to revoke approach
+                // Not on Paper or method unavailable - fall through to revoke approach
             }
 
             // Revoke the advancement so it can be earned again later and to suppress

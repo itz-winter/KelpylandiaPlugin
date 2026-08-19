@@ -38,7 +38,7 @@ public class KitManager {
         loadCooldowns();
     }
 
-    //  File setup 
+    // File setup 
 
     private void setupFile() {
         kitsFile = new File(plugin.getDataFolder(), "kits.yml");
@@ -59,7 +59,7 @@ public class KitManager {
         kitsConfig = YamlConfiguration.loadConfiguration(kitsFile);
     }
 
-    //  Load / Save kits 
+    // Load / Save kits 
 
     private void loadKits() {
         kits.clear();
@@ -81,7 +81,7 @@ public class KitManager {
 
             // Items are stored as a list of serialized ItemStacks.
             // Bukkit's YAML loader may auto-deserialize them into ItemStack/CraftItemStack
-            // objects, or they may still be raw Maps — handle both cases.
+            // objects, or they may still be raw Maps - handle both cases.
             List<ItemStack> items = new ArrayList<>();
             List<?> rawItems = sec.getList("items");
             if (rawItems != null) {
@@ -91,7 +91,7 @@ public class KitManager {
                             // Already deserialized by Bukkit's YAML loader
                             items.add(is);
                         } else if (obj instanceof Map<?, ?> map) {
-                            // Raw map — deserialize manually
+                            // Raw map - deserialize manually
                             @SuppressWarnings("unchecked")
                             ItemStack item = ItemStack.deserialize(toStringMap(map));
                             items.add(item);
@@ -144,7 +144,7 @@ public class KitManager {
         loadCooldowns();
     }
 
-    //  Cooldown management 
+    // Cooldown management 
 
     private void loadCooldowns() {
         cooldowns.clear();
@@ -188,7 +188,7 @@ public class KitManager {
         if (lastClaim == null) return 0;
 
         if (kit.isOneTime()) {
-            return -1; // already claimed once — never again
+            return -1; // already claimed once - never again
         }
 
         if (kit.hasNoCooldown() || kit.getCooldownSeconds() <= 0) {
@@ -216,7 +216,7 @@ public class KitManager {
         return sb.toString().trim();
     }
 
-    //  Give kit to player 
+    // Give kit to player 
 
     /**
      * Attempts to give a kit to a player.
@@ -258,7 +258,7 @@ public class KitManager {
         return new GiveResult(true, "Kit " + kit.getName() + " claimed!" + extra);
     }
 
-    //  Queries 
+    // Queries 
 
     public Kit getKit(String name) {
         return kits.get(name.toLowerCase());
@@ -330,7 +330,7 @@ public class KitManager {
         return available;
     }
 
-    //  Utility 
+    // Utility 
 
     private void saveFile() {
         try {
@@ -349,7 +349,7 @@ public class KitManager {
         return result;
     }
 
-    //  Result wrapper 
+    // Result wrapper 
 
     public static class GiveResult {
         private final boolean success;

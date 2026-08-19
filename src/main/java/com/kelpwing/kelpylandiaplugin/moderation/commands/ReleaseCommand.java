@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * /release <player> [reason] — Release a jailed player.
+ * /release <player> [reason] - Release a jailed player.
  */
 public class ReleaseCommand implements CommandExecutor, TabCompleter {
 

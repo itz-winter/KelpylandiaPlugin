@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /setwarp <name> — Create or overwrite a server warp (admin only).
+ * /setwarp <name> - Create or overwrite a server warp (admin only).
  */
 public class SetWarpCommand implements CommandExecutor, TabCompleter {
 

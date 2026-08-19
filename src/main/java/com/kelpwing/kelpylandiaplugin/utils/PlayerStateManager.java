@@ -37,11 +37,11 @@ public class PlayerStateManager {
         return new File(dataFolder, uuid.toString() + ".yml");
     }
 
-    //  Immediate per-key save (called from toggle commands) 
+    // Immediate per-key save (called from toggle commands) 
 
     /**
      * Immediately persist a single boolean toggle to the player's data file.
-     * This is the primary persistence mechanism — called by VanishCommand,
+     * This is the primary persistence mechanism - called by VanishCommand,
      * SpyManager toggles, GodCommand, etc. at the moment the state changes.
      */
     public void saveToggle(UUID uuid, String key, boolean value) {
@@ -74,35 +74,35 @@ public class PlayerStateManager {
         return cfg.getBoolean(key, fallback);
     }
 
-    //  Full save on quit (safety net) 
+    // Full save on quit (safety net) 
 
     /**
      * Save all relevant toggle states for a player. Called on quit as a
-     * safety net — the individual toggles should already be written.
+     * safety net - the individual toggles should already be written.
      */
     public void saveState(Player player) {
         UUID uuid = player.getUniqueId();
         File file = getPlayerFile(uuid);
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
-        // Fly (only saved here — no toggle-time save for fly)
+        // Fly (only saved here - no toggle-time save for fly)
         cfg.set("fly", player.getAllowFlight());
 
-        // God — also written at toggle time, but write again as safety
+        // God - also written at toggle time, but write again as safety
         boolean god = false;
         if (plugin.getGodCommand() != null) {
             god = plugin.getGodCommand().isGod(player);
             cfg.set("god", god);
         }
 
-        // Vanish — already written at toggle time, write again as safety
+        // Vanish - already written at toggle time, write again as safety
         boolean vanish = false;
         if (plugin.getVanishCommand() != null) {
             vanish = plugin.getVanishCommand().isVanished(player);
             cfg.set("vanish", vanish);
         }
 
-        // SocialSpy / CommandSpy — already written at toggle time
+        // SocialSpy / CommandSpy - already written at toggle time
         boolean ss = false, cs = false;
         if (plugin.getSpyManager() != null) {
             ss = plugin.getSpyManager().isSocialSpy(uuid);
@@ -129,7 +129,7 @@ public class PlayerStateManager {
         try {
             cfg.save(file);
             plugin.getLogger().info("[StateManager] saveState for " + player.getName()
-                    + " — fly=" + player.getAllowFlight() + " god=" + god
+                    + " - fly=" + player.getAllowFlight() + " god=" + god
                     + " vanish=" + vanish + " ss=" + ss + " cs=" + cs
                     + " → " + file.getAbsolutePath());
         } catch (IOException e) {
@@ -137,7 +137,7 @@ public class PlayerStateManager {
         }
     }
 
-    //  Restore on join 
+    // Restore on join 
 
     /**
      * Restore all relevant toggle states for a player on join.
@@ -153,7 +153,7 @@ public class PlayerStateManager {
         if (!file.exists()) return;
 
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-        plugin.getLogger().info("[StateManager] File contents — fly=" + cfg.getBoolean("fly", false)
+        plugin.getLogger().info("[StateManager] File contents - fly=" + cfg.getBoolean("fly", false)
                 + " god=" + cfg.getBoolean("god", false)
                 + " vanish=" + cfg.getBoolean("vanish", false)
                 + " socialspy=" + cfg.getBoolean("socialspy", false)
@@ -174,7 +174,7 @@ public class PlayerStateManager {
             plugin.getLogger().info("[StateManager] Restored god for " + player.getName());
         }
 
-        // Vanish — add to vanished set immediately (so join message is suppressed),
+        // Vanish - add to vanished set immediately (so join message is suppressed),
         // then re-apply hidePlayer 1 tick later so vanilla join doesn't override it.
         boolean shouldVanish = plugin.getConfig().getBoolean("state-persistence.vanish", true)
                 && cfg.getBoolean("vanish", false) && plugin.getVanishCommand() != null;
@@ -207,7 +207,7 @@ public class PlayerStateManager {
             if (csRestored) plugin.getSpyManager().setCommandSpy(uuid, true);
             if (ssRestored || csRestored) {
                 plugin.getLogger().info("[StateManager] Restored spy for " + player.getName()
-                    + " — socialspy=" + ssRestored + " commandspy=" + csRestored);
+                    + " - socialspy=" + ssRestored + " commandspy=" + csRestored);
                 final boolean ss = ssRestored;
                 final boolean cs = csRestored;
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
@@ -229,7 +229,7 @@ public class PlayerStateManager {
             }
         }
 
-        // Chat channel — restored after setPlayerToDefaultChannel so this overrides it
+        // Chat channel - restored after setPlayerToDefaultChannel so this overrides it
         if (plugin.getConfig().getBoolean("state-persistence.channel", true)
                 && plugin.getChannelManager() != null) {
             String savedChannel = cfg.getString("channel");

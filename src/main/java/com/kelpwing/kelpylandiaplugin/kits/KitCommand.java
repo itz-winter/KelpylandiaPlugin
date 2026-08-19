@@ -16,19 +16,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * /kit <name>                  — Claim a kit
- * /kit list                    — List available kits
- * /kit preview <name>          — Preview a kit's contents (opens GUI)
- * /kit give <player> <name>    — Give a kit to another player (admin)
- * /kit create <name> [cooldown] — Create a kit from your inventory (admin)
- * /kit edit <name>             — Edit a kit's items in a GUI (admin)
- * /kit delete <name>           — Delete a kit (admin)
- * /kit reload                  — Reload kits from file (admin)
- * /kit info <name>             — Show kit metadata (admin)
- * /kit setcooldown <name> <seconds> — Set cooldown (admin)
- * /kit seticon <name> [material]    — Set display icon (admin, defaults to held item type)
- * /kit setdesc <name> <description> — Set description (admin)
- * /kit setperm <name> <permission>  — Set required permission (admin)
+ * /kit <name>                  - Claim a kit
+ * /kit list                    - List available kits
+ * /kit preview <name>          - Preview a kit's contents (opens GUI)
+ * /kit give <player> <name>    - Give a kit to another player (admin)
+ * /kit create <name> [cooldown] - Create a kit from your inventory (admin)
+ * /kit edit <name>             - Edit a kit's items in a GUI (admin)
+ * /kit delete <name>           - Delete a kit (admin)
+ * /kit reload                  - Reload kits from file (admin)
+ * /kit info <name>             - Show kit metadata (admin)
+ * /kit setcooldown <name> <seconds> - Set cooldown (admin)
+ * /kit seticon <name> [material]    - Set display icon (admin, defaults to held item type)
+ * /kit setdesc <name> <description> - Set description (admin)
+ * /kit setperm <name> <permission>  - Set required permission (admin)
  */
 public class KitCommand implements CommandExecutor, TabCompleter {
 
@@ -94,7 +94,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    //  Claim 
+    // Claim 
 
     private boolean handleClaim(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
@@ -115,7 +115,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  List 
+    // List 
 
     private boolean handleList(CommandSender sender) {
         KitManager km = plugin.getKitManager();
@@ -166,7 +166,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Preview 
+    // Preview 
 
     private boolean handlePreview(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
@@ -188,7 +188,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Give 
+    // Give 
 
     private boolean handleGive(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -228,7 +228,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Create 
+    // Create 
 
     private boolean handleCreate(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -271,7 +271,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         }
 
         if (items.isEmpty()) {
-            sender.sendMessage(ChatColor.RED + "Your inventory is empty — put items in your inventory first.");
+            sender.sendMessage(ChatColor.RED + "Your inventory is empty - put items in your inventory first.");
             return true;
         }
 
@@ -283,7 +283,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Edit 
+    // Edit 
 
     private boolean handleEdit(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -309,7 +309,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Delete 
+    // Delete 
 
     private boolean handleDelete(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -333,7 +333,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Reload 
+    // Reload 
 
     private boolean handleReload(CommandSender sender) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -345,7 +345,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Info 
+    // Info 
 
     private boolean handleInfo(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -374,7 +374,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Set Cooldown 
+    // Set Cooldown 
 
     private boolean handleSetCooldown(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -404,7 +404,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Set Icon 
+    // Set Icon 
 
     private boolean handleSetIcon(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -447,7 +447,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Set Description 
+    // Set Description 
 
     private boolean handleSetDesc(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -472,7 +472,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Set Permission 
+    // Set Permission 
 
     private boolean handleSetPerm(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -498,7 +498,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Set First Join 
+    // Set First Join 
 
     private boolean handleSetFirstJoin(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -523,7 +523,7 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Set One-Time 
+    // Set One-Time 
 
     private boolean handleSetOneTime(CommandSender sender, String[] args) {
         if (!sender.hasPermission("qol.kit.admin")) {
@@ -548,30 +548,30 @@ public class KitCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  Usage 
+    // Usage 
 
     private void sendUsage(CommandSender sender) {
         sender.sendMessage(ChatColor.GOLD + " Kit Commands ");
-        sender.sendMessage(ChatColor.YELLOW + "/kit <name>" + ChatColor.GRAY + " — Claim a kit");
-        sender.sendMessage(ChatColor.YELLOW + "/kit list" + ChatColor.GRAY + " — List available kits");
-        sender.sendMessage(ChatColor.YELLOW + "/kit preview <name>" + ChatColor.GRAY + " — Preview a kit");
+        sender.sendMessage(ChatColor.YELLOW + "/kit <name>" + ChatColor.GRAY + " - Claim a kit");
+        sender.sendMessage(ChatColor.YELLOW + "/kit list" + ChatColor.GRAY + " - List available kits");
+        sender.sendMessage(ChatColor.YELLOW + "/kit preview <name>" + ChatColor.GRAY + " - Preview a kit");
         if (sender.hasPermission("qol.kit.admin")) {
-            sender.sendMessage(ChatColor.YELLOW + "/kit give <player> <kit>" + ChatColor.GRAY + " — Give kit to player");
-            sender.sendMessage(ChatColor.YELLOW + "/kit create <name> [cooldown]" + ChatColor.GRAY + " — Create from inventory");
-            sender.sendMessage(ChatColor.YELLOW + "/kit edit <name>" + ChatColor.GRAY + " — Edit kit items in GUI");
-            sender.sendMessage(ChatColor.YELLOW + "/kit delete <name>" + ChatColor.GRAY + " — Delete a kit");
-            sender.sendMessage(ChatColor.YELLOW + "/kit info <name>" + ChatColor.GRAY + " — Show kit details");
-            sender.sendMessage(ChatColor.YELLOW + "/kit setcooldown <name> <seconds>" + ChatColor.GRAY + " — Set cooldown");
-            sender.sendMessage(ChatColor.YELLOW + "/kit seticon <name> [material]" + ChatColor.GRAY + " — Set display icon");
-            sender.sendMessage(ChatColor.YELLOW + "/kit setdesc <name> <desc>" + ChatColor.GRAY + " — Set description");
-            sender.sendMessage(ChatColor.YELLOW + "/kit setperm <name> <perm>" + ChatColor.GRAY + " — Set permission");
-            sender.sendMessage(ChatColor.YELLOW + "/kit setfirstjoin <name> <true|false>" + ChatColor.GRAY + " — Give on first join");
-            sender.sendMessage(ChatColor.YELLOW + "/kit setonetime <name> <true|false>" + ChatColor.GRAY + " — Claim once only");
-            sender.sendMessage(ChatColor.YELLOW + "/kit reload" + ChatColor.GRAY + " — Reload from file");
+            sender.sendMessage(ChatColor.YELLOW + "/kit give <player> <kit>" + ChatColor.GRAY + " - Give kit to player");
+            sender.sendMessage(ChatColor.YELLOW + "/kit create <name> [cooldown]" + ChatColor.GRAY + " - Create from inventory");
+            sender.sendMessage(ChatColor.YELLOW + "/kit edit <name>" + ChatColor.GRAY + " - Edit kit items in GUI");
+            sender.sendMessage(ChatColor.YELLOW + "/kit delete <name>" + ChatColor.GRAY + " - Delete a kit");
+            sender.sendMessage(ChatColor.YELLOW + "/kit info <name>" + ChatColor.GRAY + " - Show kit details");
+            sender.sendMessage(ChatColor.YELLOW + "/kit setcooldown <name> <seconds>" + ChatColor.GRAY + " - Set cooldown");
+            sender.sendMessage(ChatColor.YELLOW + "/kit seticon <name> [material]" + ChatColor.GRAY + " - Set display icon");
+            sender.sendMessage(ChatColor.YELLOW + "/kit setdesc <name> <desc>" + ChatColor.GRAY + " - Set description");
+            sender.sendMessage(ChatColor.YELLOW + "/kit setperm <name> <perm>" + ChatColor.GRAY + " - Set permission");
+            sender.sendMessage(ChatColor.YELLOW + "/kit setfirstjoin <name> <true|false>" + ChatColor.GRAY + " - Give on first join");
+            sender.sendMessage(ChatColor.YELLOW + "/kit setonetime <name> <true|false>" + ChatColor.GRAY + " - Claim once only");
+            sender.sendMessage(ChatColor.YELLOW + "/kit reload" + ChatColor.GRAY + " - Reload from file");
         }
     }
 
-    //  Tab completion 
+    // Tab completion 
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {

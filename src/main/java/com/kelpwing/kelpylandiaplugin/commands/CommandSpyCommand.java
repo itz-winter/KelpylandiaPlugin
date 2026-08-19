@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * /cs or /commandspy — Toggle command spy (see all commands other players run).
+ * /cs or /commandspy - Toggle command spy (see all commands other players run).
  */
 public class CommandSpyCommand implements CommandExecutor {
 

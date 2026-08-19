@@ -33,7 +33,7 @@ public class ChatListener implements Listener {
     }
 
     /**
-     * HIGHEST priority — runs after most other plugins.
+     * HIGHEST priority - runs after most other plugins.
      *
      * Handles: whisper redirect, mute check, permission check, channel recipients,
      * chat formatting, [item]/[inv]/[enderchest] replacement, SocialSpy, and
@@ -45,7 +45,7 @@ public class ChatListener implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        //  Whisper redirect 
+        // Whisper redirect 
         MsgCommand msgCmd = plugin.getMsgCommand();
         if (msgCmd != null) {
             UUID targetUUID = msgCmd.getWhisperTarget(player.getUniqueId());
@@ -69,27 +69,27 @@ public class ChatListener implements Listener {
             }
         }
 
-        //  Mute check 
+        // Mute check 
         if (ChatFormatUtils.isPlayerMuted(player)) {
             player.sendMessage(ChatColor.RED + "You are currently muted and cannot speak.");
             event.setCancelled(true);
             return;
         }
 
-        //  Channel resolution 
+        // Channel resolution 
         Channel playerChannel = plugin.getChannelManager().getPlayerChannel(player);
         if (playerChannel == null) {
             playerChannel = plugin.getChannelManager().getDefaultChannel();
         }
 
-        //  Permission check 
+        // Permission check 
         if (!ChatFormatUtils.hasPermission(player, playerChannel.getPermission())) {
             player.sendMessage(ChatColor.RED + "You don't have permission to speak in this channel.");
             event.setCancelled(true);
             return;
         }
 
-        //  Determine recipients 
+        // Determine recipients 
         Set<Player> recipients;
         if (!playerChannel.isGlobal()) {
             recipients = new HashSet<>();
@@ -102,7 +102,7 @@ public class ChatListener implements Listener {
             recipients = new HashSet<>(event.getRecipients());
         }
 
-        //  SocialSpy for non-global channels 
+        // SocialSpy for non-global channels 
         if (!playerChannel.isGlobal()) {
             SpyManager spyManager = plugin.getSpyManager();
             if (spyManager != null) {
@@ -120,25 +120,25 @@ public class ChatListener implements Listener {
             }
         }
 
-        //  Check for item-display keywords 
+        // Check for item-display keywords 
         ItemDisplayManager idm = plugin.getItemDisplayManager();
         boolean hasKeywords = idm != null && idm.containsKeyword(message);
 
         if (hasKeywords) {
-            // Cancel the vanilla event — we'll send JSON components ourselves
+            // Cancel the vanilla event - we'll send JSON components ourselves
             event.setCancelled(true);
 
             // Must build components on the main thread because we access player inventory.
             // AsyncPlayerChatEvent is async, so schedule synchronously.
             final Set<Player> finalRecipients = recipients;
             final Channel finalChannel = playerChannel;
-            // idm is non-null here — guarded by hasKeywords = idm != null && ...
+            // idm is non-null here - guarded by hasKeywords = idm != null && ...
             final ItemDisplayManager safeIdm = idm;
 
             Bukkit.getScheduler().runTask(plugin, () -> {
                 // Build the FULL formatted line first (prefix + message), then pass it
                 // to buildChatLine so the entire string is parsed in one fromLegacyText()
-                // call — this preserves colour inheritance across the whole line (IC approach).
+                // call - this preserves colour inheritance across the whole line (IC approach).
                 String fullLine = ChatFormatUtils.formatMessage(plugin, player, finalChannel, message);
                 BaseComponent[] components = safeIdm.buildChatLine(player, fullLine);
 
@@ -154,7 +154,7 @@ public class ChatListener implements Listener {
                 relayToDiscord(player, message, finalChannel, true);
             });
         } else {
-            // No item keywords — check for clickable [/command] patterns
+            // No item keywords - check for clickable [/command] patterns
             String fullLine = ChatFormatUtils.formatMessage(plugin, player, playerChannel, message);
 
             if (CommandsDisplay.isEnabled()) {
@@ -162,7 +162,7 @@ public class ChatListener implements Listener {
                 net.kyori.adventure.text.Component lineComponent =
                         LegacyComponentSerializer.legacySection().deserialize(fullLine);
                 net.kyori.adventure.text.Component processed = CommandsDisplay.process(lineComponent);
-                // Compare serialized legacy strings — object equality is unreliable because
+                // Compare serialized legacy strings - object equality is unreliable because
                 // ComponentReplacing always flattens/compacts the tree even when nothing matched.
                 String serializedBefore = LegacyComponentSerializer.legacySection().serialize(lineComponent);
                 String serializedAfter  = LegacyComponentSerializer.legacySection().serialize(processed);
@@ -186,7 +186,7 @@ public class ChatListener implements Listener {
                     plugin.getLogger().info("[" + cmdChannel.getName() + "] " + player.getName() + ": " + message);
                     relayToDiscord(player, message, cmdChannel, false);
                 } else {
-                    // Plain text — let Bukkit dispatch normally
+                    // Plain text - let Bukkit dispatch normally
                     event.setFormat(fullLine.replace("%", "%%"));
 
                     if (!playerChannel.isGlobal()) {
@@ -198,7 +198,7 @@ public class ChatListener implements Listener {
                     relayToDiscord(player, message, playerChannel, false);
                 }
             } else {
-                // Commands module disabled — plain text
+                // Commands module disabled - plain text
                 event.setFormat(fullLine.replace("%", "%%"));
 
                 if (!playerChannel.isGlobal()) {
@@ -212,7 +212,7 @@ public class ChatListener implements Listener {
         }
     }
 
-    //  Discord relay helper 
+    // Discord relay helper 
 
     private void relayToDiscord(Player player, String rawMessage, Channel channel, boolean hasKeywords) {
         if (!channel.isDiscordEnabled()) return;
@@ -236,7 +236,7 @@ public class ChatListener implements Listener {
         discord.sendChatMessage(player, rawMessage, channel.getDiscordChannel());
     }
 
-    //  Recipient filter 
+    // Recipient filter 
 
     private boolean shouldReceiveMessage(Player recipient, Player sender, Channel channel) {
         if (!ChatFormatUtils.hasPermission(recipient, channel.getPermission())) {

@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class TooltipImageRenderer {
 
-    //  Colour palette (Minecraft tooltip colours) 
+    // Colour palette (Minecraft tooltip colours) 
     private static final Color BG_FILL             = new Color(16, 0, 16, 240);
     private static final Color BORDER_OUTER        = new Color(16, 0, 16, 255);
     private static final Color BORDER_INNER_TOP    = new Color(80, 0, 255, 80);
@@ -38,7 +38,7 @@ public class TooltipImageRenderer {
     private static final Color TEXT_DARK_GREEN     = new Color(0, 170, 0);
     private static final Color TEXT_BLUE           = new Color(85, 85, 255);
 
-    //  Layout constants 
+    // Layout constants 
     private static final int PADDING_X   = 10;
     private static final int PADDING_Y   = 8;
     private static final int LINE_HEIGHT = 18;
@@ -46,14 +46,14 @@ public class TooltipImageRenderer {
     private static final String FONT_NAME = "Consolas";
     private static final int FONT_SIZE    = 14;
 
-    //  Fonts (created once) 
+    // Fonts (created once) 
     private static final Font FONT_BASE        = new Font(FONT_NAME, Font.PLAIN,        FONT_SIZE);
     private static final Font FONT_ITALIC      = new Font(FONT_NAME, Font.ITALIC,       FONT_SIZE);
     private static final Font FONT_BOLD        = new Font(FONT_NAME, Font.BOLD,         FONT_SIZE);
     private static final Font FONT_BOLD_ITALIC = new Font(FONT_NAME, Font.BOLD | Font.ITALIC, FONT_SIZE);
 
     
-    //  Inner classes
+    // Inner classes
     
 
     /**
@@ -74,7 +74,7 @@ public class TooltipImageRenderer {
     }
 
     /**
-     * One logical line in the tooltip — may contain multiple {@link ColorSegment}s
+     * One logical line in the tooltip - may contain multiple {@link ColorSegment}s
      * (for lore lines that embed § colour codes) or just a single segment (for all
      * other lines where we supply the colour explicitly).
      */
@@ -87,7 +87,7 @@ public class TooltipImageRenderer {
                     new ColorSegment(text, color, false, italic));
         }
 
-        /** Multi-segment constructor — used for colour-parsed lore lines. */
+        /** Multi-segment constructor - used for colour-parsed lore lines. */
         TooltipLine(List<ColorSegment> segments) {
             this.segments = segments;
         }
@@ -99,7 +99,7 @@ public class TooltipImageRenderer {
     }
 
     
-    //  Public API
+    // Public API
     
 
     /**
@@ -147,15 +147,15 @@ public class TooltipImageRenderer {
     }
 
     
-    //  Line building
+    // Line building
     
 
     private static List<TooltipLine> buildTooltipLines(ItemDisplayData data) {
         List<TooltipLine> lines = new ArrayList<>();
 
-        // 1. Item name — parse § codes so custom formatting is preserved.
-        //    Custom-renamed items use their own § codes; default colour is rarity-based.
-        //    Vanilla names have no § codes so parseLegacyLine falls back to rarityColor.
+        // 1. Item name - parse § codes so custom formatting is preserved.
+        //   Custom-renamed items use their own § codes; default colour is rarity-based.
+        //   Vanilla names have no § codes so parseLegacyLine falls back to rarityColor.
         String name = data.getItemName();
         if (data.getAmount() > 1) name += " x" + data.getAmount();
         if (data.hasCustomName()) {
@@ -182,8 +182,8 @@ public class TooltipImageRenderer {
             }
         }
 
-        // 4. Lore — parse § colour codes so each line renders with its correct colours.
-        //    Vanilla default for lore: dark-purple italic; codes in the line override this.
+        // 4. Lore - parse § colour codes so each line renders with its correct colours.
+        //   Vanilla default for lore: dark-purple italic; codes in the line override this.
         for (String loreLine : data.getLore()) {
             lines.add(parseLegacyLine(loreLine, TEXT_PURPLE, true));
         }
@@ -243,7 +243,7 @@ public class TooltipImageRenderer {
     }
 
     
-    //  Legacy colour-code parser
+    // Legacy colour-code parser
     
 
     /**
@@ -291,7 +291,7 @@ public class TooltipImageRenderer {
                             currentBold   = false;
                             currentItalic = defaultItalic;
                             break;
-                        // k (obfuscated), m (strikethrough), n (underline) — ignored visually
+                        // k (obfuscated), m (strikethrough), n (underline) - ignored visually
                         default: break;
                     }
                 }
@@ -332,11 +332,11 @@ public class TooltipImageRenderer {
     }
 
     
-    //  Image rendering
+    // Image rendering
     
 
     private static BufferedImage renderLines(List<TooltipLine> lines) {
-        //  First pass: measure maximum line width 
+        // First pass: measure maximum line width 
         BufferedImage measure = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D mg = measure.createGraphics();
         mg.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -357,7 +357,7 @@ public class TooltipImageRenderer {
         int imgWidth  = Math.max(100, maxWidth + PADDING_X * 2 + BORDER_WIDTH * 2 + 4);
         int imgHeight = Math.max(30,  lines.size() * LINE_HEIGHT + PADDING_Y * 2 + BORDER_WIDTH * 2);
 
-        //  Second pass: render 
+        // Second pass: render 
         BufferedImage image = new BufferedImage(imgWidth, imgHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -414,7 +414,7 @@ public class TooltipImageRenderer {
     }
 
     
-    //  Utility
+    // Utility
     
 
     private static Font fontFor(ColorSegment seg) {

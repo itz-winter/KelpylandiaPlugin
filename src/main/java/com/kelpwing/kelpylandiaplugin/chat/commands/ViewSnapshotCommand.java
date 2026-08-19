@@ -13,9 +13,9 @@ import java.util.UUID;
 
 /**
  * Internal command executed when a player clicks an [item], [inv], or
- * [enderchest] component in chat.  Opens the frozen snapshot inventory.
+ * [enderchest] component in chat. Opens the frozen snapshot inventory.
  * <p>
- * Command name: {@code qol:viewsnapshot}  (no tab-complete, no manual use)
+ * Command name: {@code qol:viewsnapshot} (no tab-complete, no manual use)
  */
 public class ViewSnapshotCommand implements CommandExecutor {
 

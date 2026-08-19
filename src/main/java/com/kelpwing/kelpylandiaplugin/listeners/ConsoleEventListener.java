@@ -19,7 +19,7 @@ public class ConsoleEventListener implements Listener {
         this.plugin = plugin;
     }
 
-    /** Fetch lazily — DiscordIntegration is initialized after listeners are registered. */
+    /** Fetch lazily - DiscordIntegration is initialized after listeners are registered. */
     private DiscordIntegration getDiscord() {
         return plugin.getDiscordIntegration();
     }

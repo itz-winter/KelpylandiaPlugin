@@ -6,7 +6,7 @@ A lil' custom plugin with a cringe name :3
 
 ## Overview
 
-QoLPlugin is a highly customizable, all-in-one Minecraft server plugin designed for small to mid-sized SMP servers. Originally built for my own community, it combines advanced chat, moderation, player homes, teleportation, and more—making it a great alternative to EssentialsX and similar plugins. Built on the Spigot/Bukkit API, it supports **Minecraft 1.16 – 1.21.11** (and likely newer).
+QoLPlugin is a highly customizable, all-in-one Minecraft server plugin designed for small to mid-sized SMP servers. Originally built for my own community, it combines advanced chat, moderation, player homes, teleportation, and more-making it a great alternative to EssentialsX and similar plugins. Built on the Spigot/Bukkit API, it supports **Minecraft 1.16 – 1.21.11** (and likely newer).
 
 ## Features
 
@@ -31,9 +31,9 @@ QoLPlugin is a highly customizable, all-in-one Minecraft server plugin designed 
 ### Player Utilities
 
 - **Homes System**: `/home`, `/sethome`, `/delhome`, `/homes` with GUI and configurable max homes.  
-  *(Disabled by default—enable in `config.yml`!)*
+  *(Disabled by default-enable in `config.yml`!)*
 - **Teleportation System**: `/tpa`, `/tpahere`, `/tpaccept`, `/tpdeny`, `/tpcancel` for player-to-player teleport requests, with cooldowns and invulnerability options.  
-  *(Disabled by default—enable in `config.yml`!)*
+  *(Disabled by default-enable in `config.yml`!)*
 - **Workbench Commands**: Open crafting tables, ender chests, anvils, and more via commands like `/wb`, `/ec`, `/anvil`, etc.  
   *(Configurable permissions and can be disabled to avoid conflicts.)*
 

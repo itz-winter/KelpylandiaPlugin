@@ -16,8 +16,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * /w <player> <message>  — Send a private message.
- * /w <message>           — Send to whisper target (set via /wt).
+ * /w <player> <message>  - Send a private message.
+ * /w <message>           - Send to whisper target (set via /wt).
  * Also handles /msg, /tell, /whisper aliases.
  *
  * Console can send messages as "Console" and players can message Console by name.
@@ -43,7 +43,7 @@ public class MsgCommand implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
-    //  /w <player> <message>  OR  /w <message> (when target locked) 
+    // /w <player> <message>  OR  /w <message> (when target locked) 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // Console: /w <player> <message>
@@ -87,7 +87,7 @@ public class MsgCommand implements CommandExecutor, TabCompleter {
         Player target = Bukkit.getPlayerExact(args[0]);
 
         if (target != null && !target.equals(player)) {
-            // First arg is a valid online player — treat as /w <player> <message>
+            // First arg is a valid online player - treat as /w <player> <message>
             if (args.length < 2) {
                 player.sendMessage(ChatColor.RED + "Usage: /w <player> <message>");
                 return true;
@@ -97,7 +97,7 @@ public class MsgCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // First arg is NOT a player — check for a locked whisper target
+        // First arg is NOT a player - check for a locked whisper target
         if (lockedTarget != null) {
             // Locked to console?
             if (lockedTarget.equals(CONSOLE_UUID)) {
@@ -125,7 +125,7 @@ public class MsgCommand implements CommandExecutor, TabCompleter {
     }
 
     /**
-     * Core messaging logic — accepts any CommandSender (Player or Console).
+     * Core messaging logic - accepts any CommandSender (Player or Console).
      * Also used by ReplyCommand and ChatListener.
      */
     public void sendPrivateMessage(CommandSender sender, CommandSender receiver, String message) {
@@ -175,7 +175,7 @@ public class MsgCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    //  Whisper target 
+    // Whisper target 
 
     /** Set a whisper target for a player. Returns the target. */
     public void setWhisperTarget(UUID player, UUID target) {
@@ -192,18 +192,18 @@ public class MsgCommand implements CommandExecutor, TabCompleter {
         return whisperTarget.get(player);
     }
 
-    //  Reply helper 
+    // Reply helper 
     public UUID getLastConversation(UUID uuid) {
         return lastConversation.get(uuid);
     }
 
-    //  Cleanup on quit 
+    // Cleanup on quit 
     public void removePlayer(UUID uuid) {
         lastConversation.remove(uuid);
         whisperTarget.remove(uuid);
     }
 
-    //  Tab complete 
+    // Tab complete 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {

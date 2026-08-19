@@ -29,7 +29,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * /recipe <item> [page] — View the crafting recipe for an item.
+ * /recipe <item> [page] - View the crafting recipe for an item.
  * Opens a 54-slot chest GUI that shows the 3x3 crafting grid on the left,
  * an arrow in the middle, and the result on the right.
  * Supports shaped, shapeless, furnace, blasting, smoking, campfire,
@@ -161,7 +161,7 @@ public class RecipeCommand implements CommandExecutor, TabCompleter, Listener {
         } else if (recipe instanceof SmithingRecipe) {
             fillSmithing(gui, recipe);
         } else {
-            // Unknown recipe type — show info
+            // Unknown recipe type - show info
             gui.setItem(GRID_SLOTS[4], createItem(Material.BARRIER, ChatColor.RED + "Recipe type not displayable"));
         }
 
@@ -340,7 +340,7 @@ public class RecipeCommand implements CommandExecutor, TabCompleter, Listener {
         String title = event.getView().getTitle();
         if (!title.startsWith(GUI_TITLE_PREFIX)) return;
 
-        event.setCancelled(true); // Always cancel — read-only GUI
+        event.setCancelled(true); // Always cancel - read-only GUI
 
         int slot = event.getRawSlot();
         if (slot < 0 || slot >= 54) return;

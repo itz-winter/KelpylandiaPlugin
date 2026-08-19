@@ -9,7 +9,7 @@ import java.util.Map;
  * ready to be turned into a Discord embed on an async thread.
  * <p>
  * Fields cherry-picked from InteractiveChat-DiscordSRV-Addon's
- * {@code DiscordItemStackUtils.getToolTip()} — using only standard Bukkit API.
+ * {@code DiscordItemStackUtils.getToolTip()} - using only standard Bukkit API.
  */
 public class ItemDisplayData {
 
@@ -20,7 +20,7 @@ public class ItemDisplayData {
     }
 
     /**
-     * Rarity of the item — determines the name colour in the tooltip.
+     * Rarity of the item - determines the name colour in the tooltip.
      * Matches Minecraft 1.16 rarity values.
      */
     public enum Rarity {
@@ -32,7 +32,7 @@ public class ItemDisplayData {
 
     private final DisplayType type;
 
-    //  Item fields (type == ITEM) 
+    // Item fields (type == ITEM) 
     private final String itemName;          // Display name (colour codes stripped)
     private final String materialName;      // e.g. "GOLDEN_CARROT"
     private final int amount;
@@ -40,7 +40,7 @@ public class ItemDisplayData {
     private final List<String> lore;        // colour-stripped lore lines
     private final boolean hasCustomName;
 
-    //  Durability (cherry-picked from IC DiscordItemStackUtils) 
+    // Durability (cherry-picked from IC DiscordItemStackUtils) 
     /** Current remaining durability. 0 for non-damageable items. */
     private final int durability;
     /** Maximum durability (item.getType().getMaxDurability()). 0 for non-damageable. */
@@ -48,19 +48,19 @@ public class ItemDisplayData {
     /** True if the item has the Unbreakable NBT flag set. */
     private final boolean unbreakable;
 
-    //  ItemFlags (hide flags) 
+    // ItemFlags (hide flags) 
     private final boolean hideEnchants;
     private final boolean hideAttributes;
     private final boolean hideDurability;
 
-    //  Potion effects (cherry-picked from IC — PotionMeta) 
+    // Potion effects (cherry-picked from IC - PotionMeta) 
     /**
      * Pre-formatted potion effect lines, e.g. "Speed II (3:00)", "Instant Health".
      * Empty for non-potion items.
      */
     private final List<String> potionEffects;
 
-    //  Attribute modifier lines (cherry-picked from IC) 
+    // Attribute modifier lines (cherry-picked from IC) 
     /**
      * Pre-formatted attribute lines grouped by slot header, e.g.:
      * "When in Main Hand:", " +6 Attack Damage", " -1.80 Attack Speed".
@@ -68,16 +68,16 @@ public class ItemDisplayData {
      */
     private final List<String> attributeLines;
 
-    //  Rarity 
-    /** Item rarity — controls name colour in the tooltip image. */
+    // Rarity 
+    /** Item rarity - controls name colour in the tooltip image. */
     private final Rarity rarity;
 
-    //  Inventory fields (type == INVENTORY | ENDER_CHEST) 
+    // Inventory fields (type == INVENTORY | ENDER_CHEST) 
     private final int usedSlots;
     private final int totalSlots;
     private final List<String> topItems;    // "Diamond Sword x1", "Golden Carrot x64" …
 
-    //  Common 
+    // Common 
     /** The raw message text *around* the keyword (for the main content field). */
     private final String surroundingText;
 
@@ -104,7 +104,7 @@ public class ItemDisplayData {
         this.surroundingText = b.surroundingText;
     }
 
-    //  Getters 
+    // Getters 
 
     public DisplayType getType()               { return type; }
     public String getItemName()                { return itemName; }
@@ -160,7 +160,7 @@ public class ItemDisplayData {
         return sb.toString();
     }
 
-    //  Builder 
+    // Builder 
 
     public static Builder builder(DisplayType type) {
         return new Builder(type);

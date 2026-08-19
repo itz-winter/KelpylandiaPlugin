@@ -381,7 +381,7 @@ dynamic-pricing:
 
   advanced:
 
-    # Volume Dampening — large trades have diminishing per-unit price impact.
+    # Volume Dampening - large trades have diminishing per-unit price impact.
     # Prevents selling 64 items from having 64x the effect of selling 1.
     # Uses logarithmic scaling: factor = 1 / (1 + scale * ln(1 + amount))
     volume-dampening:
@@ -391,7 +391,7 @@ dynamic-pricing:
       # Minimum dampening factor floor (prevents near-zero impact).
       min-factor: 0.1
 
-    # EMA (Exponential Moving Average) Smoothing — makes price history graphs
+    # EMA (Exponential Moving Average) Smoothing - makes price history graphs
     # smooth and curvy instead of jagged. Applied to recorded price snapshots.
     ema-smoothing:
       enabled: true
@@ -399,7 +399,7 @@ dynamic-pricing:
       # 0.15 = moderate smoothing. 0.05 = very smooth. 0.5 = barely smoothed.
       alpha: 0.15
 
-    # Supply Curve — prices respond to total item circulation in the economy.
+    # Supply Curve - prices respond to total item circulation in the economy.
     # More items in circulation (oversupply) depresses sell prices.
     # Fewer items (scarcity) inflates buy prices.
     supply-curve:
@@ -409,7 +409,7 @@ dynamic-pricing:
       # "Normal" circulation level. Items above this = oversupply, below = scarcity.
       baseline: 1000
 
-    # Transaction Cooldown — prevents rapid buy/sell manipulation.
+    # Transaction Cooldown - prevents rapid buy/sell manipulation.
     # Players who trade the same item within the cooldown window won't move prices
     # (but the trade itself still goes through).
     cooldown:
@@ -417,9 +417,9 @@ dynamic-pricing:
       # Seconds between price-affecting trades per player per material.
       seconds: 5
 
-    # Inflation Tracking — a global coefficient that slowly drifts prices upward.
+    # Inflation Tracking - a global coefficient that slowly drifts prices upward.
     # Simulates real-world monetary inflation based on total item circulation.
-    # Disabled by default — enable for a more realistic long-term economy.
+    # Disabled by default - enable for a more realistic long-term economy.
     inflation:
       enabled: false
       # How much inflation grows per decay cycle (very small values recommended).
@@ -429,10 +429,10 @@ dynamic-pricing:
       # Minimum coefficient (deflation floor).
       min-coefficient: 0.8
 
-    # Velocity of Money — tracks how frequently items are traded.
+    # Velocity of Money - tracks how frequently items are traded.
     # High velocity (lots of trading) = healthy economy = more stable prices.
     # Low velocity (few trades) = thin market = more volatile price swings.
-    # Disabled by default — enable for the most realistic simulation.
+    # Disabled by default - enable for the most realistic simulation.
     velocity:
       enabled: false
       # How strongly velocity affects price volatility (0.3–0.7 recommended).
@@ -440,7 +440,7 @@ dynamic-pricing:
       # Time window (minutes) for measuring trade frequency.
       window-minutes: 30
 
-    # Market Maker Spread — the gap between buy and sell prices.
+    # Market Maker Spread - the gap between buy and sell prices.
     # Instead of mirroring (buy = 2 - sell), buy prices are always a percentage
     # above sell prices. Acts as a natural money sink.
     spread:

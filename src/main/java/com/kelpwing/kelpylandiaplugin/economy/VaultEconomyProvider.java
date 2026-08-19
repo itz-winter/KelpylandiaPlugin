@@ -34,7 +34,7 @@ public class VaultEconomyProvider implements Economy {
         Bukkit.getServicesManager().unregister(Economy.class, this);
     }
 
-    //  Meta 
+    // Meta 
 
     @Override public boolean isEnabled() { return economy.isEnabled(); }
     @Override public String getName() { return "QoLPlugin Economy"; }
@@ -44,7 +44,7 @@ public class VaultEconomyProvider implements Economy {
     @Override public String currencyNamePlural() { return economy.getCurrencyNamePlural(); }
     @Override public String currencyNameSingular() { return economy.getCurrencyNameSingular(); }
 
-    //  Account operations 
+    // Account operations 
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
@@ -90,7 +90,7 @@ public class VaultEconomyProvider implements Economy {
         return createPlayerAccount(playerName);
     }
 
-    //  Balance 
+    // Balance 
 
     @Override
     public double getBalance(OfflinePlayer player) {
@@ -132,7 +132,7 @@ public class VaultEconomyProvider implements Economy {
         return has(playerName, amount);
     }
 
-    //  Withdraw / Deposit 
+    // Withdraw / Deposit 
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
@@ -190,7 +190,7 @@ public class VaultEconomyProvider implements Economy {
         return depositPlayer(playerName, amount);
     }
 
-    //  Bank (not supported) 
+    // Bank (not supported) 
 
     private static final EconomyResponse NO_BANK = new EconomyResponse(0, 0,
             EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks are not supported.");

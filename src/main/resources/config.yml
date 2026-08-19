@@ -441,8 +441,8 @@ workbenches:
 nametag:
   # When true, the using player's rank prefix (from LuckPerms via PlaceholderAPI) is
   # prepended to the entity's custom name when a nametag is applied to it.
-  # false (default) = disabled — vanilla behaviour, no prefix is added.
-  # true            = enabled  — prefix is prepended to the pet/entity name.
+  # false (default) = disabled - vanilla behaviour, no prefix is added.
+  # true            = enabled  - prefix is prepended to the pet/entity name.
   # Null / missing key is treated the same as false.
   add-owner-prefix: false
 

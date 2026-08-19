@@ -39,13 +39,13 @@ public class UpdateNotifyListener implements Listener {
         if (checker == null) return;
 
         if (checker.hasChecked()) {
-            // Check already completed — notify immediately if an update is available
+            // Check already completed - notify immediately if an update is available
             if (checker.isUpdateAvailable()) {
                 plugin.getServer().getScheduler().runTaskLater(plugin,
                         () -> sendNotification(player, checker), 20L);
             }
         } else {
-            // Check hasn't finished yet — run it now and notify in the callback
+            // Check hasn't finished yet - run it now and notify in the callback
             checker.checkAsync(() -> {
                 if (player.isOnline() && checker.isUpdateAvailable()) {
                     sendNotification(player, checker);

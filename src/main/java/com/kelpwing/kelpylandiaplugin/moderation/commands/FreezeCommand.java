@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /freeze <player> — Freeze a player in their current location.
+ * /freeze <player> - Freeze a player in their current location.
  * Player is immune to everything while frozen. Relog will not unfreeze them.
  */
 public class FreezeCommand implements CommandExecutor, TabCompleter {

@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * /stuck — Teleport a player out of the nether roof or void.
+ * /stuck - Teleport a player out of the nether roof or void.
  * Disabled by default in config.
  */
 public class StuckCommand implements CommandExecutor {

@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * /suicide — Kill yourself with a custom death message from deathmessages.yml.
+ * /suicide - Kill yourself with a custom death message from deathmessages.yml.
  * The player is marked for a custom death message, then killed. The actual
  * message replacement happens in {@link DeathMessagesManager}'s PlayerDeathEvent
  * listener, so other plugins and Paper pick it up through the normal event chain.

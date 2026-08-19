@@ -34,7 +34,8 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
             // show current channel
             Channel currentChannel = plugin.getChannelManager().getPlayerChannel(player);
             if (currentChannel != null) {
-                player.sendMessage(ChatColor.GREEN + "You are currently in channel: " + currentChannel.getFormattedDisplayName());
+                player.sendMessage(
+                        ChatColor.GREEN + "You are currently in channel: " + currentChannel.getFormattedDisplayName());
             } else {
                 player.sendMessage(ChatColor.RED + "You are not in any channel.");
             }
@@ -68,11 +69,12 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
                 return handleHelpCommand(player);
             default:
                 player.sendMessage(ChatColor.RED + "Unknown channel or subcommand: " + subCommand);
-                player.sendMessage(ChatColor.YELLOW + "Use '/chat help' for available commands or '/chat list' to see channels.");
+                player.sendMessage(
+                        ChatColor.YELLOW + "Use '/chat help' for available commands or '/chat list' to see channels.");
                 return true;
         }
     }
-    
+
     private boolean handleDirectChannelSwitch(Player player, Channel channel) {
         if (!ChatFormatUtils.hasPermission(player, channel.getPermission())) {
             player.sendMessage(ChatColor.RED + "You don't have permission to join this channel.");
@@ -123,7 +125,7 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleLeaveCommand(Player player) {
         Channel currentChannel = plugin.getChannelManager().getPlayerChannel(player);
-        
+
         if (currentChannel == null) {
             player.sendMessage(ChatColor.RED + "You are not in any channel.");
             return true;
@@ -136,7 +138,7 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleListCommand(Player player) {
         List<Channel> channels = plugin.getChannelManager().getAvailableChannels(player);
-        
+
         if (channels.isEmpty()) {
             player.sendMessage(ChatColor.RED + "No channels available.");
             return true;
@@ -144,8 +146,9 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
 
         player.sendMessage(ChatColor.GREEN + "Available channels:");
         for (Channel channel : channels) {
-            String status = plugin.getChannelManager().getPlayerChannel(player) == channel ? 
-                ChatColor.YELLOW + " (current)" : "";
+            String status = plugin.getChannelManager().getPlayerChannel(player) == channel
+                    ? ChatColor.YELLOW + " (current)"
+                    : "";
             player.sendMessage(ChatColor.WHITE + "- " + channel.getFormattedDisplayName() + status);
         }
         return true;
@@ -153,7 +156,7 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleInfoCommand(Player player, String[] args) {
         Channel channel;
-        
+
         if (args.length < 2) {
             channel = plugin.getChannelManager().getPlayerChannel(player);
             if (channel == null) {
@@ -181,7 +184,7 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
 
     private boolean handleWhoCommand(Player player, String[] args) {
         Channel channel;
-        
+
         if (args.length < 2) {
             channel = plugin.getChannelManager().getPlayerChannel(player);
             if (channel == null) {
@@ -197,7 +200,7 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
         }
 
         List<Player> playersInChannel = plugin.getChannelManager().getPlayersInChannel(channel);
-        
+
         if (playersInChannel.isEmpty()) {
             player.sendMessage(ChatColor.YELLOW + "No players in channel: " + channel.getFormattedDisplayName());
             return true;
@@ -205,12 +208,13 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
 
         StringBuilder playerList = new StringBuilder();
         for (int i = 0; i < playersInChannel.size(); i++) {
-            if (i > 0) playerList.append(", ");
+            if (i > 0)
+                playerList.append(", ");
             playerList.append(playersInChannel.get(i).getName());
         }
 
-        player.sendMessage(ChatColor.GREEN + "Players in " + channel.getFormattedDisplayName() + 
-            ChatColor.WHITE + " (" + playersInChannel.size() + "): " + playerList.toString());
+        player.sendMessage(ChatColor.GREEN + "Players in " + channel.getFormattedDisplayName() +
+                ChatColor.WHITE + " (" + playersInChannel.size() + "): " + playerList.toString());
         return true;
     }
 
@@ -236,7 +240,8 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
         // build the message from remaining args
         StringBuilder messageBuilder = new StringBuilder();
         for (int i = 2; i < args.length; i++) {
-            if (i > 2) messageBuilder.append(" ");
+            if (i > 2)
+                messageBuilder.append(" ");
             messageBuilder.append(args[i]);
         }
 
@@ -262,16 +267,16 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
         if (!ChatFormatUtils.hasPermission(recipient, channel.getPermission())) {
             return false;
         }
-        
+
         if (!channel.isWorldAllowed(recipient.getWorld().getName())) {
             return false;
         }
-        
+
         if (channel.isRangeEnabled()) {
             double distance = recipient.getLocation().distance(sender.getLocation());
             return distance <= channel.getRange();
         }
-        
+
         return true;
     }
 
@@ -288,17 +293,18 @@ public class ChatCommand implements CommandExecutor, TabCompleter {
             completions.add("who");
             completions.add("msg");
             completions.add("help");
-            
-            // add channel names for direct switching...cause some ppl just wanna type /chat local instead of /L
+
+            // add channel names for direct switching...cause some ppl just wanna type
+            // /channel local instead of /l
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 for (Channel channel : plugin.getChannelManager().getAvailableChannels(player)) {
                     completions.add(channel.getName());
                 }
             }
-        } else if (args.length == 2 && (args[0].equalsIgnoreCase("join") || 
-                   args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("who") || 
-                   args[0].equalsIgnoreCase("msg"))) {
+        } else if (args.length == 2 && (args[0].equalsIgnoreCase("join") ||
+                args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("who") ||
+                args[0].equalsIgnoreCase("msg"))) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 for (Channel channel : plugin.getChannelManager().getAvailableChannels(player)) {

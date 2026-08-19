@@ -193,7 +193,7 @@ public class VanishListener implements Listener {
         lastSneakTime.put(uuid, now);
         
         if (last != null && (now - last) <= DOUBLE_SHIFT_MS) {
-            // Double-shift detected — toggle between spectator and saved gamemode
+            // Double-shift detected - toggle between spectator and saved gamemode
             lastSneakTime.remove(uuid); // reset so triple-shift doesn't re-trigger
             
             if (player.getGameMode() == GameMode.SPECTATOR) {

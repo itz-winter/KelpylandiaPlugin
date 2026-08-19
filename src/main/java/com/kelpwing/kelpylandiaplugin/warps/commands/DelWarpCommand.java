@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /delwarp <name> — Delete a server warp (admin only).
+ * /delwarp <name> - Delete a server warp (admin only).
  */
 public class DelWarpCommand implements CommandExecutor, TabCompleter {
 

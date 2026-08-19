@@ -133,7 +133,7 @@ public class JailManager {
             if (!entry.isExpired()) {
                 jailedPlayers.put(uuid, entry);
             } else {
-                // Expired — remove from file
+                // Expired - remove from file
                 jailConfig.set(uuidStr, null);
             }
         }
@@ -249,7 +249,7 @@ public class JailManager {
                 // Show title: "JAILED" with remaining time as subtitle
                 String title = ChatColor.RED + "" + ChatColor.BOLD + "JAILED";
                 String subtitle = ChatColor.YELLOW + entry.getRemainingFormatted() +
-                        ChatColor.GRAY + " — " + ChatColor.WHITE + entry.getReason();
+                        ChatColor.GRAY + " - " + ChatColor.WHITE + entry.getReason();
 
                 player.sendTitle(title, subtitle, 0, 40, 10);
             }

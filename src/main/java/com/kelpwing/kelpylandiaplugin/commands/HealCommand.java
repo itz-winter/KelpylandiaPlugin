@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /heal [user] — Heal a player to full health + remove fire. Use * for all.
+ * /heal [user] - Heal a player to full health + remove fire. Use * for all.
  */
 public class HealCommand implements CommandExecutor, TabCompleter {
 

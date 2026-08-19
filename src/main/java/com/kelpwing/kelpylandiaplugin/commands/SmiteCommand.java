@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * /smite <player> — Strike lightning on a player (like EssentialsX).
+ * /smite <player> - Strike lightning on a player (like EssentialsX).
  * A random message is chosen from the "smite.messages" config list and broadcast.
  * The {player} placeholder is replaced with the target's display name.
  */

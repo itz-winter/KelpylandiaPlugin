@@ -47,7 +47,7 @@ public class PlayerListener implements Listener {
             player.removeMetadata("DiscordSRV:silentjoin", plugin);
         }
 
-        // Clean up the silentjoin metadata next tick — it only needs to exist
+        // Clean up the silentjoin metadata next tick - it only needs to exist
         // during the event cycle so DiscordSRV's MONITOR handler sees it.
         Bukkit.getScheduler().runTask(plugin, () -> {
             if (player.isOnline()) {
@@ -56,7 +56,7 @@ public class PlayerListener implements Listener {
         });
         
         plugin.getLogger().info("Player " + player.getName() + " joined and was assigned to default channel"
-                + (vc != null && vc.isVanished(player) ? " (vanished — join message suppressed)" : ""));
+                + (vc != null && vc.isVanished(player) ? " (vanished - join message suppressed)" : ""));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

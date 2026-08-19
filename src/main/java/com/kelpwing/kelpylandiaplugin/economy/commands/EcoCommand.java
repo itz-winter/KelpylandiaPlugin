@@ -67,7 +67,7 @@ public class EcoCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        //  Resolve target player 
+        // Resolve target player 
         @SuppressWarnings("deprecation")
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
         if (!target.hasPlayedBefore() && !eco.hasAccount(target.getUniqueId())

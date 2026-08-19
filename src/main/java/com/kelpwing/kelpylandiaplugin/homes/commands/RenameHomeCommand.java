@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * /renhome <oldName> <newName> — Rename an existing home.
+ * /renhome <oldName> <newName> - Rename an existing home.
  * Aliases: /renamehome
  */
 public class RenameHomeCommand implements CommandExecutor, TabCompleter {

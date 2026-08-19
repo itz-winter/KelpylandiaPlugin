@@ -9,7 +9,7 @@ package com.kelpwing.kelpylandiaplugin.commands.custom.ks;
  */
 public final class KsException {
 
-        //  Control-flow signals
+        // Control-flow signals
     
     /** Thrown when a `return expr` statement executes inside a script. */
     public static final class Return extends RuntimeException {
@@ -44,7 +44,7 @@ public final class KsException {
         }
     }
 
-        //  Runtime errors
+        // Runtime errors
     
     /**
      * Thrown on fatal runtime errors: undefined variable, type mismatch,

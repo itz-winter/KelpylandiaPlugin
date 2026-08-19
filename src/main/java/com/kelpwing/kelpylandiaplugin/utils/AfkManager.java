@@ -58,7 +58,7 @@ public class AfkManager {
         boolean wasAfk = isAfk(player);
         afkPlayers.put(player.getUniqueId(), afk);
 
-        // Never announce AFK status changes for vanished players — they are
+        // Never announce AFK status changes for vanished players - they are
         // invisible to other players and leaking their state would reveal them.
         com.kelpwing.kelpylandiaplugin.moderation.commands.VanishCommand vc =
                 plugin.getVanishCommand();

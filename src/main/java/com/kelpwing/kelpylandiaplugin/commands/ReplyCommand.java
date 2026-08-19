@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 /**
- * /r <message> — Reply to the last player who whispered you (or you whispered to).
+ * /r <message> - Reply to the last player who whispered you (or you whispered to).
  * Also works from console.
  */
 public class ReplyCommand implements CommandExecutor {

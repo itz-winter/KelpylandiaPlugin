@@ -54,7 +54,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
         // Determine the target gamemode based on the command used
         GameMode targetMode = getGameModeFromLabel(cmdName);
 
-        // /gm <mode> [player] — requires an argument for the mode
+        // /gm <mode> [player] - requires an argument for the mode
         if (targetMode == null && cmdName.equals("gm")) {
             if (args.length == 0) {
                 sender.sendMessage(ChatColor.RED + "Usage: /gm <survival|creative|adventure|spectator> [player]");

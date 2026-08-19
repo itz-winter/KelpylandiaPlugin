@@ -19,11 +19,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * /kpupdate — check for and download plugin updates.
+ * /kpupdate - check for and download plugin updates.
  *
  * Sub-commands:
- *   /kpupdate check    — show current vs. latest version
- *   /kpupdate download — download the latest jar to the plugins folder
+ *   /kpupdate check    - show current vs. latest version
+ *   /kpupdate download - download the latest jar to the plugins folder
  *
  * Permission: kelpylandia.update (default: op)
  */
@@ -60,7 +60,7 @@ public class UpdateCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //  /kpupdate check 
+    // /kpupdate check 
 
     private void runCheck(CommandSender sender) {
         UpdateChecker checker = plugin.getUpdateChecker();
@@ -89,7 +89,7 @@ public class UpdateCommand implements CommandExecutor, TabCompleter {
         });
     }
 
-    //  /kpupdate download 
+    // /kpupdate download 
 
     private void runDownload(CommandSender sender) {
         UpdateChecker checker = plugin.getUpdateChecker();
@@ -156,7 +156,7 @@ public class UpdateCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    //  Tab completion 
+    // Tab completion 
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {

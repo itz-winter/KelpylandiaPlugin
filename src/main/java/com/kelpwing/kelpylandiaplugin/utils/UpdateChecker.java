@@ -17,7 +17,7 @@ import java.util.logging.Level;
  */
 public class UpdateChecker {
 
-    // Modrinth project slug — matches https://modrinth.com/plugin/kelpyylandia-plugin
+    // Modrinth project slug - matches https://modrinth.com/plugin/kelpyylandia-plugin
     private static final String PROJECT_ID   = "kelpyylandia-plugin";
     private static final String API_BASE     = "https://api.modrinth.com/v2";
     private static final String USER_AGENT   = "KelpylandiaPlugin/UpdateChecker (github.com/itz-winter)";
@@ -36,7 +36,7 @@ public class UpdateChecker {
         this.currentVersion = plugin.getDescription().getVersion();
     }
 
-    //  Public API 
+    // Public API 
 
     public boolean isUpdateAvailable()  { return updateAvailable; }
     public boolean hasChecked()         { return checkCompleted;  }
@@ -45,7 +45,7 @@ public class UpdateChecker {
     public String  getDownloadUrl()     { return downloadUrl;      }
     public String  getVersionName()     { return versionName != null ? versionName : latestVersion; }
 
-    //  Async check 
+    // Async check 
 
     /**
      * Schedules an async check. Results are available via the getters above
@@ -69,7 +69,7 @@ public class UpdateChecker {
         });
     }
 
-    /** Blocking fetch — call only from an async thread. */
+    /** Blocking fetch - call only from an async thread. */
     public void fetchLatestVersion() throws Exception {
         // GET /project/{id}/version?loaders=["bukkit","spigot","paper"]&featured=true
         // We just grab the first (newest) release version.
@@ -82,11 +82,11 @@ public class UpdateChecker {
         }
 
         String body = readResponse(con);
-        // Minimal JSON parse — avoid pulling in a JSON library dependency.
+        // Minimal JSON parse - avoid pulling in a JSON library dependency.
         // The response is a JSON array of version objects. We want the first entry's:
-        //   "version_number" : "2.2.4"
-        //   "name"           : "QoLPlugin v2.2.4"
-        //   primary file url -> files[0].url
+        //  "version_number" : "2.2.4"
+        //  "name"           : "QoLPlugin v2.2.4"
+        //  primary file url -> files[0].url
 
         String versionNumber = extractFirst(body, "\"version_number\"");
         String name          = extractFirst(body, "\"name\"");
@@ -112,7 +112,7 @@ public class UpdateChecker {
         checkCompleted = true;
     }
 
-    //  Helpers 
+    // Helpers 
 
     private HttpURLConnection openConnection(String urlStr) throws Exception {
         URL url = new URL(urlStr);
@@ -180,7 +180,7 @@ public class UpdateChecker {
      *   2. If the numeric values are equal, a segment WITH a letter suffix is
      *      considered newer than one without  ("1b" > "1", "1b" > "1a").
      *      Pre-release tags like "-SNAPSHOT" or "-beta" (which appear after a
-     *      hyphen) are stripped before parsing — they do not bump the version.
+     *      hyphen) are stripped before parsing - they do not bump the version.
      */
     static boolean isNewer(String remote, String local) {
         String[] rParts = splitDots(remote);
@@ -225,7 +225,7 @@ public class UpdateChecker {
         if (mB.matches()) { bNum = Integer.parseInt(mB.group(1)); bSuf = mB.group(2).toLowerCase(); }
 
         if (aNum != bNum) return Integer.compare(aNum, bNum);
-        // Same numeric value — a segment with any suffix is newer than one without.
+        // Same numeric value - a segment with any suffix is newer than one without.
         // Between two non-empty suffixes, compare alphabetically ("b" > "a").
         boolean aHas = !aSuf.isEmpty();
         boolean bHas = !bSuf.isEmpty();

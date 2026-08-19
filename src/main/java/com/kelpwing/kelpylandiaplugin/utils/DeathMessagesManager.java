@@ -60,7 +60,7 @@ public class DeathMessagesManager implements Listener {
      * to PlayerDeathEvent (Discord bridges, scoreboards, etc.) sees
      * our custom message instead of the default.
      */
-    @SuppressWarnings("deprecation") // getDeathMessage/setDeathMessage — safe across 1.16-1.21
+    @SuppressWarnings("deprecation") // getDeathMessage/setDeathMessage - safe across 1.16-1.21
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
@@ -88,7 +88,7 @@ public class DeathMessagesManager implements Listener {
     public void onPlayerDeathDiscordRelay(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        // Skip vanished players — no message was shown in-game
+        // Skip vanished players - no message was shown in-game
         VanishCommand vc = plugin.getVanishCommand();
         if (vc != null && vc.isVanished(player)) return;
 
